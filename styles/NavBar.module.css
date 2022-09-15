@@ -1,0 +1,12 @@
+.liBorder{
+  width: 10%;
+  height: 2px;
+  background-color: red;
+  visibility: hidden;
+  transition: width .3s;
+}
+
+.navList:hover .liBorder{
+  visibility: visible;
+  width: 100%;
+}
