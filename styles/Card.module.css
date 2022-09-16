@@ -1,0 +1,17 @@
+.cardHiddenIcon{
+  transform: translateX(200%);
+  transition: transform .3s ease-in;
+}
+
+.cardText{
+  transform: translateY(-110%);
+  transition: transform .3s ease-in;
+}
+
+ .card:hover .cardHiddenIcon{
+  transform: translateX(0);
+}
+
+.card:hover .cardText{
+  transform: translateX(0);
+}

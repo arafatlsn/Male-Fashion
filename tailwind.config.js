@@ -8,7 +8,9 @@ module.exports = {
     colors: {
       lightBlack: "#111111"
     },
-    extend: {},
+    screens: {
+      lg: "1170px"
+    }
   },
-  plugins: [],
+  plugins: [require('flowbite/plugin')],
 };

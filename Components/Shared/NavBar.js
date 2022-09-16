@@ -8,17 +8,17 @@ import styles from '../../styles/NavBar.module.css'
 const Handler = () => {
   return (
     <>
-      <div className="w-[1170px] py-[30px] mx-auto flex justify-between items-center">
+      <div className="lg:w-[1170px] py-[30px] mx-auto flex justify-between items-center">
         <div>
           <Image src={logo} alt="h3llo world" />
         </div>
         <div>
           <ul className="flex gap-[45px] w-fit">
-            <li className={`text-[18px] text-lightBlack inline  ${styles.navList}`}>Home <p className={styles.liBorder}></p></li>
-            <li className={`text-[18px] text-lightBlack inline  ${styles.navList}`}>Shop <p className={styles.liBorder}></p></li>
-            <li className={`text-[18px] text-lightBlack inline  ${styles.navList}`}>History <p className={styles.liBorder}></p></li>
-            <li className={`text-[18px] text-lightBlack inline  ${styles.navList}`}>Login <p className={styles.liBorder}></p></li>
-            <li className={`text-[18px] text-lightBlack inline  ${styles.navList}`}>Contact <p className={styles.liBorder}></p></li>
+            <li className={`text-[18px] text-lightBlack cursor-pointer  ${styles.navList}`}>Home <p className={styles.liBorder}></p></li>
+            <li className={`text-[18px] text-lightBlack cursor-pointer  ${styles.navList}`}>Shop <p className={styles.liBorder}></p></li>
+            <li className={`text-[18px] text-lightBlack cursor-pointer  ${styles.navList}`}>History <p className={styles.liBorder}></p></li>
+            <li className={`text-[18px] text-lightBlack cursor-pointer  ${styles.navList}`}>Login <p className={styles.liBorder}></p></li>
+            <li className={`text-[18px] text-lightBlack cursor-pointer  ${styles.navList}`}>Contact <p className={styles.liBorder}></p></li>
           </ul>
         </div>
         <div>
