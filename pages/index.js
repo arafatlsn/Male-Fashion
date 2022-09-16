@@ -2,6 +2,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { useContext, useEffect } from 'react';
 import { ProductsContext } from './_app';
+import Banner from '../Components/Homepage/Banner'
 import Cards from '../Components/Homepage/Cards'
 
 export default function Home({ data }) {
@@ -19,6 +20,7 @@ export default function Home({ data }) {
       </Head>
       {/* main  */}
       <main>
+        <Banner/>
         <Cards products={products}/>
       </main>
       {/* footer  */}

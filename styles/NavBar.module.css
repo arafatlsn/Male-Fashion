@@ -3,7 +3,7 @@
   height: 2px;
   background-color: red;
   visibility: hidden;
-  transition: width .3s;
+  transition: width .3s ease-in-out;
 }
 
 .navList:hover .liBorder{
