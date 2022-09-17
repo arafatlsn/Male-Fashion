@@ -6,11 +6,12 @@ module.exports = {
   ],
   theme: {
     colors: {
-      lightBlack: "#111111"
+      lightBlack: "#111111",
+      lightRed: "#e53637",
     },
     screens: {
-      lg: "1170px"
-    }
+      lg: "1170px",
+    },
   },
-  plugins: [require('flowbite/plugin')],
+  plugins: [require("flowbite/plugin")],
 };

@@ -4,6 +4,7 @@ import { useContext, useEffect } from 'react';
 import { ProductsContext } from './_app';
 import Banner from '../Components/Homepage/Banner'
 import Cards from '../Components/Homepage/Cards'
+import Carousel from '../Components/Homepage/Carousel'
 
 export default function Home({ data }) {
   const { products, setAllProducts } = useContext(ProductsContext);
@@ -20,6 +21,7 @@ export default function Home({ data }) {
       </Head>
       {/* main  */}
       <main>
+        <Carousel/>
         <Banner/>
         <Cards products={products}/>
       </main>
