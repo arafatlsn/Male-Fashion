@@ -2,8 +2,11 @@ import { FiHeart } from "react-icons/fi";
 import { BsArrowLeftRight } from "react-icons/bs";
 import styles from "../../styles/Card.module.css";
 import { Rating } from "flowbite-react";
+import { useContext } from "react";
+import { ProductsContext } from "../../pages/_app";
 
 const Handler = ({ product }) => {
+  const { cart, setCart } = useContext(ProductsContext);
   const { title, price, img } = product;
   let category;
   if(product?.category.length){
@@ -13,6 +16,31 @@ const Handler = ({ product }) => {
       category = <p className="text-[white] bg-lightBlack text-[11px] px-[15px] py-[2px] font-semibold uppercase">Sale</p>
     }
   }
+
+  const addCartHandler = product => {
+    const id = product._id;
+    const findProduct = cart.find(el => el._id === id);
+    if(!findProduct){
+      product["cartQuantity"] = 1;
+      setCart([...cart, product])
+      localStorage.setItem("cart", JSON.stringify([...cart, product]))
+    } else{
+      product.cartQuantity = product.cartQuantity + 1;
+      const newCart = [];
+      cart.map(el => {
+        if(el._id === id){
+          newCart.push(product)
+        } else{
+          newCart.push(el)
+        }
+      })
+      setCart(newCart)
+      localStorage.setItem("cart", JSON.stringify(newCart))
+
+    }
+  }
+  console.log(cart)
+
   return (
     <div className={styles.card}>
       <div className="w-[262.5px] h-[260px] overflow-hidden relative">
@@ -50,7 +78,7 @@ const Handler = ({ product }) => {
         </div>
         <div className="flex justify-between items-center w-content overflow-hidden">
           <p className="text-[20px] font-bold text-lightBlack">${price}</p>
-          <p
+          <p onClick={() => addCartHandler(product)}
             className={`text-[15px] font-bold whitespace-nowrap mr-[.5rem] text-[#e53637] hover:text-[#ff0000] transition-all cursor-pointer ${styles.cardText}`}
           >
             + Add To Cart

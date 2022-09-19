@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import Card from '../../Components/Homepage/Card'
 
 const Handler = ({ products }) => {
   const [activeCategory, setActiveCategory] = useState("All");
+
   return (
     <div className="lg:w-[1170px] mx-auto">
       <div>

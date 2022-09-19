@@ -10,3 +10,7 @@
   visibility: visible;
   width: 100%;
 }
+
+.cartUi{
+  box-shadow: 0 6px 12px rgb(0 0 0 / 18%);
+}
