@@ -11,7 +11,7 @@ import { useContext, useState } from "react";
 import { ProductsContext } from "../../pages/_app";
 
 const Handler = () => {
-  const { cart, setCart } = useContext(ProductsContext);
+  const { cart, isVisible } = useContext(ProductsContext);
   const { visibleCart, setVisibleCart } = useState();
 
   let total = 0;
@@ -20,9 +20,8 @@ const Handler = () => {
       total = cart[i].price * cart[i].cartQuantity + total;
     }
   }
-
   return (
-    <>
+    <div className="sticky top-0 z-[500] bg-[white]">
       <div className="lg:w-[1170px] py-[30px] mx-auto flex justify-between items-center relative">
         <div>
           <Image src={logo} alt="h3llo world" />
@@ -64,16 +63,16 @@ const Handler = () => {
             <li className="text-lightBlack text-[1.5rem]">
               <FiHeart />
             </li>
-            <li className="text-lightBlack text-[1.5rem] flex items-center gap-[.3rem] relative">
+            <li className={`text-lightBlack text-[1.5rem] flex items-center gap-[.3rem] relative ${styles.cartIcon}`}>
               <MdOutlineShoppingCart />{" "}
               <span className="text-[15px] font-semibold flex items-center gap-[.2rem] absolute left-[2rem]">
                 <TbCurrencyTaka className="text-[1.4rem] mr-[-.3rem]" />
                 {total}
               </span>
               {/* cart ui  */}
-              <div className=" flex justify-end">
+              <div className="flex justify-end">
                 <div
-                  className={`w-[350px] bg-[#F0EFF5] absolute mt-[2.7rem] top-0 right-[-3.75rem] z-[100] ${styles.cartUi} ${cart.length ? "h-[400]" : " h-[150px]"}`}
+                  className={`w-[350px] bg-[#F0EFF5] absolute mt-[2.7rem] top-0 right-[-3.75rem] z-[100] ${isVisible ? "visible opacity-100" : "invisible opacity-0"} ${styles.cartUi} ${cart.length ? "h-[400]" : " h-[150px]"}`}
                 >
                   <div className="absolute right-[17.5%] w-[30px] h-[30px] bg-[#F0EFF5] rotate-45 mt-[-.6rem]"></div>
                   {cart.length ? (
@@ -111,7 +110,7 @@ const Handler = () => {
           </ul>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

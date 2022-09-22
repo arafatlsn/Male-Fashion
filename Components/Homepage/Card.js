@@ -6,40 +6,54 @@ import { useContext } from "react";
 import { ProductsContext } from "../../pages/_app";
 
 const Handler = ({ product }) => {
-  const { cart, setCart } = useContext(ProductsContext);
+  const { cart, setCart, setIsVisible } = useContext(ProductsContext);
   const { title, price, img } = product;
   let category;
-  if(product?.category.length){
-    if(product?.category === "new"){
-      category = <p className="bg-[white] text-lightBlack text-[11px] px-[15px] py-[2px] font-semibold uppercase">New</p>
-    } else{
-      category = <p className="text-[white] bg-lightBlack text-[11px] px-[15px] py-[2px] font-semibold uppercase">Sale</p>
+  if (product?.category.length) {
+    if (product?.category === "new") {
+      category = (
+        <p className="bg-[white] text-lightBlack text-[11px] px-[15px] py-[2px] font-semibold uppercase">
+          New
+        </p>
+      );
+    } else {
+      category = (
+        <p className="text-[white] bg-lightBlack text-[11px] px-[15px] py-[2px] font-semibold uppercase">
+          Sale
+        </p>
+      );
     }
   }
 
-  const addCartHandler = product => {
+  const addCartHandler = (product) => {
     const id = product._id;
-    const findProduct = cart.find(el => el._id === id);
-    if(!findProduct){
+    const findProduct = cart.find((el) => el._id === id);
+    if (!findProduct) {
       product["cartQuantity"] = 1;
-      setCart([...cart, product])
-      localStorage.setItem("cart", JSON.stringify([...cart, product]))
-    } else{
-      product.cartQuantity = product.cartQuantity + 1;
+      setCart([...cart, product]);
+      localStorage.setItem("cart", JSON.stringify([...cart, product]));
+      setIsVisible(true);
+      setTimeout(() => {
+        setIsVisible(false);
+      }, 3000);
+    } else {
+      product.cartQuantity = findProduct.cartQuantity + 1;
       const newCart = [];
-      cart.map(el => {
-        if(el._id === id){
-          newCart.push(product)
-        } else{
-          newCart.push(el)
+      cart.map((el) => {
+        if (el._id === id) {
+          newCart.push(product);
+        } else {
+          newCart.push(el);
         }
-      })
-      setCart(newCart)
-      localStorage.setItem("cart", JSON.stringify(newCart))
-
+      });
+      setCart(newCart);
+      localStorage.setItem("cart", JSON.stringify(newCart));
+      setIsVisible(true);
+      setTimeout(() => {
+        setIsVisible(false);
+      }, 3000);
     }
-  }
-  console.log(cart)
+  };
 
   return (
     <div className={styles.card}>
@@ -49,11 +63,7 @@ const Handler = ({ product }) => {
           className="w-[262.5px] h-[260px] object-contain"
           alt="h3llo world"
         />
-        <div className="absolute z-[100] top-[1rem]">
-          {
-            category
-          }
-        </div>
+        <div className="absolute z-[100] top-[1rem]">{category}</div>
         <div
           className={`absolute z-[100] top-[.9rem] right-[1rem] flex flex-col gap-[.7rem] ${styles.cardHiddenIcon}`}
         >
@@ -78,7 +88,8 @@ const Handler = ({ product }) => {
         </div>
         <div className="flex justify-between items-center w-content overflow-hidden">
           <p className="text-[20px] font-bold text-lightBlack">${price}</p>
-          <p onClick={() => addCartHandler(product)}
+          <p
+            onClick={() => addCartHandler(product)}
             className={`text-[15px] font-bold whitespace-nowrap mr-[.5rem] text-[#e53637] hover:text-[#ff0000] transition-all cursor-pointer ${styles.cardText}`}
           >
             + Add To Cart
