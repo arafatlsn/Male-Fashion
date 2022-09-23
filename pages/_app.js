@@ -1,8 +1,8 @@
 import "../styles/globals.css";
 import NavBar from "../Components/Shared/NavBar";
-import Register from '../Components/Shared/Register'
+import Register from "../Components/Shared/Register";
 import { createContext, useEffect, useState } from "react";
-import { Toaster } from 'react-hot-toast';
+import { Toaster } from "react-hot-toast";
 import "animate.css";
 
 export const ProductsContext = createContext();
@@ -11,6 +11,7 @@ function MyApp({ Component, pageProps }) {
   const [products, setAllProducts] = useState([]);
   const [cart, setCart] = useState([]);
   const [isVisible, setIsVisible] = useState(false);
+  const [isShowAuthModal, setIsShowAuthModal] = useState(false);
 
   useEffect(() => {
     const cart = JSON.parse(localStorage.getItem("cart"));
@@ -21,13 +22,23 @@ function MyApp({ Component, pageProps }) {
   return (
     <>
       <ProductsContext.Provider
-        value={{ products, setAllProducts, cart, setCart, isVisible, setIsVisible }}
+        value={{
+          products,
+          setAllProducts,
+          cart,
+          setCart,
+          isVisible,
+          setIsVisible,
+          setIsShowAuthModal,
+        }}
       >
         <NavBar />
         <Component {...pageProps} />
-        <Register/>
+        {isShowAuthModal && <Register />}
       </ProductsContext.Provider>
-      <div><Toaster/></div>
+      <div>
+        <Toaster />
+      </div>
     </>
   );
 }

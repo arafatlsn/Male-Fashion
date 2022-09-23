@@ -3,11 +3,14 @@ import Form from "./Form";
 import LoginForm from "./LoginForm";
 import { BiPlus } from "react-icons/bi";
 import { FcGoogle } from "react-icons/fc";
-import { useState } from "react";
+import { MdCancel } from 'react-icons/md'
+import { useContext, useState } from "react";
 import useAuthentication from "../../Authentication/useAuthentication";
 import { async } from "@firebase/util";
+import { ProductsContext } from "../../pages/_app";
 
 const Handler = () => {
+  const { setIsShowAuthModal } = useContext(ProductsContext);
   const [uploadImgUrl, setUploadImageUrl] = useState("");
   const [isRegisterPage, setIsRegisterPage] = useState(false);
   const {
@@ -104,9 +107,16 @@ const Handler = () => {
             </div>
           )}
 
+          {/* cross button  */}
+          <div className="absolute top-[1rem] right-[1rem]">
+            <span onClick={() => setIsShowAuthModal(false)}><MdCancel className="text-[2.5rem] cursor-pointer text-red-500 hover:text-red-600 transition-all"/></span>
+          </div>
+
           <div className="mt-[3.5rem] mb-[1rem]">
             <h1 className="text-[2rem] font-bold text-lightBlack text-center">
-              Please Register
+              Please {
+                isRegisterPage ? "Register" : "Login"
+              }
             </h1>
             <h1 className="text-[1.2rem] text-center text-gray-700">
               Good Noon Sir,
