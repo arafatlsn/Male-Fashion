@@ -5,11 +5,30 @@ import { ProductsContext } from "../_app";
 import { HiOutlineEmojiSad } from "react-icons/hi";
 import { MdOutlineShoppingCart } from 'react-icons/md'
 import { RiSecurePaymentFill } from 'react-icons/ri'
+import { loadStripe } from "@stripe/stripe-js";
+import axios from 'axios'
+import useAthentication from "../../Authentication/useAuthentication"
 
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY)
 const Handler = () => {
+  const { userLoad } = useAthentication()
   const { cart, setCart } = useContext(ProductsContext);
   const router = useRouter();
 
+  const createCheckoutSession = async() => {
+    const stripe = await stripePromise;
+
+    const checkoutSession = await axios.post("http://localhost:3000/api/checkoutsession", { cart, email: userLoad?.email })
+
+    const result = await stripe.redirectToCheckout({
+      sessionId: checkoutSession.data.id
+    })
+
+    if(result?.error){
+      alert(result?.error.message)
+    }
+
+  }
   return (
     <div className="w-[1170px] mx-auto flex gap-[1.5rem]">
       {/* left side div  */}
@@ -100,7 +119,7 @@ const Handler = () => {
             >
               <MdOutlineShoppingCart className="text-[1.2rem]" /> Continue Shoping
             </button>
-            <button className="text-[14px] w-[100%] py-[.3rem] border bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-[4px] tracking-wider  flex justify-center items-center gap-[.3rem] transition-all">
+            <button onClick={createCheckoutSession} className="text-[14px] w-[100%] py-[.3rem] border bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-[4px] tracking-wider  flex justify-center items-center gap-[.3rem] transition-all">
               <RiSecurePaymentFill className="text-[1.2rem]" /> Checkout
             </button>
           </div>
