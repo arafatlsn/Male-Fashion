@@ -48,7 +48,6 @@ const Handler = () => {
 
   // uploading image to image bb
   const uploadImage = async (image) => {
-    console.log("image uploading");
     const formData = new FormData();
     formData.append("image", image);
     const url = `https://api.imgbb.com/1/upload?key=565f41ae1e5b8cd4d1430014c0206ed2`;
@@ -57,7 +56,6 @@ const Handler = () => {
       body: formData,
     });
     const result = await res.json();
-    console.log("result", result);
     if (result.success) {
       setUploadImageUrl(result.data.url);
     }

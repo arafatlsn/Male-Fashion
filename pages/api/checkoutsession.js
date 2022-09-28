@@ -1,6 +1,6 @@
 const stripe = require("stripe")(process.env.NEXT_PUBLIC_SECRET_KEY);
 
-export default async (req, res) => {
+const Handler = async (req, res) => {
   if (req.method === "POST") {
     const { cart, email } = req.body;
 
@@ -17,18 +17,32 @@ export default async (req, res) => {
       },
     }));
 
-    const session = await stripe?.checkout?.sessions?.create({
-      payment_method_types: ["card"],
-      line_items: transformedCart,
-      mode: "payment",
-      success_url: "http://localhost:3000/success",
-      cancel_url: "http://localhost:3000/failed",
-      metadata: {
-        email,
-        images: JSON.stringify(cart.map((product) => product.img)),
-      },
-    });
-    console.log(session)
-    res.status(200).json({id: session?.id})
+    let number = 0;
+    try {
+      const session = await stripe?.checkout?.sessions?.create({
+        payment_method_types: ["card"],
+        line_items: transformedCart,
+        mode: "payment",
+        success_url: `${req?.headers?.origin}/success?sessionId={CHECKOUT_SESSION_ID}`,
+        cancel_url: "http://localhost:3000/failed",
+        metadata: {
+          titles: JSON.stringify(cart?.map((product) => product.title)),
+          descriptions: JSON.stringify(
+            cart?.map((product) => product.description)
+          ),
+          images: JSON.stringify(cart?.map((product) => product.img)),
+          prices: JSON.stringify(cart?.map((product) => product.price)),
+          quantities: JSON.stringify(
+            cart?.map((product) => product.cartQuantity)
+          ),
+        },
+      });
+      res.status(200).json({ id: session?.id });
+    } catch (err) {
+      console.log(err.message);
+      res.status(400).json({ message: "Payment is Unsuccessful!" });
+    }
   }
 };
+
+export default Handler;

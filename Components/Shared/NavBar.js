@@ -10,13 +10,20 @@ import styles from "../../styles/NavBar.module.css";
 import Cart from "../Homepage/Cart";
 import { useContext, useState } from "react";
 import { ProductsContext } from "../../pages/_app";
-import { useRouter } from "next/router";
 import Link from "next/link";
+import axios from "axios";
+import { useRouter } from "next/router";
 
 const Handler = () => {
-  const { cart, isVisible, setIsShowAuthModal } = useContext(ProductsContext);
-  const { visibleCart, setVisibleCart } = useState();
-  const router = useRouter();
+  const { cart, isVisible, setIsShowAuthModal, createCheckoutSession } =
+    useContext(ProductsContext);
+  
+  const route = useRouter();
+
+  // getting user orders by transaction id
+  const generateTrxId = async () => {
+    const res = await axios.get("http://localhost:3000/api/orderhistory");
+  };
 
   let total = 0;
   if (cart) {
@@ -24,6 +31,11 @@ const Handler = () => {
       total = cart[i].price * cart[i].cartQuantity + total;
     }
   }
+
+  if(route.pathname === "/success"){
+    return;
+  }
+
   return (
     <div className="sticky top-0 z-[500] bg-[white]">
       <div className="lg:w-[1170px] py-[30px] mx-auto flex justify-between items-center relative">
@@ -45,6 +57,7 @@ const Handler = () => {
               Shop <p className={styles.liBorder}></p>
             </li>
             <li
+              onClick={generateTrxId}
               className={`text-[18px] text-lightBlack cursor-pointer  ${styles.navList}`}
             >
               History <p className={styles.liBorder}></p>
@@ -105,14 +118,17 @@ const Handler = () => {
                       </div>
                       <div className="flex justify-center mt-[1rem]">
                         <div className="flex gap-[.7rem]">
+                          <Link href={"/cartpage"}>
+                            <button className="text-[14px] px-[2rem] py-[.3rem] border bg-green-400 hover:bg-green-300 text-green-900 rounded-[4px] tracking-wider flex items-center gap-[.3rem] transition-all">
+                              <MdOutlineShoppingCart className="text-[1.2rem]" />{" "}
+                              View Cart
+                            </button>
+                          </Link>
+
                           <button
-                            onClick={() => router.push("/cartpage")}
-                            className="text-[14px] px-[2rem] py-[.3rem] border bg-green-400 hover:bg-green-300 text-green-900 rounded-[4px] tracking-wider flex items-center gap-[.3rem] transition-all"
+                            onClick={createCheckoutSession}
+                            className="text-[14px] px-[2rem] py-[.3rem] border bg-red-400 hover:bg-red-300 text-red-900 rounded-[4px] tracking-wider  flex items-center gap-[.3rem] transition-all"
                           >
-                            <MdOutlineShoppingCart className="text-[1.2rem]" />{" "}
-                            View Cart
-                          </button>
-                          <button className="text-[14px] px-[2rem] py-[.3rem] border bg-red-400 hover:bg-red-300 text-red-900 rounded-[4px] tracking-wider  flex items-center gap-[.3rem] transition-all">
                             <RiSecurePaymentFill className="text-[1.2rem]" />{" "}
                             Checkout
                           </button>

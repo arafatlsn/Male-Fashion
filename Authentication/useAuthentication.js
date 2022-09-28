@@ -30,6 +30,8 @@ const Handler = () => {
 
   // update user profile
   const [updateProfile, updating, errorUpdate] = useUpdateProfile(auth);
+
+
   return {
     userLoad,
     signInWithGoogle,

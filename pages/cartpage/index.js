@@ -5,30 +5,11 @@ import { ProductsContext } from "../_app";
 import { HiOutlineEmojiSad } from "react-icons/hi";
 import { MdOutlineShoppingCart } from 'react-icons/md'
 import { RiSecurePaymentFill } from 'react-icons/ri'
-import { loadStripe } from "@stripe/stripe-js";
-import axios from 'axios'
-import useAthentication from "../../Authentication/useAuthentication"
 
-const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY)
 const Handler = () => {
-  const { userLoad } = useAthentication()
-  const { cart, setCart } = useContext(ProductsContext);
+  const { cart, setCart, createCheckoutSession } = useContext(ProductsContext);
   const router = useRouter();
-
-  const createCheckoutSession = async() => {
-    const stripe = await stripePromise;
-
-    const checkoutSession = await axios.post("http://localhost:3000/api/checkoutsession", { cart, email: userLoad?.email })
-
-    const result = await stripe.redirectToCheckout({
-      sessionId: checkoutSession.data.id
-    })
-
-    if(result?.error){
-      alert(result?.error.message)
-    }
-
-  }
+  
   return (
     <div className="w-[1170px] mx-auto flex gap-[1.5rem]">
       {/* left side div  */}
