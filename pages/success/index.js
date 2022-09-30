@@ -36,11 +36,11 @@ const Handler = () => {
           order: newArray,
         });
         setCart([])
+        localStorage.removeItem("cart")
       } else {
         alert("rejected");
       }
     };
-    console.log(sessionId);
     if (sessionId) {
       func();
     }

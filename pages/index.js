@@ -4,6 +4,7 @@ import { useContext, useEffect } from 'react';
 import { ProductsContext } from './_app';
 import Banner from '../Components/Homepage/Banner'
 import Cards from '../Components/Homepage/Cards'
+import DiscountOffer from '../Components/Homepage/DiscountOffer'
 import Carousel from '../Components/Homepage/Carousel'
 
 export default function Home({ data }) {
@@ -24,6 +25,7 @@ export default function Home({ data }) {
         <Carousel/>
         <Banner/>
         <Cards products={products}/>
+        <DiscountOffer/>
       </main>
       {/* footer  */}
       <footer>

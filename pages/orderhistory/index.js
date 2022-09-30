@@ -3,7 +3,7 @@ import Orders from '../../Components/OrderHistoryPage/Orders'
 
 const Handler = ({ result }) => {
   return <div className="w-[1170px] mx-auto">
-    <div className="grid grid-cols-2 gap-[1.5rem]">{
+    <div className="w-[50%] mx-auto flex flex-col gap-[2.5rem]">{
       result.map(order => <Orders key={order?._id} order={order} />)
       }</div>
   </div>

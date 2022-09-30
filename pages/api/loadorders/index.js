@@ -6,7 +6,7 @@ const Handler = async (req, res) => {
     if (err) {
       res.status(400).json({ message: err.message });
     } else {
-      res.status(200).json({ data });
+      res.status(200).json({ data: data.reverse() });
     }
   });
 };

@@ -1,0 +1,117 @@
+import Image from "next/image";
+import { useEffect, useState } from "react";
+import BagImg from "../../Assets/Homepage/product-sale.png";
+
+const Handler = () => {
+  const [active, setActive] = useState("");
+  const [timer, setTimer] = useState([]);
+
+  const [countDown, setCountDown] = useState(0);
+
+  useEffect(() => {
+    const today = new Date();
+    let offerEnding = new Date(today);
+    const loadDiscountTimer = JSON.parse(localStorage.getItem("discountTimer"));
+    if (!loadDiscountTimer) {
+      offerEnding.setDate(today.getDate() + 30);
+      // console.log(today, JSON.stringify(offerEnding))
+      const nes = offerEnding.toString().split(" ");
+      localStorage.setItem("discountTimer", JSON.stringify(nes));
+    } else {
+      const dateString = `${loadDiscountTimer[1]} ${loadDiscountTimer[2]} ${loadDiscountTimer[3]} ${loadDiscountTimer[4]}`;
+      const todayTime = today.getTime();
+      const endingTime = new Date(dateString).getTime();
+
+      const distanceTime = endingTime - todayTime;
+
+      const reamainingDays = Math.floor(distanceTime / (1000 * 60 * 60 * 24));
+
+      const remainingHours = Math.floor(
+        (distanceTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+      );
+
+      const remainingMinutes = Math.floor(
+        (distanceTime % (1000 * 60 * 60)) / (1000 * 60)
+      );
+
+      const remainingSeconds = Math.floor((distanceTime % (1000 * 60)) / 1000);
+
+      setTimer([
+        reamainingDays,
+        remainingHours,
+        remainingMinutes,
+        remainingSeconds,
+      ]);
+    }
+  }, [countDown]);
+
+  setInterval(() => {
+    setCountDown(countDown + 1);
+  }, 1000);
+
+  // console.log(days, hours, minutes, seconds);
+
+  return (
+    <div className="bg-[#F3F2EE] py-[8rem] mt-[5rem]">
+      <div className="w-[1170px] mx-auto flex justify-between ">
+        <div className="flex justify-between items-center w-[60%] ">
+          <div>
+            <h1
+              onClick={() => setActive("accessories_hot")}
+              className={`text-[dimgray] text-[2.3rem] font-bold tracking-wide cursor-pointer transition-all ${
+                active === "accessories_hot" &&
+                "text-gray-700 translate-x-[.7rem]"
+              }`}
+            >
+              Accessories Hot
+            </h1>
+            <h1
+              onClick={() => setActive("clothing_hot")}
+              className={`text-[dimgray] text-[2.3rem] font-bold tracking-wide cursor-pointer transition-all ${
+                active === "clothing_hot" && "text-gray-700 translate-x-[.7rem]"
+              }`}
+            >
+              Clothings Hot
+            </h1>
+            <h1
+              onClick={() => setActive("shoes_hot")}
+              className={`text-[dimgray] text-[2.3rem] font-bold tracking-wide cursor-pointer transition-all ${
+                active === "shoes_hot" && "text-gray-700 translate-x-[.7rem]"
+              }`}
+            >
+              Shoes Hot
+            </h1>
+          </div>
+          <div>
+            <Image src={BagImg} alt="h3llo world" />
+          </div>
+        </div>
+        <div className="w-[40%]">
+          <div className="flex gap-[1.5rem]">
+            <div className="flex flex-col justify-center items-center">
+              <span className="text-[2.5rem] font-bold mr-[.3rem]">{timer[0]}</span>
+              <span className="font-bold tracking-wide">Days</span>
+            </div>
+            <p className="text-[2.2rem] text-gray-600">:</p>
+            <div className="flex flex-col justify-center items-center">
+              <span className="text-[2.5rem] font-bold mr-[.3rem]">{timer[1]}</span>
+              <span className="font-bold tracking-wide">Hours</span>
+            </div>
+            <p className="text-[2.2rem] text-gray-600">:</p>
+            <div className="flex flex-col justify-center items-center">
+              <span className="text-[2.5rem] font-bold mr-[.3rem]">{timer[2]}</span>
+              <span className="font-bold tracking-wide">Minutes</span>
+            </div>
+            <p className="text-[2.2rem] text-gray-600">:</p>
+            <div className="flex flex-col justify-center items-center">
+              <span className="text-[2.5rem] font-bold mr-[.3rem]">{timer[3]}</span>
+              <span className="font-bold tracking-wide">Seconds</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Handler;
