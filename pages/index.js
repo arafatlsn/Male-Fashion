@@ -5,6 +5,7 @@ import { ProductsContext } from './_app';
 import Banner from '../Components/Homepage/Banner'
 import Cards from '../Components/Homepage/Cards'
 import DiscountOffer from '../Components/Homepage/DiscountOffer'
+import LatestNews from '../Components/Homepage/LatestNews'
 import Carousel from '../Components/Homepage/Carousel'
 
 export default function Home({ data }) {
@@ -26,6 +27,7 @@ export default function Home({ data }) {
         <Banner/>
         <Cards products={products}/>
         <DiscountOffer/>
+        <LatestNews/>
       </main>
       {/* footer  */}
       <footer>
