@@ -17,7 +17,19 @@ const Handler = async (req, res) => {
       },
     }));
 
-    let number = 0;
+    
+    const obj = {
+      titles: JSON.stringify(cart?.map((product) => product.title)),
+      descriptions: JSON.stringify(
+        cart?.map((product) => product.description)
+      ),
+      images: JSON.stringify(cart?.map((product) => product.img)),
+      prices: JSON.stringify(cart?.map((product) => product.price)),
+      quantities: JSON.stringify(
+        cart?.map((product) => product.cartQuantity)
+      ),
+    }
+
     try {
       const session = await stripe?.checkout?.sessions?.create({
         payment_method_types: ["card"],
@@ -25,17 +37,7 @@ const Handler = async (req, res) => {
         mode: "payment",
         success_url: `${req?.headers?.origin}/success?sessionId={CHECKOUT_SESSION_ID}`,
         cancel_url: "http://localhost:3000/failed",
-        metadata: {
-          titles: JSON.stringify(cart?.map((product) => product.title)),
-          descriptions: JSON.stringify(
-            cart?.map((product) => product.description)
-          ),
-          images: JSON.stringify(cart?.map((product) => product.img)),
-          prices: JSON.stringify(cart?.map((product) => product.price)),
-          quantities: JSON.stringify(
-            cart?.map((product) => product.cartQuantity)
-          ),
-        },
+        metadata: obj,
       });
       res.status(200).json({ id: session?.id });
     } catch (err) {

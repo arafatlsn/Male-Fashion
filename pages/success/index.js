@@ -1,20 +1,22 @@
 import axios from "axios";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 import { BsBoxArrowInRight } from "react-icons/bs";
+import { ProductsContext } from "../_app";
 import Link from "next/link";
 
 const Handler = () => {
+  const { setCart } = useContext(ProductsContext);
   const route = useRouter();
   const {
     query: { sessionId },
   } = route;
 
   useEffect(() => {
-    const newArr = [];
-    const obj = {};
     const func = async () => {
+      let newArray = [];
+      let obj = {};
       const {
         data: { status, result, email },
       } = await axios.get(`http://localhost:3000/api/session/${sessionId}`);
@@ -25,13 +27,15 @@ const Handler = () => {
           obj.img = JSON.parse(result?.images)[i];
           obj.price = JSON.parse(result?.prices)[i];
           obj.cartQuantity = JSON.parse(result?.quantities)[i];
-          newArr.push(obj);
+          newArray = [...newArray, obj];
+          obj = {};
         }
         const res = await axios.post("http://localhost:3000/api/postOrder", {
           email,
           sessionId,
-          order: newArr,
+          order: newArray,
         });
+        setCart([])
       } else {
         alert("rejected");
       }

@@ -13,11 +13,14 @@ import { ProductsContext } from "../../pages/_app";
 import Link from "next/link";
 import axios from "axios";
 import { useRouter } from "next/router";
+import useAthentication from '../../Authentication/useAuthentication'
 
 const Handler = () => {
   const { cart, isVisible, setIsShowAuthModal, createCheckoutSession } =
     useContext(ProductsContext);
-  
+
+    const { userLoad } = useAthentication ()
+
   const route = useRouter();
 
   // getting user orders by transaction id
@@ -32,7 +35,7 @@ const Handler = () => {
     }
   }
 
-  if(route.pathname === "/success"){
+  if (route.pathname === "/success") {
     return;
   }
 
@@ -56,12 +59,14 @@ const Handler = () => {
             >
               Shop <p className={styles.liBorder}></p>
             </li>
-            <li
-              onClick={generateTrxId}
-              className={`text-[18px] text-lightBlack cursor-pointer  ${styles.navList}`}
-            >
-              History <p className={styles.liBorder}></p>
-            </li>
+            <Link href={`/orderhistory?email=${userLoad?.email}`}>
+              <li
+                onClick={generateTrxId}
+                className={`text-[18px] text-lightBlack cursor-pointer  ${styles.navList}`}
+              >
+                History <p className={styles.liBorder}></p>
+              </li>
+            </Link>
             <li
               onClick={() => setIsShowAuthModal(true)}
               className={`text-[18px] text-lightBlack cursor-pointer  ${styles.navList}`}
@@ -119,7 +124,7 @@ const Handler = () => {
                       <div className="flex justify-center mt-[1rem]">
                         <div className="flex gap-[.7rem]">
                           <Link href={"/cartpage"}>
-                            <button className="text-[14px] px-[2rem] py-[.3rem] border bg-green-400 hover:bg-green-300 text-green-900 rounded-[4px] tracking-wider flex items-center gap-[.3rem] transition-all">
+                            <button className="text-[14px] px-[2rem] py-[.3rem] border bg-green-200 hover:bg-green-300 text-green-800 rounded-[4px] tracking-wider flex items-center gap-[.3rem] transition-all">
                               <MdOutlineShoppingCart className="text-[1.2rem]" />{" "}
                               View Cart
                             </button>
@@ -127,7 +132,7 @@ const Handler = () => {
 
                           <button
                             onClick={createCheckoutSession}
-                            className="text-[14px] px-[2rem] py-[.3rem] border bg-red-400 hover:bg-red-300 text-red-900 rounded-[4px] tracking-wider  flex items-center gap-[.3rem] transition-all"
+                            className="text-[14px] px-[2rem] py-[.3rem] border bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-[4px] tracking-wider  flex items-center gap-[.3rem] transition-all"
                           >
                             <RiSecurePaymentFill className="text-[1.2rem]" />{" "}
                             Checkout

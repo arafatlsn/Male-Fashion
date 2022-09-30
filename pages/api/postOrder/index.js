@@ -3,7 +3,6 @@ import orderSchema from "../../../Utility/orderHistorySchema";
 const Handler = async (req, res) => {
   const sessionId = req.body.sessionId;
   const order = req.body;
-
   const findSession = await orderSchema.findOne({ sessionId: sessionId });
   if (!findSession?.sessionId) {
     await orderSchema(order).save((err) => {
