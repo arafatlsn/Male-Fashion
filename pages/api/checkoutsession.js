@@ -17,18 +17,13 @@ const Handler = async (req, res) => {
       },
     }));
 
-    
     const obj = {
       titles: JSON.stringify(cart?.map((product) => product.title)),
-      descriptions: JSON.stringify(
-        cart?.map((product) => product.description)
-      ),
+      descriptions: JSON.stringify(cart?.map((product) => product.description)),
       images: JSON.stringify(cart?.map((product) => product.img)),
       prices: JSON.stringify(cart?.map((product) => product.price)),
-      quantities: JSON.stringify(
-        cart?.map((product) => product.cartQuantity)
-      ),
-    }
+      quantities: JSON.stringify(cart?.map((product) => product.cartQuantity)),
+    };
 
     try {
       const session = await stripe?.checkout?.sessions?.create({
@@ -36,7 +31,7 @@ const Handler = async (req, res) => {
         line_items: transformedCart,
         mode: "payment",
         success_url: `${req?.headers?.origin}/success?sessionId={CHECKOUT_SESSION_ID}`,
-        cancel_url: "http://localhost:3000/failed",
+        cancel_url: "https://male-fashion-arafatlsn.vercel.app/failed",
         metadata: obj,
       });
       res.status(200).json({ id: session?.id });

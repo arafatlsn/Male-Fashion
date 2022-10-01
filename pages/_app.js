@@ -34,7 +34,7 @@ function MyApp({ Component, pageProps }) {
     const stripe = await stripePromise;
 
     const checkoutSession = await axios.post(
-      "http://localhost:3000/api/checkoutsession",
+      "https://male-fashion-arafatlsn.vercel.app/api/checkoutsession",
       { cart, email: userLoad?.email }
     );
 

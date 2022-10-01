@@ -13,19 +13,21 @@ import { ProductsContext } from "../../pages/_app";
 import Link from "next/link";
 import axios from "axios";
 import { useRouter } from "next/router";
-import useAthentication from '../../Authentication/useAuthentication'
+import useAthentication from "../../Authentication/useAuthentication";
 
 const Handler = () => {
   const { cart, isVisible, setIsShowAuthModal, createCheckoutSession } =
     useContext(ProductsContext);
 
-    const { userLoad } = useAthentication ()
+  const { userLoad } = useAthentication();
 
   const route = useRouter();
 
   // getting user orders by transaction id
   const generateTrxId = async () => {
-    const res = await axios.get("http://localhost:3000/api/orderhistory");
+    const res = await axios.get(
+      "https://male-fashion-arafatlsn.vercel.app/api/orderhistory"
+    );
   };
 
   let total = 0;
