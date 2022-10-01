@@ -26,7 +26,7 @@ const Handler = () => {
   ];
 
   return (
-    <div className="w-[1170px] mx-auto py-[5rem]">
+    <div className="w-[1170px] mx-auto pt-[5rem]">
       <div>
         <p className="text-center text-[15px] text-red-500 font-bold tracking-wide uppercase">
           Latest News

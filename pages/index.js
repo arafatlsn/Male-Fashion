@@ -7,6 +7,7 @@ import Cards from '../Components/Homepage/Cards'
 import DiscountOffer from '../Components/Homepage/DiscountOffer'
 import LatestNews from '../Components/Homepage/LatestNews'
 import Carousel from '../Components/Homepage/Carousel'
+import Footer from '../Components/Shared/Footer'
 
 export default function Home({ data }) {
   const { products, setAllProducts } = useContext(ProductsContext);
@@ -31,7 +32,7 @@ export default function Home({ data }) {
       </main>
       {/* footer  */}
       <footer>
-        
+        <Footer/>
       </footer>
     </div>
   )
