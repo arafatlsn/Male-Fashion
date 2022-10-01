@@ -19,9 +19,7 @@ export async function getServerSideProps(context) {
   const email = context?.query.email;
   const {
     data: { data },
-  } = await axios.get(
-    `https://male-fashion-arafatlsn.vercel.app/api/loadorders?email=${email}`
-  );
+  } = await axios.get(`http://localhost:3000/api/loadorders?email=${email}`);
   return {
     props: {
       result: data,

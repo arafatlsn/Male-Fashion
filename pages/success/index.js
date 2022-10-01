@@ -19,9 +19,7 @@ const Handler = () => {
       let obj = {};
       const {
         data: { status, result, email },
-      } = await axios.get(
-        `https://male-fashion-arafatlsn.vercel.app/api/session/${sessionId}`
-      );
+      } = await axios.get(`http://localhost:3000/api/session/${sessionId}`);
       if (status === "paid") {
         for (let i = 0; i < JSON.parse(result?.titles).length; i++) {
           obj.title = JSON.parse(result?.titles)[i];
@@ -32,14 +30,11 @@ const Handler = () => {
           newArray = [...newArray, obj];
           obj = {};
         }
-        const res = await axios.post(
-          "https://male-fashion-arafatlsn.vercel.app/api/postOrder",
-          {
-            email,
-            sessionId,
-            order: newArray,
-          }
-        );
+        const res = await axios.post("http://localhost:3000/api/postOrder", {
+          email,
+          sessionId,
+          order: newArray,
+        });
         setCart([]);
         localStorage.removeItem("cart");
       } else {

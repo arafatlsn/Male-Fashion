@@ -54,12 +54,12 @@ const Handler = () => {
         <div className=" w-[23%]">
           <ul>
             <li className="font-bold tracking-[.2rem] mb-[1rem] uppercase">
-            NEWLETTER
+              NEWLETTER
             </li>
             <div className="flex flex-col gap-[.8rem]">
-              <li className="text-[#b7b7b7] whitespace-pre-wrap">Be the first to know about new arrivals, look books, sales & promos!</li>
-              <li className="text-[#b7b7b7]">
-                <input className="bg-[#111111] border-x-0 border-t-0  focus:outline-t-0 pl-0" type="text" placeholder="Type here" />
+              <li className="text-[#b7b7b7] whitespace-pre-wrap">
+                Be the first to know about new arrivals, look books, sales &
+                promos!
               </li>
             </div>
           </ul>

@@ -24,3 +24,12 @@
   visibility: visible;
   opacity: 1;
 }
+
+.profileDiv{
+  visibility: hidden;
+  transition: all .15s ease-in-out;
+}
+
+.profileText:hover .profileDiv{
+  visibility: visible;
+}

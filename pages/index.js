@@ -39,9 +39,7 @@ export default function Home({ data }) {
 }
 
 export async function getServerSideProps() {
-  const res = await fetch(
-    "https://male-fashion-arafatlsn.vercel.app/api/loadproducts"
-  );
+  const res = await fetch("http://localhost:3000/api/loadproducts");
   const data = await res.json();
 
   return {

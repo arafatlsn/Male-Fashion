@@ -34,7 +34,7 @@ function MyApp({ Component, pageProps }) {
     const stripe = await stripePromise;
 
     const checkoutSession = await axios.post(
-      "https://male-fashion-arafatlsn.vercel.app/api/checkoutsession",
+      "http://localhost:3000/api/checkoutsession",
       { cart, email: userLoad?.email }
     );
 
@@ -66,6 +66,7 @@ function MyApp({ Component, pageProps }) {
         >
           <NavBar />
           <Component {...pageProps} />
+
           {isShowAuthModal && <Register />}
         </ProductsContext.Provider>
         <div>

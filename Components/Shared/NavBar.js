@@ -14,6 +14,7 @@ import Link from "next/link";
 import axios from "axios";
 import { useRouter } from "next/router";
 import useAthentication from "../../Authentication/useAuthentication";
+import Profile from "../Shared/Profile";
 
 const Handler = () => {
   const { cart, isVisible, setIsShowAuthModal, createCheckoutSession } =
@@ -25,9 +26,7 @@ const Handler = () => {
 
   // getting user orders by transaction id
   const generateTrxId = async () => {
-    const res = await axios.get(
-      "https://male-fashion-arafatlsn.vercel.app/api/orderhistory"
-    );
+    const res = await axios.get("http://localhost:3000/api/orderhistory");
   };
 
   let total = 0;
@@ -69,12 +68,26 @@ const Handler = () => {
                 History <p className={styles.liBorder}></p>
               </li>
             </Link>
-            <li
-              onClick={() => setIsShowAuthModal(true)}
-              className={`text-[18px] text-lightBlack cursor-pointer  ${styles.navList}`}
-            >
-              Login <p className={styles.liBorder}></p>
-            </li>
+            {!userLoad?.email ? (
+              <li
+                onClick={() => setIsShowAuthModal(true)}
+                className={`text-[18px] text-lightBlack cursor-pointer  ${styles.navList}`}
+              >
+                Login <p className={styles.liBorder}></p>
+              </li>
+            ) : (
+              <li
+                className={`text-[18px] text-lightBlack cursor-pointer  ${styles.navList} ${styles.profileText}`}
+              >
+                Profile <p className={styles.liBorder}></p>
+                <div className={`relative ${styles.profileDiv}`}>
+                  <div
+                    className={`w-[40px] h-[40px] z-[-100] bg-[#F0EFF5] absolute rotate-45 mt-[.5rem] top-0`}
+                  ></div>
+                  <Profile />
+                </div>
+              </li>
+            )}
             <li
               className={`text-[18px] text-lightBlack cursor-pointer  ${styles.navList}`}
             >

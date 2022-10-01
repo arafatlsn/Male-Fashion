@@ -31,7 +31,7 @@ const Handler = async (req, res) => {
         line_items: transformedCart,
         mode: "payment",
         success_url: `${req?.headers?.origin}/success?sessionId={CHECKOUT_SESSION_ID}`,
-        cancel_url: "https://male-fashion-arafatlsn.vercel.app/failed",
+        cancel_url: "http://localhost:3000/failed",
         metadata: obj,
       });
       res.status(200).json({ id: session?.id });
