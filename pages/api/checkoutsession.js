@@ -2,7 +2,7 @@ const stripe = require("stripe")(process.env.NEXT_PUBLIC_SECRET_KEY);
 
 const Handler = async (req, res) => {
   if (req.method === "POST") {
-    const { cart, email } = req.body;
+    const { cart } = req.body;
 
     const transformedCart = cart.map((product) => ({
       description: product.description,
@@ -33,7 +33,9 @@ const Handler = async (req, res) => {
         success_url: `${req?.headers?.origin}/success?sessionId={CHECKOUT_SESSION_ID}`,
         cancel_url: "http://localhost:3000/failed",
         metadata: obj,
+        // total_details : { amount_discount: 0, amount_shipping: 0, amount_tax: 0 }
       });
+      console.log(session);
       res.status(200).json({ id: session?.id });
     } catch (err) {
       console.log(err.message);

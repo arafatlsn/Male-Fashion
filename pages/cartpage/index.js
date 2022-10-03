@@ -1,15 +1,45 @@
 import { useRouter } from "next/router";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import TableComp from "../../Components/Cartpage/TableComp";
 import { ProductsContext } from "../_app";
 import { HiOutlineEmojiSad } from "react-icons/hi";
-import { MdOutlineShoppingCart } from 'react-icons/md'
-import { RiSecurePaymentFill } from 'react-icons/ri'
+import { MdOutlineShoppingCart } from "react-icons/md";
+import { RiSecurePaymentFill } from "react-icons/ri";
+import toast from "react-hot-toast";
 
 const Handler = () => {
   const { cart, setCart, createCheckoutSession } = useContext(ProductsContext);
+
+  const [isCouponUsed, setIsCouponUsed] = useState(false);
+
   const router = useRouter();
-  
+
+  let subTotal = 0;
+  let discount = 0;
+  let total = 0;
+
+  cart?.forEach((el) => {
+    subTotal = subTotal + el.price * el.cartQuantity;
+  });
+
+  const handleCouponUse = async (e) => {
+    e.preventDefault();
+
+    const couponInput = e.target.coupon.value;
+    if (couponInput === "mdarafathossanlisan") {
+      setIsCouponUsed(true);
+      toast.success("Successfully you've used coupon!")
+    } else {
+      toast.error("Invalid Coupon Code");
+    }
+  };
+
+  if (isCouponUsed) {
+    discount = (subTotal * 10) / 100;
+  }
+
+  total = subTotal - discount;
+
   return (
     <div className="w-[1170px] mx-auto flex gap-[1.5rem]">
       {/* left side div  */}
@@ -26,81 +56,54 @@ const Handler = () => {
         )}
       </div>
       {/* right side div  */}
-      <div className="w-[30%] bg-[whitesmoke] p-[1rem]">
+      <div className="w-[30%] bg-[#F3F2EE] h-min p-[1rem]">
         <div>
-          <p className="text-[16px] text-green-800 tracking-wider cursor-pointer">
-            Get a Coupon Code.
-          </p>
-          <p className="text-[14px] text-gray-500">
-            Your coupon code: 13324324234
-          </p>
-          <form>
-            <div className="flex gap-[.5rem]">
+          
+          <form onSubmit={handleCouponUse}>
+            <div className="flex">
               <input
                 type="text"
                 name="coupon"
                 id="coupon"
-                className="w-[50%] border-none bg-green-200 text-green-800 text-[14px] py-[.1rem] rounded-[4px]"
+                className="w-[70%] border-gray-300 text-[17px] px-[1rem] py-[.65rem] focus:ring-0 focus:border-gray-300 tracking-wider"
                 placeholder="type your coupon"
               />
               <button
                 type="submit"
-                className="text-[14px] bg-gray-200 hover:bg-gray-300 text-gray-800 py-[.1rem] px-[.7rem] rounded-[4px] transition-all"
+                className="w-[30%] text-[16px] tracking-wider bg-gray-900 text-white px-[1rem] py-[.6rem] transition-all"
               >
-                Use Coupon
+                Apply
               </button>
             </div>
           </form>
+          <p className="text-[13px] text-red-500">
+            * Your coupon code: mdarafathossanlisan
+          </p>
         </div>
-        <div className="bg-white p-[1rem] mt-[.5rem] rounded-[5px]">
-          <table className="w-[100%]">
-            <tr>
-              <td>
-                <p className="text-gray-600 text-left font-semibold">
-                  Subtotal:{" "}
-                </p>
-              </td>
-              <td>
-                <span className="ml-[.5rem] text-gray-800">$000</span>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <p className="text-gray-600 text-left font-semibold">
-                  Discount (10% off):{" "}
-                </p>
-              </td>
-              <td>
-                <span className="ml-[.5rem] text-green-800">$000</span>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <p className="text-gray-600 text-left font-semibold">
-                  Tax (6% +):{" "}
-                </p>
-              </td>
-              <td>
-                <span className="ml-[.5rem] text-red-800">$000</span>
-              </td>
-            </tr>
-            <tr style={{ borderTop: "2px solid #B4B9BC" }}>
-              <td>
-                <p className="text-gray-600 text-left font-semibold">Total: </p>
-              </td>
-              <td>
-                <span className="ml-[.5rem] text-gray-800">$000</span>
-              </td>
-            </tr>
-          </table>
-          <div className="flex flex-col gap-[.3rem] mt-[.5rem]">
+        <div className="bg-white p-[1rem] mt-[2rem] rounded-[5px]">
+          
+          <div className="flex flex-col gap-[.3rem] mt-[.5rem] p-[1rem]">
+            <div>
+              <h1 className="text-[17px] uppercase tracking-wider">Cart Total</h1>
+              <div className="mt-[1rem] flex flex-col gap-[.5rem]">
+                <div className="flex justify-between">
+                  <p className="tracking-wider">Subtotal</p>
+                  <p className="text-red-600">BDT {subTotal}</p>
+                </div>
+                <div className="flex justify-between">
+                  <p className="tracking-wider">Discount</p>
+                  <p className="text-red-600">BDT {discount}</p>
+                </div>
+                <div className="flex justify-between">
+                  <p className="tracking-wider">Total</p>
+                  <p className="text-red-600">BDT {total}</p>
+                </div>
+              </div>
+            </div>
             <button
-              onClick={() => router.push("/")}
-              className="text-[14px] w-[100%] py-[.3rem] border bg-green-200 hover:bg-green-300 text-green-800 rounded-[4px] tracking-wider flex justify-center items-center gap-[.3rem] transition-all whitespace-nowrap"
+              onClick={createCheckoutSession}
+              className="text-[14px] w-[100%] py-[.7rem] mt-[1rem] border bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-[4px] tracking-wider  flex justify-center items-center gap-[.3rem] transition-all"
             >
-              <MdOutlineShoppingCart className="text-[1.2rem]" /> Continue Shoping
-            </button>
-            <button onClick={createCheckoutSession} className="text-[14px] w-[100%] py-[.3rem] border bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-[4px] tracking-wider  flex justify-center items-center gap-[.3rem] transition-all">
               <RiSecurePaymentFill className="text-[1.2rem]" /> Checkout
             </button>
           </div>

@@ -35,7 +35,7 @@ function MyApp({ Component, pageProps }) {
 
     const checkoutSession = await axios.post(
       "http://localhost:3000/api/checkoutsession",
-      { cart, email: userLoad?.email }
+      { cart,  email: userLoad?.email }
     );
 
     const result = await stripe.redirectToCheckout({

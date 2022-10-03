@@ -15,7 +15,7 @@ const Handler = ({ handleSubmit, error }) => {
           </label>
           <input
             type="text"
-            className="bg-white border-none focus:border-none focus:outline-none rounded-[1.5rem] w-[100%] pl-[3rem]"
+            className="bg-white border-none focus:ring-0 rounded-[1.5rem] w-[100%] pl-[3rem]"
             placeholder="type your name"
             name="personName"
             id="personName"
@@ -28,7 +28,7 @@ const Handler = ({ handleSubmit, error }) => {
           </label>
           <input
             type="text"
-            className="bg-white border-none focus:border-none focus:outline-none rounded-[1.5rem] w-[100%] pl-[3rem]"
+            className="bg-white border-none focus:ring-0 rounded-[1.5rem] w-[100%] pl-[3rem]"
             placeholder="type your email"
             name="email"
             id="email"
@@ -41,7 +41,7 @@ const Handler = ({ handleSubmit, error }) => {
           </label>
           <input
             type="password"
-            className="bg-white border-none focus:border-none focus:outline-none rounded-[1.5rem] w-[100%] pl-[3rem]"
+            className="bg-white border-none focus:ring-0 rounded-[1.5rem] w-[100%] pl-[3rem]"
             placeholder="type your password"
             name="password"
             id="password"
