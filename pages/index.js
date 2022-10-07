@@ -30,10 +30,6 @@ export default function Home({ data }) {
         <DiscountOffer />
         <LatestNews />
       </main>
-      {/* footer  */}
-      <footer>
-        <Footer />
-      </footer>
     </div>
   );
 }

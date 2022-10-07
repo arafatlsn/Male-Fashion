@@ -4,15 +4,19 @@ import LoginForm from "./LoginForm";
 import { BiPlus } from "react-icons/bi";
 import { FcGoogle } from "react-icons/fc";
 import { MdCancel } from "react-icons/md";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import useAuthentication from "../../Authentication/useAuthentication";
 import { async } from "@firebase/util";
 import { ProductsContext } from "../../pages/_app";
+import toast from "react-hot-toast";
 
 const Handler = () => {
-  const { setIsShowAuthModal } = useContext(ProductsContext);
+  const { setIsShowAuthModal, setIsLoading } = useContext(ProductsContext);
   const [uploadImgUrl, setUploadImageUrl] = useState("");
   const [isRegisterPage, setIsRegisterPage] = useState(false);
+  const [tryingUser, setTryingUser] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
+
   const {
     signInWithGoogle,
     createUserWithEmailAndPassword,
@@ -20,11 +24,24 @@ const Handler = () => {
     errorSigninEmailPass,
     updateProfile,
     error,
+    userLoad,
   } = useAuthentication();
+
+  useEffect(() => {
+    // checking user can success or not
+    if (userLoad?.email) {
+      if (tryingUser === "register") {
+        setSuccessMessage("SUCCESSFULLY you've created a new account!");
+      } else {
+        setSuccessMessage("SUCCESSFULLY you're logged in!");
+      }
+    }
+  }, [userLoad]);
 
   // register user
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
 
     if (uploadImgUrl) {
       const name = e.target.personName.value;
@@ -34,20 +51,29 @@ const Handler = () => {
 
       await createUserWithEmailAndPassword(email, password);
       await updateProfile({ displayName: name, photoURL: personImg });
+      setTryingUser("register");
+      setIsLoading(false);
+    } else{
+      toast.error("Please add your image")
+      setIsLoading(false);
     }
   };
 
   // login user
   const handleLogin = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
     const email = e.target.email.value;
     const password = e.target.password.value;
 
     await signInWithEmailAndPassword(email, password);
+    setTryingUser("login");
+    setIsLoading(false);
   };
 
   // uploading image to image bb
   const uploadImage = async (image) => {
+    setIsLoading(true);
     const formData = new FormData();
     formData.append("image", image);
     const url = `https://api.imgbb.com/1/upload?key=565f41ae1e5b8cd4d1430014c0206ed2`;
@@ -58,8 +84,10 @@ const Handler = () => {
     const result = await res.json();
     if (result.success) {
       setUploadImageUrl(result.data.url);
+      setIsLoading(false);
     }
   };
+
   return (
     <>
       <div
@@ -122,14 +150,21 @@ const Handler = () => {
           </div>
           <div>
             {isRegisterPage ? (
-              <Form handleSubmit={handleSubmit} error={error} />
+              <Form handleSubmit={handleSubmit} error={error} setTryingUser={setTryingUser} />
             ) : (
               <LoginForm
                 handleLogin={handleLogin}
-                errorSigninEmailPass={errorSigninEmailPass}
+                errorSigninEmailPass={errorSigninEmailPass} setTryingUser={setTryingUser}
               />
             )}
           </div>
+          {successMessage && (
+            <div>
+              <h1 className="text-[14px] text-green-600 bg-green-200 text-center p-[.5rem] mt-[1rem] border border-green-500 w-min mx-auto whitespace-nowrap tracking-wider">
+                {successMessage}
+              </h1>
+            </div>
+          )}
           {!isRegisterPage && (
             <div className="w-[60%] mx-auto mt-[2rem] flex justify-center">
               <button

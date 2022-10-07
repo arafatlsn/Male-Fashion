@@ -2,7 +2,7 @@ import { FaUserEdit } from "react-icons/fa";
 import { RiLockPasswordFill } from "react-icons/ri";
 import { MdEmail } from "react-icons/md";
 
-const Handler = ({ handleLogin, errorSigninEmailPass }) => {
+const Handler = ({ handleLogin, errorSigninEmailPass, setTryingUser }) => {
   const errorMessage = errorSigninEmailPass?.message?.split("/")[1].split(").")[0];
   return (
     <div>
@@ -42,7 +42,7 @@ const Handler = ({ handleLogin, errorSigninEmailPass }) => {
         </div>
         {/* register button  */}
         <div>
-          <button className="bg-gray-700 text-[whitesmoke] px-[2.5rem] py-[.5rem] rounded-[1.5rem] tracking-wider">
+          <button onClick={() => setTryingUser("login")} className="bg-gray-700 text-[whitesmoke] px-[2.5rem] py-[.5rem] rounded-[1.5rem] tracking-wider">
             Login
           </button>
         </div>

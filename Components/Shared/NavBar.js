@@ -15,6 +15,7 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import useAthentication from "../../Authentication/useAuthentication";
 import Profile from "../Shared/Profile";
+import toast from "react-hot-toast";
 
 const Handler = () => {
   const { cart, isVisible, setIsShowAuthModal, createCheckoutSession } =
@@ -36,6 +37,15 @@ const Handler = () => {
     }
   }
 
+  const navigateToHistory = () => {
+    if (userLoad?.email) {
+      generateTrxId();
+      route.push("/orderhistory");
+    } else {
+      toast.error("Please login");
+    }
+  };
+
   if (route.pathname === "/success") {
     return;
   }
@@ -55,14 +65,9 @@ const Handler = () => {
                 Home <p className={styles.liBorder}></p>
               </li>
             </Link>
-            <li
-              className={`text-[18px] text-lightBlack cursor-pointer  ${styles.navList}`}
-            >
-              Shop <p className={styles.liBorder}></p>
-            </li>
             <Link href={`/orderhistory?email=${userLoad?.email}`}>
               <li
-                onClick={generateTrxId}
+                onClick={navigateToHistory}
                 className={`text-[18px] text-lightBlack cursor-pointer  ${styles.navList}`}
               >
                 History <p className={styles.liBorder}></p>
@@ -89,6 +94,7 @@ const Handler = () => {
               </li>
             )}
             <li
+            onClick={() => route.push("contactme")}
               className={`text-[18px] text-lightBlack cursor-pointer  ${styles.navList}`}
             >
               Contact <p className={styles.liBorder}></p>
@@ -106,7 +112,12 @@ const Handler = () => {
             <li
               className={`text-lightBlack text-[1.5rem] flex items-center gap-[.3rem] relative ${styles.cartIcon}`}
             >
-              <MdOutlineShoppingCart />{" "}
+              <span>
+                <MdOutlineShoppingCart />
+                <sup className="absolute top-[-48%] z-[-100] right-[-10%] text-[14px] bg-yellow-200 w-[1.1rem] h-[1.1rem] rounded-[50%] flex justify-center items-center font-[500]">
+                  <span>{cart?.length}</span>
+                </sup>
+              </span>
               <span className="text-[15px] font-semibold flex items-center gap-[.2rem] absolute left-[2rem]">
                 <TbCurrencyTaka className="text-[1.4rem] mr-[-.3rem]" />
                 {total}

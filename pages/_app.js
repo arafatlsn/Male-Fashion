@@ -1,8 +1,10 @@
 import "../styles/globals.css";
 import NavBar from "../Components/Shared/NavBar";
 import Register from "../Components/Shared/Register";
+import LoaderComp from "../Components/Shared/LoaderComp";
+import Footer from "../Components/Shared/Footer";
 import { createContext, useEffect, useState } from "react";
-import { Toaster } from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 import { loadStripe } from "@stripe/stripe-js";
 import useAthentication from "../Authentication/useAuthentication";
 import axios from "axios";
@@ -11,11 +13,14 @@ import "animate.css";
 export const ProductsContext = createContext();
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY);
 function MyApp({ Component, pageProps }) {
-  // all products
+  // all products states
   const [products, setAllProducts] = useState([]);
   const [cart, setCart] = useState([]);
   const [isVisible, setIsVisible] = useState(false);
   const [isShowAuthModal, setIsShowAuthModal] = useState(false);
+
+  // loading state
+  const [isLoading, setIsLoading] = useState(false);
 
   // fixing route change reload state
   const [showChild, setShowChild] = useState(false);
@@ -33,9 +38,14 @@ function MyApp({ Component, pageProps }) {
   const createCheckoutSession = async () => {
     const stripe = await stripePromise;
 
+    if (!userLoad?.email) {
+      toast.error("Please Login");
+      return;
+    }
+
     const checkoutSession = await axios.post(
       "http://localhost:3000/api/checkoutsession",
-      { cart,  email: userLoad?.email }
+      { cart, email: userLoad?.email }
     );
 
     const result = await stripe.redirectToCheckout({
@@ -62,16 +72,20 @@ function MyApp({ Component, pageProps }) {
             setIsVisible,
             setIsShowAuthModal,
             createCheckoutSession,
+            setIsLoading,
           }}
         >
           <NavBar />
           <Component {...pageProps} />
 
           {isShowAuthModal && <Register />}
+          {isLoading && <LoaderComp />}
         </ProductsContext.Provider>
-        <div>
-          <Toaster />
-        </div>
+        {/* footer  */}
+        <footer>
+          <Footer />
+        </footer>
+        <Toaster />
       </>
     );
   }

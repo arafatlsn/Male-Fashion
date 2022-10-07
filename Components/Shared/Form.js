@@ -3,7 +3,7 @@ import { RiLockPasswordFill } from "react-icons/ri";
 import { MdEmail } from 'react-icons/md'
 import toast from "react-hot-toast";
 
-const Handler = ({ handleSubmit, error }) => {
+const Handler = ({ handleSubmit, error, setTryingUser }) => {
   const errorMessage = error?.message?.split("/")[1].split(").")[0];
   return (
     <div>
@@ -53,7 +53,7 @@ const Handler = ({ handleSubmit, error }) => {
         </div>
         {/* register button  */}
         <div>
-          <button className="bg-gray-700 text-[whitesmoke] px-[2.5rem] py-[.5rem] rounded-[1.5rem] tracking-wider">Register</button>
+          <button onClick={() => setTryingUser("register")} className="bg-gray-700 text-[whitesmoke] px-[2.5rem] py-[.5rem] rounded-[1.5rem] tracking-wider">Register</button>
         </div>
       </form>
     </div>
