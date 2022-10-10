@@ -19,11 +19,6 @@ const Handler = () => {
 
   const {
     signInWithGoogle,
-    createUserWithEmailAndPassword,
-    signInWithEmailAndPassword,
-    errorSigninEmailPass,
-    updateProfile,
-    error,
     userLoad,
   } = useAuthentication();
 
@@ -37,39 +32,6 @@ const Handler = () => {
       }
     }
   }, [userLoad]);
-
-  // register user
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setIsLoading(true);
-
-    if (uploadImgUrl) {
-      const name = e.target.personName.value;
-      const email = e.target.email.value;
-      const password = e.target.password.value;
-      const personImg = uploadImgUrl;
-
-      await createUserWithEmailAndPassword(email, password);
-      await updateProfile({ displayName: name, photoURL: personImg });
-      setTryingUser("register");
-      setIsLoading(false);
-    } else{
-      toast.error("Please add your image")
-      setIsLoading(false);
-    }
-  };
-
-  // login user
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    setIsLoading(true);
-    const email = e.target.email.value;
-    const password = e.target.password.value;
-
-    await signInWithEmailAndPassword(email, password);
-    setTryingUser("login");
-    setIsLoading(false);
-  };
 
   // uploading image to image bb
   const uploadImage = async (image) => {
@@ -87,6 +49,10 @@ const Handler = () => {
       setIsLoading(false);
     }
   };
+
+  if(userLoad?.email){
+    setIsShowAuthModal(false)
+  }
 
   return (
     <>
@@ -150,11 +116,9 @@ const Handler = () => {
           </div>
           <div>
             {isRegisterPage ? (
-              <Form handleSubmit={handleSubmit} error={error} setTryingUser={setTryingUser} />
+              <Form error={error} uploadImgUrl={uploadImgUrl} setTryingUser={setTryingUser} />
             ) : (
-              <LoginForm
-                handleLogin={handleLogin}
-                errorSigninEmailPass={errorSigninEmailPass} setTryingUser={setTryingUser}
+              <LoginForm setTryingUser={setTryingUser}
               />
             )}
           </div>

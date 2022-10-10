@@ -1,7 +1,7 @@
 import axios from "axios";
 import Orders from "../../Components/OrderHistoryPage/Orders";
 import useAthentication from "../../Authentication/useAuthentication";
-import DisplayPaths from '../../Components/Shared/DisplayPaths'
+import DisplayPaths from "../../Components/Shared/DisplayPaths";
 import { useRouter } from "next/router";
 
 const Handler = ({ result }) => {
@@ -14,12 +14,17 @@ const Handler = ({ result }) => {
 
   return (
     <div>
-      <DisplayPaths heading={"order history"} paths={["home", "order history"]} />
-      <div className="w-[1170px] mx-auto">
+      <DisplayPaths
+        heading={"order history"}
+        paths={["home", "order history"]}
+      />
+      <div className="w-[1170px] mx-auto min-h-[45vh]">
         <div className="w-[50%] mx-auto flex flex-col gap-[2.5rem]">
-          {result.map((order) => (
-            <Orders key={order?._id} order={order} />
-          ))}
+          {
+            result?.length ? result?.map((order) => (
+              <Orders key={order?._id} order={order} />
+            )) : <p className="text-center text-[22px] tracking-wide text-[dimgray]">{`You didn't any order before.`}</p>
+          }
         </div>
       </div>
     </div>

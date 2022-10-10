@@ -4,6 +4,7 @@ import { useContext, useEffect } from "react";
 import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 import { BsBoxArrowInRight } from "react-icons/bs";
 import { ProductsContext } from "../_app";
+import useAuthentication from '../../Authentication/useAuthentication'
 import Link from "next/link";
 
 const Handler = () => {
@@ -13,14 +14,18 @@ const Handler = () => {
     query: { sessionId },
   } = route;
 
+  const { userLoad } = useAuthentication();
+
+  console.log(userLoad)
+
   useEffect(() => {
     const func = async () => {
       let newArray = [];
       let obj = {};
       const {
-        data: { status, result, email },
+        data: { status, result },
       } = await axios.get(`http://localhost:3000/api/session/${sessionId}`);
-      if (status === "paid") {
+      if (status === "paid" && userLoad?.email) {
         for (let i = 0; i < JSON.parse(result?.titles).length; i++) {
           obj.title = JSON.parse(result?.titles)[i];
           obj.description = JSON.parse(result?.descriptions)[i];
@@ -31,20 +36,18 @@ const Handler = () => {
           obj = {};
         }
         const res = await axios.post("http://localhost:3000/api/postOrder", {
-          email,
+          email: userLoad?.email,
           sessionId,
           order: newArray,
         });
         setCart([]);
         localStorage.removeItem("cart");
-      } else {
-        alert("rejected");
       }
     };
     if (sessionId) {
       func();
     }
-  }, [sessionId]);
+  }, [sessionId, userLoad]);
 
   return (
     <div className="lg:w-[1170px] h-[100vh] mx-auto flex flex-col  justify-center items-center">
@@ -62,10 +65,6 @@ const Handler = () => {
           Order ID: <span>{sessionId}</span>
         </p>
         <div className="mt-[1.5rem]">
-          <p className="text-[dimgray] cursor-pointer hover:underline transition-all flex items-center gap-[.5rem]">
-            <BsBoxArrowInRight className="text-[1.3rem]" /> Go to Ordered
-            History.
-          </p>
           <Link href="/">
             <p className="text-[dimgray] cursor-pointer hover:underline transition-all flex items-center gap-[.5rem]">
               <BsBoxArrowInRight className="text-[1.3rem]" />

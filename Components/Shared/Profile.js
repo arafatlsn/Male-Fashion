@@ -17,9 +17,7 @@ const Handler = () => {
         <div>
           {userLoad?.photoURL ? (
             <img
-              src={
-                "https://lh3.googleusercontent.com/a-/ACNPEu-eFaMOyVzspIV4y6d77WBvfw5ghvyfBBs15CKCAw=s96-c"
-              }
+              src={userLoad?.photoURL}
               width="60px"
               height="60px"
               className="rounded-[50%] border-[3px] border-white box-content"
@@ -57,7 +55,10 @@ const Handler = () => {
 
         {/* signout button  */}
         <div>
-          <button onClick={() => signOut(auth)} className="bg-gray-700 text-[whitesmoke] text-[15px] up px-[2rem] py-[.3rem] rounded-[1.5rem] tracking-wider">
+          <button
+            onClick={() => signOut(auth)}
+            className="bg-gray-700 text-[whitesmoke] text-[15px] up px-[2rem] py-[.3rem] rounded-[1.5rem] tracking-wider"
+          >
             Logout
           </button>
         </div>

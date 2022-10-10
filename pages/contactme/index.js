@@ -88,6 +88,7 @@ const Handler = () => {
                 type="text"
                 name="name"
                 placeholder="Name"
+                required
               />
               <input
                 className="w-[50%] py-[.7rem] borde text-gray-500 border-gray-300 focus:ring-0 focus:border-gray-300"
@@ -95,12 +96,14 @@ const Handler = () => {
                 name="email"
                 placeholder="Email"
                 id="userEmail"
+                required
               />
             </div>
             <textarea
               className="w-[100%] max-h-[300px] min-h-[300px] py-[.7rem] borde text-gray-500 border-gray-300 focus:ring-0 focus:border-gray-300"
               name="message"
               placeholder="Message"
+              required
             ></textarea>
             <div>
               <button

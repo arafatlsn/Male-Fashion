@@ -14,6 +14,7 @@ import Link from "next/link";
 import axios from "axios";
 import { useRouter } from "next/router";
 import useAthentication from "../../Authentication/useAuthentication";
+import DrawerComp from "../Shared/DrawerComp";
 import Profile from "../Shared/Profile";
 import toast from "react-hot-toast";
 
@@ -36,21 +37,29 @@ const Handler = () => {
       total = cart[i].price * cart[i].cartQuantity + total;
     }
   }
-
+  
   const navigateToHistory = () => {
     if (userLoad?.email) {
       generateTrxId();
-      route.push("/orderhistory");
+      route.push(`/orderhistory?email=${userLoad?.email}`);
     } else {
       toast.error("Please login");
     }
   };
-
+  
+  const [testDrawer, setTestDrawer] = useState(false)
   if (route.pathname === "/success") {
     return;
   }
 
+
   return (
+    /*
+
+    Navbar for large device
+
+    */
+
     <div className="sticky top-0 z-[500] bg-[white]">
       <div className="lg:w-[1170px] py-[30px] mx-auto flex justify-between items-center relative">
         <div>
@@ -94,7 +103,7 @@ const Handler = () => {
               </li>
             )}
             <li
-            onClick={() => route.push("contactme")}
+              onClick={() => route.push("contactme")}
               className={`text-[18px] text-lightBlack cursor-pointer  ${styles.navList}`}
             >
               Contact <p className={styles.liBorder}></p>

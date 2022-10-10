@@ -51,7 +51,7 @@ const Handler = () => {
           {cart.length ? (
             <TableComp cart={cart} setCart={setCart} />
           ) : (
-            <div className="bg-gray-200 flex flex-col justify-center items-center min-h-[40vh]">
+            <div className="bg-[#F3F2EE] flex flex-col justify-center items-center min-h-[40vh]">
               <HiOutlineEmojiSad className="text-[3rem] text-gray-400" />
               <p className="text-[1.1rem] tracking-wider text-gray-400">
                 Your Cart is Empty
