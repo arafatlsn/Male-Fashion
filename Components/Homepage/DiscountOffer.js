@@ -44,9 +44,9 @@ const Handler = () => {
     }
   }, [countDown]);
 
-  // setInterval(() => {
-  //   setCountDown(countDown + 1);
-  // }, 1000);
+  setInterval(() => {
+    setCountDown(countDown + 1);
+  }, 1000);
 
   return (
     <div className="bg-[#F3F2EE] py-[8rem] mt-[5rem] px-[1rem] lg:px-0">
