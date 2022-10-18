@@ -1,11 +1,13 @@
-import { useCallback, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import Card from "../../Components/Homepage/Card";
+import { ProductsContext } from "../../pages/_app";
 
 const Handler = ({ products }) => {
+  const { setIsLoading } = useContext(ProductsContext);
   const [activeCategory, setActiveCategory] = useState("All");
 
   return (
-    <div className="w-[100vw] lg:w-[1170px] mx-auto">
+    <div className="w-[100vw] lg:w-[1170px] min-h-[80vh] mx-auto">
       <div>
         <ul className="flex justify-around lg:justify-center lg:gap-[88px] mb-[45px]">
           <li
@@ -42,7 +44,12 @@ const Handler = ({ products }) => {
         {/* Card Parent Div  */}
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-[30px] justify-center justify-items-center lg:justify-between">
           {products?.map((product) => (
-            <Card key={product?._id} product={product} />
+            <Card
+              key={product?._id}
+              product={product}
+              index={products?.indexOf(product) + 1}
+              length = {products?.length}
+            />
           ))}
         </div>
       </div>

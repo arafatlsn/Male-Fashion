@@ -5,9 +5,10 @@ import { Rating } from "flowbite-react";
 import { useContext } from "react";
 import { ProductsContext } from "../../pages/_app";
 
-const Handler = ({ product }) => {
+const Handler = ({ product, index, length }) => {
   const { cart, setCart, setIsVisible } = useContext(ProductsContext);
   const { title, price, img } = product;
+
   let category;
   if (product?.category.length) {
     if (product?.category === "new") {

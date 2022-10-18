@@ -19,7 +19,9 @@ const Handler = async (req, res) => {
 
     const obj = {
       titles: JSON.stringify(cart?.map((product) => product.title)),
-      descriptions: JSON.stringify(cart?.map((product) => product.description.slice(0, 50))),
+      descriptions: JSON.stringify(
+        cart?.map((product) => product.description.slice(0, 50))
+      ),
       images: JSON.stringify(cart?.map((product) => product.img)),
       prices: JSON.stringify(cart?.map((product) => product.price)),
       quantities: JSON.stringify(cart?.map((product) => product.cartQuantity)),
@@ -31,11 +33,10 @@ const Handler = async (req, res) => {
         line_items: transformedCart,
         mode: "payment",
         success_url: `${req?.headers?.origin}/success?sessionId={CHECKOUT_SESSION_ID}`,
-        cancel_url: "http://localhost:3000/failed",
+        cancel_url: "https://male-fashion-tau.vercel.app/failed",
         metadata: obj,
         // total_details : { amount_discount: 0, amount_shipping: 0, amount_tax: 0 }
       });
-      console.log(session);
       res.status(200).json({ id: session?.id });
     } catch (err) {
       console.log(err.message);

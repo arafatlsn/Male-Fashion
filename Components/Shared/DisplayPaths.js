@@ -7,7 +7,7 @@ const Handler = ({ heading, paths }) => {
 
   return (
     <div className="bg-[#F3F2EE] mb-[3rem] py-[3rem]">
-      <div className="w-[1170px] mx-auto">
+      <div className="w-[100vw] mt-[5rem] lg:mt-0 lg:w-[1170px] mx-auto">
         <h3 className=" capitalize text-[24px] text-[#111111] font-bold">
           {heading}
         </h3>

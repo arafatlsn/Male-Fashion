@@ -14,7 +14,6 @@ const Handler = () => {
     const loadDiscountTimer = JSON.parse(localStorage.getItem("discountTimer"));
     if (!loadDiscountTimer) {
       offerEnding.setDate(today.getDate() + 30);
-      // console.log(today, JSON.stringify(offerEnding))
       const nes = offerEnding.toString().split(" ");
       localStorage.setItem("discountTimer", JSON.stringify(nes));
     } else {

@@ -7,7 +7,6 @@ import Cards from "../Components/Homepage/Cards";
 import DiscountOffer from "../Components/Homepage/DiscountOffer";
 import LatestNews from "../Components/Homepage/LatestNews";
 import Carousel from "../Components/Homepage/Carousel";
-import Footer from "../Components/Shared/Footer";
 
 export default function Home({ data }) {
   const { products, setAllProducts } = useContext(ProductsContext);
@@ -25,8 +24,7 @@ export default function Home({ data }) {
       {/* main  */}
       <main>
         <Carousel />
-        {/* <Banner /> */}
-        
+        <Banner />
         <Cards products={products} />
         <DiscountOffer />
         <LatestNews />
@@ -36,7 +34,9 @@ export default function Home({ data }) {
 }
 
 export async function getServerSideProps() {
-  const res = await fetch("http://localhost:3000/api/loadproducts");
+  const res = await fetch(
+    "https://male-fashion-tau.vercel.app/api/loadproducts"
+  );
   const data = await res.json();
 
   return {

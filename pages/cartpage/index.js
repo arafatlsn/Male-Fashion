@@ -45,9 +45,9 @@ const Handler = () => {
 
       <DisplayPaths heading={"shoping cart"} paths={["home", "shoping cart"]} />
 
-      <div className="w-[1170px] mx-auto flex gap-[1.5rem]">
+      <div className="w-[100vw] lg:w-[1170px] px-[.5rem] lg:px-0 mx-auto flex flex-col lg:flex-row gap-[1.5rem]">
         {/* left side div  */}
-        <div className="w-[70%]">
+        <div className="lg:w-[70%] overflow-y-auto">
           {cart.length ? (
             <TableComp cart={cart} setCart={setCart} />
           ) : (
@@ -60,7 +60,7 @@ const Handler = () => {
           )}
         </div>
         {/* right side div  */}
-        <div className="w-[30%] bg-[#F3F2EE] h-min p-[1rem]">
+        <div className="lg:w-[30%] bg-[#F3F2EE] h-min p-[1rem]">
           <div>
             <form onSubmit={handleCouponUse}>
               <div className="flex">

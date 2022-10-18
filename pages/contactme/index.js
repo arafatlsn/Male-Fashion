@@ -32,9 +32,9 @@ const Handler = () => {
       />
 
       {/* main container  */}
-      <div className="w-[1170px] mx-auto flex gap-[2rem]">
+      <div className="w-[100vw] px-[.5rem] lg:px-0 lg:w-[1170px] mx-auto flex flex-col lg:flex-row gap-[2rem]">
         {/* left side div  */}
-        <div className="w-[50%]">
+        <div className="lg:w-[50%]">
           <p className="tracking-wide">
             {`Hi I’m Md. Arafat Hossan Lisan. I’m a Professional Front-end
             Developer. I have a single year of experience as a Front-end
@@ -76,7 +76,7 @@ const Handler = () => {
         </div>
 
         {/* rigth side div  */}
-        <div className="w-[50%]">
+        <div className="lg:w-[50%]">
           <form
             ref={form}
             onSubmit={sendEmail}
@@ -107,7 +107,7 @@ const Handler = () => {
             ></textarea>
             <div>
               <button
-                className="w-[40%] bg-[#111111] text-white py-[1rem] uppercase tracking-wide"
+                className="w-[100%] lg:w-[40%] bg-[#111111] text-white py-[1rem] uppercase tracking-wide"
                 type="submit"
               >
                 Send Message

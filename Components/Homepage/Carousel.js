@@ -1,10 +1,6 @@
-import Image from "next/image";
-import bannerOne from "../../Assets/Homepage/hero-1.jpg";
-import bannerTwo from "../../Assets/Homepage/hero-2.jpg";
 import { HiArrowNarrowRight } from "react-icons/hi";
 import { FaLongArrowAltLeft, FaLongArrowAltRight } from "react-icons/fa";
 import { useEffect, useState } from "react";
-import styles from "../../styles/CarouselComp.module.css";
 
 const Handler = () => {
   const [banner, setBanner] = useState("/hero-1.jpg");
@@ -17,8 +13,6 @@ const Handler = () => {
       const paraAnimate = document.getElementById("paraAnimate");
       const buttonAnimate = document.getElementById("buttonAnimate");
       const summerText = document.getElementById("summerText");
-
-      console.log(bannerImage);
 
       bannerImage.classList.remove("animate__animated", "animate__fadeIn");
       headingAnimate.classList.remove("animate__animated", "animate__fadeInUp");
@@ -44,7 +38,7 @@ const Handler = () => {
   return (
     <>
       <div
-        className={`w-[100vw] lg:w-content h-[100vh] lg:h-content relative mb-[30px] ${styles.mainContainer}`}
+        className={`w-[100vw] lg:w-[100vw] h-[100vh] lg:h-fit mb-[3rem] lg:mb-[6rem] relative`}
       >
         <div className="w-[100vw] h-[100vh] lg:h-fit lg:w-fit">
           <img

@@ -33,18 +33,18 @@ const Handler = ({ cart, setCart }) => {
         <Table.Head className="w-[100%] text-[14px] text-left font-[400] text-green-800 bg-[#F3F2EE]">
           <Table.HeadCell className="py-[1rem] text-[17px] tracking-wider pl-[1rem]">Product</Table.HeadCell>
           <Table.HeadCell className="py-[1rem] text-[17px] text-center tracking-wider">Quantity</Table.HeadCell>
-          <Table.HeadCell className="py-[1rem] text-[17px] tracking-wider pr-[.5rem]">
+          <Table.HeadCell className="py-[1rem] text-[17px] whitespace-nowrap tracking-wider pr-[.5rem]">
             Total Price
           </Table.HeadCell>
           <Table.HeadCell className="py-[1rem] text-[17px] tracking-wider pr-[.5rem]">
           </Table.HeadCell>
         </Table.Head>
-        <Table.Body className="divide-y">
+        <Table.Body className="w-[100%] divide-x-0 divide-y">
           {cart?.map((product) => (
-            <Table.Row key={product._id} className=" w-[100%]">
+            <Table.Row key={product._id} className="w-[100%]">
               <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white p-[1rem] pr-0">
                 <div className="flex items-center gap-[1rem]">
-                  <div>
+                  <div className="w-[80px]">
                     <img
                       src={product.img}
                       className="w-[80px] h-[80px] object-contain"

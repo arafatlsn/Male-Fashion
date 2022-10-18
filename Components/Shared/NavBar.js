@@ -16,11 +16,9 @@ import { useRouter } from "next/router";
 import useAthentication from "../../Authentication/useAuthentication";
 import Profile from "../Shared/Profile";
 import toast from "react-hot-toast";
-import {
-  Drawer
-} from "@mui/material";
+import { Drawer } from "@mui/material";
 import { IoIosArrowForward } from "react-icons/io";
-import ProfileModal from '../Shared/ProfileModal'
+import ProfileModal from "../Shared/ProfileModal";
 
 const Handler = () => {
   const { cart, isVisible, setIsShowAuthModal, createCheckoutSession } =
@@ -32,23 +30,21 @@ const Handler = () => {
 
   const [openDrawer, setOpenDrawer] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
-  const [scrollYValue, setScrollYValue] = useState(0)
+  const [scrollYValue, setScrollYValue] = useState(0);
 
   useEffect(() => {
-
-    window.addEventListener("scroll", () =>{
+    window.addEventListener("scroll", () => {
       const scrollValue = window?.scrollY;
 
       setScrollYValue(scrollValue);
-
-
-    })
-
-  }, [])
+    });
+  }, []);
 
   // getting user orders by transaction id
   const generateTrxId = async () => {
-    const res = await axios.get("http://localhost:3000/api/orderhistory");
+    const res = await axios.get(
+      "https://male-fashion-tau.vercel.app/api/orderhistory"
+    );
   };
 
   let total = 0;
@@ -231,12 +227,17 @@ const Handler = () => {
             </button>
           </div>
 
-          <div className={`flex items-center justify-between py-[1rem] pl-[.3rem] pr-[.5rem] transition-all ${scrollYValue > 300 && "bg-lightRed"}`}>
+          <div
+            className={`flex items-center justify-between py-[1rem] pl-[.3rem] pr-[.5rem] transition-all ${
+              scrollYValue > 300 && "bg-lightRed"
+            }`}
+          >
             <div>
               <Image src={logo} alt="h3llo world" />
             </div>
 
             <div
+              onClick={() => route.push("/cartpage")}
               className={`text-lightBlack text-[1.5rem] flex items-center gap-[.3rem] relative ${styles.cartIcon}`}
             >
               <span className="order-2">
@@ -260,10 +261,11 @@ const Handler = () => {
             open={openDrawer}
             onClose={() => setOpenDrawer(false)}
           >
-            <div className="bg-lightRed flex justify-center items-center w-[60vw] h-[100vh] z-[50]">
+            <div className="bg-lightRed flex justify-center items-center w-[70vw] h-[100vh] z-[50]">
               <ul className="flex flex-col gap-[45px] w-fit">
                 <Link href={"/"}>
                   <li
+                    onClick={() => setOpenDrawer(false)}
                     className={`text-[18px] text-lightBlack cursor-pointer  ${styles.navList}`}
                   >
                     Home <p className={styles.liBorder}></p>
@@ -271,7 +273,10 @@ const Handler = () => {
                 </Link>
                 <Link href={`/orderhistory?email=${userLoad?.email}`}>
                   <li
-                    onClick={navigateToHistory}
+                    onClick={() => {
+                      navigateToHistory();
+                      setOpenDrawer(false);
+                    }}
                     className={`text-[18px] text-lightBlack cursor-pointer  ${styles.navList}`}
                   >
                     History <p className={styles.liBorder}></p>
@@ -289,14 +294,20 @@ const Handler = () => {
                   </li>
                 ) : (
                   <li
-                    onClick={() => setShowLoginModal(true)}
+                    onClick={() => {
+                      setShowLoginModal(true);
+                      setOpenDrawer(false);
+                    }}
                     className={`text-[18px] text-lightBlack cursor-pointer  ${styles.navList} ${styles.profileText}`}
                   >
                     Profile
                   </li>
                 )}
                 <li
-                  onClick={() => route.push("contactme")}
+                  onClick={() => {
+                    route.push("contactme");
+                    setOpenDrawer(false);
+                  }}
                   className={`text-[18px] text-lightBlack cursor-pointer  ${styles.navList}`}
                 >
                   Contact <p className={styles.liBorder}></p>
@@ -305,15 +316,9 @@ const Handler = () => {
             </div>
           </Drawer>
         </div>
-
-        
-
       </div>
 
-                  {
-                    showLoginModal && <ProfileModal setShowLoginModal={setShowLoginModal} />
-                  }
-
+      {showLoginModal && <ProfileModal setShowLoginModal={setShowLoginModal} />}
     </>
   );
 };
