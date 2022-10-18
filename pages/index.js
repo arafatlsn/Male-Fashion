@@ -25,7 +25,8 @@ export default function Home({ data }) {
       {/* main  */}
       <main>
         <Carousel />
-        <Banner />
+        {/* <Banner /> */}
+        
         <Cards products={products} />
         <DiscountOffer />
         <LatestNews />

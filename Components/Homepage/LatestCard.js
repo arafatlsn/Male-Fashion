@@ -4,7 +4,7 @@ import styles from "../../styles/Banner.module.css";
 
 const Handler = ({ el }) => {
   return (
-    <div className={`w-[30%] relative mb-[5rem] ${styles.card}`}>
+    <div className={`lg:w-[30%] relative mb-[5rem] ${styles.card}`}>
       <div>
         <Image src={el.img} alt="h3llo world" />
       </div>

@@ -62,7 +62,7 @@ const Handler = ({ uploadImgUrl, setTryingUser }) => {
     <div>
       <form
         onSubmit={handleSubmit}
-        className="flex flex-col gap-[1.5rem] w-[60%] h-[100%] mx-auto"
+        className="flex flex-col gap-[1.5rem] w-[80%] lg:w-[60%] h-[100%] mx-auto"
       >
         {/* name field  */}
         <div className="flex items-center relative">

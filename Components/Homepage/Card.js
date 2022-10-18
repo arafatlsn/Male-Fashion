@@ -57,10 +57,10 @@ const Handler = ({ product }) => {
 
   return (
     <div className={styles.card}>
-      <div className="w-[262.5px] h-[260px] overflow-hidden relative">
+      <div className="w-[262.5px] h-[260px] lg:mx-0 overflow-hidden relative">
         <img
           src={img}
-          className="w-[262.5px] h-[260px] object-contain"
+          className="w-[100%] lg:w-[262.5px] h-[260px] object-contain"
           alt="h3llo world"
         />
         <div className="absolute z-[100] top-[1rem]">{category}</div>

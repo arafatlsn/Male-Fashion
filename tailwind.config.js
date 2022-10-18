@@ -10,6 +10,7 @@ module.exports = {
       lightRed: "#e53637",
     },
     screens: {
+      sm: "0px - 480px",
       lg: "1170px",
     },
   },

@@ -26,7 +26,7 @@ const Handler = () => {
   ];
 
   return (
-    <div className="w-[1170px] mx-auto pt-[5rem]">
+    <div className="w-[100vw] lg:w-[1170px] mx-auto pt-[5rem]">
       <div>
         <p className="text-center text-[15px] text-red-500 font-bold tracking-wide uppercase">
           Latest News
@@ -35,7 +35,7 @@ const Handler = () => {
           Fashion New Trends
         </h1>
       </div>
-      <div className="flex justify-between">
+      <div className="flex flex-col gap-y-[8rem] lg:flex-row justify-between">
         {data?.map((el) => (
           <LatestCard key={el.id} el={el} />
         ))}

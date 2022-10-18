@@ -17,10 +17,7 @@ const Handler = () => {
   const [tryingUser, setTryingUser] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
 
-  const {
-    signInWithGoogle,
-    userLoad,
-  } = useAuthentication();
+  const { signInWithGoogle, userLoad } = useAuthentication();
 
   useEffect(() => {
     // checking user can success or not
@@ -50,8 +47,8 @@ const Handler = () => {
     }
   };
 
-  if(userLoad?.email){
-    setIsShowAuthModal(false)
+  if (userLoad?.email) {
+    setIsShowAuthModal(false);
   }
 
   return (
@@ -60,11 +57,11 @@ const Handler = () => {
         className="w-[100%] h-[100%] z-[1000] fixed top-0 flex justify-center items-center"
         style={{ background: "rgba(0, 0, 0, .7)" }}
       >
-        <div className="w-[450px] h-[550px] bg-[#F4F2EE] rounded-[1rem] relative">
+        <div className="w-[90vw] lg:w-[450px] h-[550px] bg-[#F4F2EE] rounded-[1rem] relative">
           {/* image section  */}
           {isRegisterPage && (
-            <div className="absolute top-[-10%]">
-              <div className="flex justify-center w-[450px]">
+            <div className="absolute top-[-10%] inset-x-0">
+              <div className="flex justify-center lg:w-[450px]">
                 <div className="border border-gray-300 bg-white rounded-[50%] relative">
                   {!uploadImgUrl ? (
                     <img
@@ -116,10 +113,9 @@ const Handler = () => {
           </div>
           <div>
             {isRegisterPage ? (
-              <Form error={error} uploadImgUrl={uploadImgUrl} setTryingUser={setTryingUser} />
+              <Form uploadImgUrl={uploadImgUrl} setTryingUser={setTryingUser} />
             ) : (
-              <LoginForm setTryingUser={setTryingUser}
-              />
+              <LoginForm setTryingUser={setTryingUser} />
             )}
           </div>
           {successMessage && (
@@ -130,7 +126,7 @@ const Handler = () => {
             </div>
           )}
           {!isRegisterPage && (
-            <div className="w-[60%] mx-auto mt-[2rem] flex justify-center">
+            <div className="lg:w-[60%] mx-auto mt-[2rem] flex justify-center">
               <button
                 onClick={() => signInWithGoogle()}
                 className="bg-blue-600  flex items-center shadow-md shadow-gray-400 text-gray-100"

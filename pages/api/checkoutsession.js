@@ -19,7 +19,7 @@ const Handler = async (req, res) => {
 
     const obj = {
       titles: JSON.stringify(cart?.map((product) => product.title)),
-      descriptions: JSON.stringify(cart?.map((product) => product.description)),
+      descriptions: JSON.stringify(cart?.map((product) => product.description.slice(0, 50))),
       images: JSON.stringify(cart?.map((product) => product.img)),
       prices: JSON.stringify(cart?.map((product) => product.price)),
       quantities: JSON.stringify(cart?.map((product) => product.cartQuantity)),

@@ -15,3 +15,13 @@
 .card:hover .cardText{
   transform: translateX(0);
 }
+
+@media screen and (max-width: 480px) {
+  .cardHiddenIcon{
+    transform: translateX(0);
+  }
+
+  .cardText{
+    transform: translateY(0);
+  }
+}

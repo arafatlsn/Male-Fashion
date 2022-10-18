@@ -8,15 +8,19 @@ import { HiOutlineEmojiSad } from "react-icons/hi";
 import { RiSecurePaymentFill } from "react-icons/ri";
 import styles from "../../styles/NavBar.module.css";
 import Cart from "../Homepage/Cart";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { ProductsContext } from "../../pages/_app";
 import Link from "next/link";
 import axios from "axios";
 import { useRouter } from "next/router";
 import useAthentication from "../../Authentication/useAuthentication";
-import DrawerComp from "../Shared/DrawerComp";
 import Profile from "../Shared/Profile";
 import toast from "react-hot-toast";
+import {
+  Drawer
+} from "@mui/material";
+import { IoIosArrowForward } from "react-icons/io";
+import ProfileModal from '../Shared/ProfileModal'
 
 const Handler = () => {
   const { cart, isVisible, setIsShowAuthModal, createCheckoutSession } =
@@ -25,6 +29,22 @@ const Handler = () => {
   const { userLoad } = useAthentication();
 
   const route = useRouter();
+
+  const [openDrawer, setOpenDrawer] = useState(false);
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  const [scrollYValue, setScrollYValue] = useState(0)
+
+  useEffect(() => {
+
+    window.addEventListener("scroll", () =>{
+      const scrollValue = window?.scrollY;
+
+      setScrollYValue(scrollValue);
+
+
+    })
+
+  }, [])
 
   // getting user orders by transaction id
   const generateTrxId = async () => {
@@ -37,7 +57,7 @@ const Handler = () => {
       total = cart[i].price * cart[i].cartQuantity + total;
     }
   }
-  
+
   const navigateToHistory = () => {
     if (userLoad?.email) {
       generateTrxId();
@@ -46,12 +66,11 @@ const Handler = () => {
       toast.error("Please login");
     }
   };
-  
-  const [testDrawer, setTestDrawer] = useState(false)
+
+  const [testDrawer, setTestDrawer] = useState(false);
   if (route.pathname === "/success") {
     return;
   }
-
 
   return (
     /*
@@ -59,140 +78,243 @@ const Handler = () => {
     Navbar for large device
 
     */
-
-    <div className="sticky top-0 z-[500] bg-[white]">
-      <div className="lg:w-[1170px] py-[30px] mx-auto flex justify-between items-center relative">
-        <div>
-          <Image src={logo} alt="h3llo world" />
-        </div>
-        <div>
-          <ul className="flex gap-[45px] w-fit">
-            <Link href={"/"}>
+    <>
+      <div className="sticky top-0 z-[500] bg-[white] hidden lg:block">
+        <div className="lg:w-[1170px] py-[30px] mx-auto flex justify-between items-center relative">
+          <div>
+            <Image src={logo} alt="h3llo world" />
+          </div>
+          <div>
+            <ul className="flex gap-[45px] w-fit">
+              <Link href={"/"}>
+                <li
+                  className={`text-[18px] text-lightBlack cursor-pointer  ${styles.navList}`}
+                >
+                  Home <p className={styles.liBorder}></p>
+                </li>
+              </Link>
+              <Link href={`/orderhistory?email=${userLoad?.email}`}>
+                <li
+                  onClick={navigateToHistory}
+                  className={`text-[18px] text-lightBlack cursor-pointer  ${styles.navList}`}
+                >
+                  History <p className={styles.liBorder}></p>
+                </li>
+              </Link>
+              {!userLoad?.email ? (
+                <li
+                  onClick={() => setIsShowAuthModal(true)}
+                  className={`text-[18px] text-lightBlack cursor-pointer  ${styles.navList}`}
+                >
+                  Login <p className={styles.liBorder}></p>
+                </li>
+              ) : (
+                <li
+                  className={`text-[18px] text-lightBlack cursor-pointer  ${styles.navList} ${styles.profileText}`}
+                >
+                  Profile <p className={styles.liBorder}></p>
+                  <div className={`relative ${styles.profileDiv}`}>
+                    <div
+                      className={`w-[40px] h-[40px] z-[-100] bg-[#F0EFF5] absolute rotate-45 mt-[.5rem] top-0`}
+                    ></div>
+                    <Profile />
+                  </div>
+                </li>
+              )}
               <li
+                onClick={() => route.push("contactme")}
                 className={`text-[18px] text-lightBlack cursor-pointer  ${styles.navList}`}
               >
-                Home <p className={styles.liBorder}></p>
+                Contact <p className={styles.liBorder}></p>
               </li>
-            </Link>
-            <Link href={`/orderhistory?email=${userLoad?.email}`}>
-              <li
-                onClick={navigateToHistory}
-                className={`text-[18px] text-lightBlack cursor-pointer  ${styles.navList}`}
-              >
-                History <p className={styles.liBorder}></p>
+            </ul>
+          </div>
+          <div>
+            <ul className="flex gap-[25px] w-fit">
+              <li className="text-lightBlack text-[1.5rem]">
+                <TbSearch />
               </li>
-            </Link>
-            {!userLoad?.email ? (
-              <li
-                onClick={() => setIsShowAuthModal(true)}
-                className={`text-[18px] text-lightBlack cursor-pointer  ${styles.navList}`}
-              >
-                Login <p className={styles.liBorder}></p>
+              <li className="text-lightBlack text-[1.5rem]">
+                <FiHeart />
               </li>
-            ) : (
               <li
-                className={`text-[18px] text-lightBlack cursor-pointer  ${styles.navList} ${styles.profileText}`}
+                className={`text-lightBlack text-[1.5rem] flex items-center gap-[.3rem] relative ${styles.cartIcon}`}
               >
-                Profile <p className={styles.liBorder}></p>
-                <div className={`relative ${styles.profileDiv}`}>
+                <span>
+                  <MdOutlineShoppingCart />
+                  <sup className="absolute top-[-48%] z-[-100] right-[-10%] text-[14px] bg-yellow-200 w-[1.1rem] h-[1.1rem] rounded-[50%] flex justify-center items-center font-[500]">
+                    <span>{cart?.length}</span>
+                  </sup>
+                </span>
+                <span className="text-[15px] font-semibold flex items-center gap-[.2rem] absolute left-[2rem]">
+                  <TbCurrencyTaka className="text-[1.4rem] mr-[-.3rem]" />
+                  {total}
+                </span>
+                {/* cart ui  */}
+                <div className="flex justify-end">
                   <div
-                    className={`w-[40px] h-[40px] z-[-100] bg-[#F0EFF5] absolute rotate-45 mt-[.5rem] top-0`}
-                  ></div>
-                  <Profile />
+                    className={`w-[350px] bg-[#F0EFF5] absolute mt-[2.7rem] top-0 right-[-3.75rem] z-[100] ${
+                      isVisible ? "visible opacity-100" : "invisible opacity-0"
+                    } ${styles.cartUi} ${
+                      cart.length ? "h-[400]" : " h-[150px]"
+                    }`}
+                  >
+                    <div className="absolute right-[17.5%] w-[30px] h-[30px] bg-[#F0EFF5] rotate-45 mt-[-.6rem]"></div>
+                    {cart.length ? (
+                      <div className="h-[400px]">
+                        <div className="h-[70%] overflow-y-scroll">
+                          {cart?.map((product) => (
+                            <Cart key={product?._id} product={product} />
+                          ))}
+                        </div>
+                        <hr />
+                        <div>
+                          <p className="text-[18px] font-semibold text-center flex justify-center items-center">
+                            SubTotal:{" "}
+                            <span className="text-[24px] font-semibold flex items-center gap-[.1rem]">
+                              <TbCurrencyTaka className="text-[26px] mr-[-.3rem]" />
+                              {total}
+                            </span>
+                          </p>
+                        </div>
+                        <div className="flex justify-center mt-[1rem]">
+                          <div className="flex gap-[.7rem]">
+                            <Link href={"/cartpage"}>
+                              <button className="text-[14px] px-[2rem] py-[.3rem] border bg-green-200 hover:bg-green-300 text-green-800 rounded-[4px] tracking-wider flex items-center gap-[.3rem] transition-all">
+                                <MdOutlineShoppingCart className="text-[1.2rem]" />{" "}
+                                View Cart
+                              </button>
+                            </Link>
+
+                            <button
+                              onClick={createCheckoutSession}
+                              className="text-[14px] px-[2rem] py-[.3rem] border bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-[4px] tracking-wider  flex items-center gap-[.3rem] transition-all"
+                            >
+                              <RiSecurePaymentFill className="text-[1.2rem]" />{" "}
+                              Checkout
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="h-[150px] flex flex-col justify-center items-center">
+                        {" "}
+                        <span>
+                          <HiOutlineEmojiSad className="text-[2rem]" />
+                        </span>{" "}
+                        <p className="text-[15px] text-lightBlack">
+                          Your Cart is Empty.
+                        </p>{" "}
+                      </div>
+                    )}
+                  </div>
                 </div>
               </li>
-            )}
-            <li
-              onClick={() => route.push("contactme")}
-              className={`text-[18px] text-lightBlack cursor-pointer  ${styles.navList}`}
-            >
-              Contact <p className={styles.liBorder}></p>
-            </li>
-          </ul>
+            </ul>
+          </div>
         </div>
+      </div>
+
+      {/* 
+      navbar for small device
+        */}
+      <div className="w-[100vw] fixed top-0 z-[200] lg:hidden">
+        {/* heading logo part  */}
         <div>
-          <ul className="flex gap-[25px] w-fit">
-            <li className="text-lightBlack text-[1.5rem]">
-              <TbSearch />
-            </li>
-            <li className="text-lightBlack text-[1.5rem]">
-              <FiHeart />
-            </li>
-            <li
+          {/* drawer open button  */}
+          <div className="absolute top-[105%] left-0">
+            <button
+              onClick={() => setOpenDrawer(true)}
+              className="bg-lightRed p-[.3rem]"
+            >
+              <IoIosArrowForward className="text-[1.5rem]" />
+            </button>
+          </div>
+
+          <div className={`flex items-center justify-between py-[1rem] pl-[.3rem] pr-[.5rem] transition-all ${scrollYValue > 300 && "bg-lightRed"}`}>
+            <div>
+              <Image src={logo} alt="h3llo world" />
+            </div>
+
+            <div
               className={`text-lightBlack text-[1.5rem] flex items-center gap-[.3rem] relative ${styles.cartIcon}`}
             >
-              <span>
+              <span className="order-2">
                 <MdOutlineShoppingCart />
-                <sup className="absolute top-[-48%] z-[-100] right-[-10%] text-[14px] bg-yellow-200 w-[1.1rem] h-[1.1rem] rounded-[50%] flex justify-center items-center font-[500]">
+                <sup className="absolute top-[-48%] z-0 right-[-9%] text-[14px] bg-yellow-200 w-[1.1rem] h-[1.1rem] rounded-[50%] flex justify-center items-center font-[500]">
                   <span>{cart?.length}</span>
                 </sup>
               </span>
-              <span className="text-[15px] font-semibold flex items-center gap-[.2rem] absolute left-[2rem]">
+              <span className="text-[15px] font-semibold flex items-center gap-[.2rem] order-1">
                 <TbCurrencyTaka className="text-[1.4rem] mr-[-.3rem]" />
                 {total}
               </span>
-              {/* cart ui  */}
-              <div className="flex justify-end">
-                <div
-                  className={`w-[350px] bg-[#F0EFF5] absolute mt-[2.7rem] top-0 right-[-3.75rem] z-[100] ${
-                    isVisible ? "visible opacity-100" : "invisible opacity-0"
-                  } ${styles.cartUi} ${cart.length ? "h-[400]" : " h-[150px]"}`}
-                >
-                  <div className="absolute right-[17.5%] w-[30px] h-[30px] bg-[#F0EFF5] rotate-45 mt-[-.6rem]"></div>
-                  {cart.length ? (
-                    <div className="h-[400px]">
-                      <div className="h-[70%] overflow-y-scroll">
-                        {cart?.map((product) => (
-                          <Cart key={product?._id} product={product} />
-                        ))}
-                      </div>
-                      <hr />
-                      <div>
-                        <p className="text-[18px] font-semibold text-center flex justify-center items-center">
-                          SubTotal:{" "}
-                          <span className="text-[24px] font-semibold flex items-center gap-[.1rem]">
-                            <TbCurrencyTaka className="text-[26px] mr-[-.3rem]" />
-                            {total}
-                          </span>
-                        </p>
-                      </div>
-                      <div className="flex justify-center mt-[1rem]">
-                        <div className="flex gap-[.7rem]">
-                          <Link href={"/cartpage"}>
-                            <button className="text-[14px] px-[2rem] py-[.3rem] border bg-green-200 hover:bg-green-300 text-green-800 rounded-[4px] tracking-wider flex items-center gap-[.3rem] transition-all">
-                              <MdOutlineShoppingCart className="text-[1.2rem]" />{" "}
-                              View Cart
-                            </button>
-                          </Link>
-
-                          <button
-                            onClick={createCheckoutSession}
-                            className="text-[14px] px-[2rem] py-[.3rem] border bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-[4px] tracking-wider  flex items-center gap-[.3rem] transition-all"
-                          >
-                            <RiSecurePaymentFill className="text-[1.2rem]" />{" "}
-                            Checkout
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  ) : (
-                    <div className="h-[150px] flex flex-col justify-center items-center">
-                      {" "}
-                      <span>
-                        <HiOutlineEmojiSad className="text-[2rem]" />
-                      </span>{" "}
-                      <p className="text-[15px] text-lightBlack">
-                        Your Cart is Empty.
-                      </p>{" "}
-                    </div>
-                  )}
-                </div>
-              </div>
-            </li>
-          </ul>
+            </div>
+          </div>
         </div>
+
+        {/* drawer section  */}
+        <div>
+          <Drawer
+            anchor="left"
+            open={openDrawer}
+            onClose={() => setOpenDrawer(false)}
+          >
+            <div className="bg-lightRed flex justify-center items-center w-[60vw] h-[100vh] z-[50]">
+              <ul className="flex flex-col gap-[45px] w-fit">
+                <Link href={"/"}>
+                  <li
+                    className={`text-[18px] text-lightBlack cursor-pointer  ${styles.navList}`}
+                  >
+                    Home <p className={styles.liBorder}></p>
+                  </li>
+                </Link>
+                <Link href={`/orderhistory?email=${userLoad?.email}`}>
+                  <li
+                    onClick={navigateToHistory}
+                    className={`text-[18px] text-lightBlack cursor-pointer  ${styles.navList}`}
+                  >
+                    History <p className={styles.liBorder}></p>
+                  </li>
+                </Link>
+                {!userLoad?.email ? (
+                  <li
+                    onClick={() => {
+                      setIsShowAuthModal(true);
+                      setOpenDrawer(false);
+                    }}
+                    className={`text-[18px] text-lightBlack cursor-pointer  ${styles.navList}`}
+                  >
+                    Login <p className={styles.liBorder}></p>
+                  </li>
+                ) : (
+                  <li
+                    onClick={() => setShowLoginModal(true)}
+                    className={`text-[18px] text-lightBlack cursor-pointer  ${styles.navList} ${styles.profileText}`}
+                  >
+                    Profile
+                  </li>
+                )}
+                <li
+                  onClick={() => route.push("contactme")}
+                  className={`text-[18px] text-lightBlack cursor-pointer  ${styles.navList}`}
+                >
+                  Contact <p className={styles.liBorder}></p>
+                </li>
+              </ul>
+            </div>
+          </Drawer>
+        </div>
+
+        
+
       </div>
-    </div>
+
+                  {
+                    showLoginModal && <ProfileModal setShowLoginModal={setShowLoginModal} />
+                  }
+
+    </>
   );
 };
 

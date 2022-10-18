@@ -4,16 +4,14 @@ import logo from "../../Assets/Homepage/footer-logo.png";
 import payment from "../../Assets/Homepage/payment.png";
 
 const Handler = () => {
-
   const route = useRouter();
-  if(route?.pathname === "/success"){
-    return <></>
+  if (route?.pathname === "/success") {
+    return <></>;
   }
-
 
   return (
     <div className="bg-[#111111]">
-      <div className="w-[1170px] mx-auto flex justify-between mt-[7rem] text-white py-[5rem]">
+      <div className="px-[1rem] lg:px-0 lg:w-[1170px] mx-auto flex flex-wrap justify-between gap-y-[2rem] mt-[7rem] text-white py-[5rem]">
         {/* first div  */}
         <div className="w-[262px] flex flex-col gap-[2rem]">
           <div>
@@ -29,7 +27,7 @@ const Handler = () => {
         </div>
 
         {/* second div  */}
-        <div className="w-[46%] flex justify-around">
+        <div className="w-[100%] lg:w-[46%] flex gap-[2rem] lg:gap-0 lg:justify-around">
           <div>
             <ul>
               <li className="font-bold tracking-[.2rem] mb-[1rem] uppercase">
@@ -59,7 +57,7 @@ const Handler = () => {
         </div>
 
         {/* third div */}
-        <div className=" w-[23%]">
+        <div className="w-[100%] lg:w-[23%]">
           <ul>
             <li className="font-bold tracking-[.2rem] mb-[1rem] uppercase">
               NEWLETTER

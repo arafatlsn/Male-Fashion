@@ -54,7 +54,7 @@ const Handler = ({ setTryingUser }) => {
     <div>
       <form
         onSubmit={handleLogin}
-        className="flex flex-col gap-[1.5rem] w-[60%] h-[100%] mx-auto"
+        className="flex flex-col gap-[1.5rem] w-[80%] lg:w-[60%] h-[100%] mx-auto"
       >
         {/* email field  */}
         <div className="flex items-center relative">
