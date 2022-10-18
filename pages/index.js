@@ -22,7 +22,7 @@ export default function Home({ data }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       {/* main  */}
-      <main>
+      <main className="overflow-hidden">
         <Carousel />
         <Banner />
         <Cards products={products} />
