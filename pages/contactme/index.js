@@ -3,6 +3,7 @@ import { FaFacebookSquare, FaLinkedin, FaGithubSquare } from "react-icons/fa";
 import emailjs from "@emailjs/browser";
 import { useRef } from "react";
 import toast from "react-hot-toast";
+import { RiMailSendLine } from "react-icons/ri";
 
 const Handler = () => {
   const form = useRef();
@@ -10,18 +11,19 @@ const Handler = () => {
   const sendEmail = (e) => {
     e.preventDefault();
 
-    emailjs.sendForm(
-      process.env.NEXT_PUBLIC_SERVICE_KEY,
-      process.env.NEXT_PUBLIC_TEMPLATE_KEY,
-      e.target,
-      process.env.NEXT_PUBLIC_EMAILJS_KEY
-    )
-    .then(result => {
-      toast.success("Successfully You Send a Email.")
-    })
-    .catch(err => {
-      toast.error(err.message)
-    })
+    emailjs
+      .sendForm(
+        process.env.NEXT_PUBLIC_SERVICE_KEY,
+        process.env.NEXT_PUBLIC_TEMPLATE_KEY,
+        e.target,
+        process.env.NEXT_PUBLIC_EMAILJS_KEY
+      )
+      .then((result) => {
+        toast.success("Successfully You Send a Email.");
+      })
+      .catch((err) => {
+        toast.error(err.message);
+      });
   };
 
   return (
@@ -107,10 +109,10 @@ const Handler = () => {
             ></textarea>
             <div>
               <button
-                className="w-[100%] lg:w-[40%] bg-[#111111] text-white py-[1rem] uppercase tracking-wide"
+                className="flex justify-center items-center gap-[.5rem] w-[100%] lg:w-[40%] bg-[#111111] text-white py-[1rem] uppercase tracking-wide"
                 type="submit"
               >
-                Send Message
+                Send Message <RiMailSendLine className="text-[1.3rem]" style={{fill: "white"}} />
               </button>
             </div>
           </form>
