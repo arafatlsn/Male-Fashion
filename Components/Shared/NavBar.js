@@ -17,8 +17,11 @@ import useAthentication from "../../Authentication/useAuthentication";
 import Profile from "../Shared/Profile";
 import toast from "react-hot-toast";
 import { Drawer } from "@mui/material";
-import { IoIosArrowForward } from "react-icons/io";
 import ProfileModal from "../Shared/ProfileModal";
+import { RiMenuUnfoldLine } from "react-icons/ri";
+import { BiHome, BiHistory, BiUser, BiLogIn, BiPhone } from "react-icons/bi";
+import { useRecoilState } from "recoil";
+import { ActiveNavState, profileModal } from "../../AtomStates/HomePageStates";
 
 const Handler = () => {
   const { cart, isVisible, setIsShowAuthModal, createCheckoutSession } =
@@ -31,6 +34,8 @@ const Handler = () => {
   const [openDrawer, setOpenDrawer] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [scrollYValue, setScrollYValue] = useState(0);
+  const [pathName, setPathName] = useRecoilState(ActiveNavState);
+  const [userModal, setUserModal] = useRecoilState(profileModal)
 
   useEffect(() => {
     window.addEventListener("scroll", () => {
@@ -42,9 +47,7 @@ const Handler = () => {
 
   // getting user orders by transaction id
   const generateTrxId = async () => {
-    const res = await axios.get(
-      "https://male-fashion-tau.vercel.app/api/orderhistory"
-    );
+    const res = await axios.get(`${process.env.BACKEND_URL}/api/orderhistory`);
   };
 
   let total = 0;
@@ -217,23 +220,19 @@ const Handler = () => {
       <div className="w-[100vw] fixed top-0 z-[200] lg:hidden">
         {/* heading logo part  */}
         <div>
-          {/* drawer open button  */}
-          <div className="absolute top-[105%] left-0">
-            <button
-              onClick={() => setOpenDrawer(true)}
-              className="bg-lightRed p-[.3rem]"
-            >
-              <IoIosArrowForward className="text-[1.5rem]" />
-            </button>
-          </div>
-
           <div
             className={`flex items-center justify-between py-[1rem] pl-[.3rem] pr-[.5rem] transition-all ${
               scrollYValue > 300 && "bg-lightRed"
             }`}
           >
-            <div>
-              <Image src={logo} alt="h3llo world" />
+            <div className="flex items-center gap-[10px] ">
+              <RiMenuUnfoldLine
+                onClick={() => setOpenDrawer(true)}
+                className="text-[1.5rem] cursor-pointer"
+              />
+              <div className="w-[130px] h-[20px] relative">
+                <Image layout="fill" src={logo} alt="h3llo world" />
+              </div>
             </div>
 
             <div
@@ -261,25 +260,45 @@ const Handler = () => {
             open={openDrawer}
             onClose={() => setOpenDrawer(false)}
           >
-            <div className="bg-lightRed flex justify-center items-center w-[70vw] h-[100vh] z-[50]">
+            <div className="bg-[#FFFFF4] flex flex-col w-[200px] h-[100vh] z-[50] px-[1rem]">
+              <h3 className="text-[1.3rem] text-red-500 font-semibold pb-[1rem] pt-[3rem]" >Menu</h3>
               <ul className="flex flex-col gap-[45px] w-fit">
+                {/* /// Home /// */}
                 <Link href={"/"}>
                   <li
-                    onClick={() => setOpenDrawer(false)}
-                    className={`text-[18px] text-lightBlack cursor-pointer  ${styles.navList}`}
+                    onClick={() => {
+                      setOpenDrawer(false);
+                      setPathName("/");
+                    }}
+                    className={`flex items-center gap-[.5rem] cursor-pointer transition-all ${
+                      pathName === "/"
+                        ? "text-red-500 border-l-red-500 border-l-[2px] pl-[10px]"
+                        : "text-[#888888]"
+                    }`}
                   >
-                    Home <p className={styles.liBorder}></p>
+                    <span className="text-[20px]">
+                      <BiHome className="translate-y-[-.1rem]" />
+                    </span>
+                    <span>Home</span>
                   </li>
                 </Link>
-                <Link href={`/orderhistory?email=${userLoad?.email}`}>
+                {/* /// history /// */}
+                <Link href={"/orderhistory"}>
                   <li
                     onClick={() => {
-                      navigateToHistory();
                       setOpenDrawer(false);
+                      setPathName("orderhistory");
                     }}
-                    className={`text-[18px] text-lightBlack cursor-pointer  ${styles.navList}`}
+                    className={`flex items-center gap-[.5rem] cursor-pointer transition-all ${
+                      pathName === "orderhistory"
+                        ? "text-red-500 border-l-red-500 border-l-[2px] pl-[10px]"
+                        : "text-[#888888]"
+                    }`}
                   >
-                    History <p className={styles.liBorder}></p>
+                    <span className="text-[20px]">
+                      <BiHistory className="translate-y-[-.1rem]" />
+                    </span>
+                    <span>History</span>
                   </li>
                 </Link>
                 {!userLoad?.email ? (
@@ -287,30 +306,55 @@ const Handler = () => {
                     onClick={() => {
                       setIsShowAuthModal(true);
                       setOpenDrawer(false);
+                      setPathName("authentication");
                     }}
-                    className={`text-[18px] text-lightBlack cursor-pointer  ${styles.navList}`}
+                    className={`flex items-center gap-[.5rem] cursor-pointer transition-all ${
+                      pathName === "authentication"
+                        ? "text-red-500 border-l-red-500 border-l-[2px] pl-[10px]"
+                        : "text-[#888888]"
+                    }`}
                   >
-                    Login <p className={styles.liBorder}></p>
+                    <span className="text-[20px]">
+                      <BiLogIn className="translate-y-[-.1rem]" />
+                    </span>
+                    <span>Login</span> <p className={styles.liBorder}></p>
                   </li>
                 ) : (
                   <li
                     onClick={() => {
                       setShowLoginModal(true);
                       setOpenDrawer(false);
+                      setUserModal(true)
+                      setPathName("authentication");
                     }}
-                    className={`text-[18px] text-lightBlack cursor-pointer  ${styles.navList} ${styles.profileText}`}
+                    className={`flex items-center gap-[.5rem] cursor-pointer transition-all ${
+                      pathName === "authentication"
+                        ? "text-red-500 border-l-red-500 border-l-[2px] pl-[10px]"
+                        : "text-[#888888]"
+                    }`}
                   >
-                    Profile
+                    <span className="text-[20px]">
+                      <BiUser className="translate-y-[-.1rem]" />
+                    </span>
+                    <span>Profile</span>
                   </li>
                 )}
                 <li
                   onClick={() => {
                     route.push("contactme");
                     setOpenDrawer(false);
+                    setPathName("contact")
                   }}
-                  className={`text-[18px] text-lightBlack cursor-pointer  ${styles.navList}`}
+                  className={`flex items-center gap-[.5rem] cursor-pointer transition-all ${
+                    pathName === "contact"
+                      ? "text-red-500 border-l-red-500 border-l-[2px] pl-[10px]"
+                      : "text-[#888888]"
+                  }`}
                 >
-                  Contact <p className={styles.liBorder}></p>
+                  <span className="text-[20px]">
+                    <BiPhone />
+                  </span>
+                  <span>Contact</span> <p className={styles.liBorder}></p>
                 </li>
               </ul>
             </div>

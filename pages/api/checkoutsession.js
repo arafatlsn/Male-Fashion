@@ -1,6 +1,7 @@
 const stripe = require("stripe")(process.env.NEXT_PUBLIC_SECRET_KEY);
 
 const Handler = async (req, res) => {
+  console.log("hello world");
   if (req.method === "POST") {
     const { cart } = req.body;
 
@@ -33,7 +34,7 @@ const Handler = async (req, res) => {
         line_items: transformedCart,
         mode: "payment",
         success_url: `${req?.headers?.origin}/success?sessionId={CHECKOUT_SESSION_ID}`,
-        cancel_url: "https://male-fashion-tau.vercel.app/failed",
+        cancel_url: `${process.env.BACKEND_URL}/failed`,
         metadata: obj,
         // total_details : { amount_discount: 0, amount_shipping: 0, amount_tax: 0 }
       });

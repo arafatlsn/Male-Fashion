@@ -9,6 +9,7 @@ import { loadStripe } from "@stripe/stripe-js";
 import useAthentication from "../Authentication/useAuthentication";
 import axios from "axios";
 import "animate.css";
+import { RecoilRoot } from "recoil";
 
 export const ProductsContext = createContext();
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY);
@@ -44,7 +45,7 @@ function MyApp({ Component, pageProps }) {
     }
 
     const checkoutSession = await axios.post(
-      "https://male-fashion-tau.vercel.app/api/checkoutsession",
+      "http://localhost:3000/api/checkoutsession",
       { cart, email: userLoad?.email }
     );
 
@@ -62,26 +63,27 @@ function MyApp({ Component, pageProps }) {
   } else {
     return (
       <>
-        <ProductsContext.Provider
-          value={{
-            products,
-            setAllProducts,
-            cart,
-            setCart,
-            isVisible,
-            setIsVisible,
-            setIsShowAuthModal,
-            createCheckoutSession,
-            setIsLoading,
-          }}
-        >
-          <NavBar />
-          <Component {...pageProps} />
+        <RecoilRoot>
+          <ProductsContext.Provider
+            value={{
+              products,
+              setAllProducts,
+              cart,
+              setCart,
+              isVisible,
+              setIsVisible,
+              setIsShowAuthModal,
+              createCheckoutSession,
+              setIsLoading,
+            }}
+          >
+            <NavBar />
+            <Component {...pageProps} />
 
-          {isShowAuthModal && <Register />}
-          {isLoading && <LoaderComp />}
-        </ProductsContext.Provider>
-        {/* footer  */}
+            {isShowAuthModal && <Register />}
+            {isLoading && <LoaderComp />}
+          </ProductsContext.Provider>
+        </RecoilRoot>
         <footer>
           <Footer />
         </footer>

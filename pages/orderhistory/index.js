@@ -38,7 +38,7 @@ export async function getServerSideProps(context) {
   const {
     data: { data },
   } = await axios.get(
-    `https://male-fashion-tau.vercel.app/api/loadorders?email=${email}`
+    `${process.env.BACKEND_URL}/api/loadorders?email=${email}`
   );
   return {
     props: {

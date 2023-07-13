@@ -3,28 +3,21 @@ import Image from "next/image";
 import { MdCancel, MdEmail } from "react-icons/md";
 import auth from "../../Authentication/Firebase.init";
 import useAuthentication from "../../Authentication/useAuthentication";
+import { Dialog } from "@mui/material";
+import { useRecoilState } from "recoil";
+import { profileModal } from "../../AtomStates/HomePageStates";
 
-const Handler = ({ setShowLoginModal }) => {
+const Handler = () => {
   const { userLoad } = useAuthentication();
+  const [showModal, setShowModal] = useRecoilState(profileModal);
 
-  if(!userLoad?.email){
-    setShowLoginModal(false)
+  if (!userLoad?.email) {
+    setShowLoginModal(false);
   }
 
   return (
-    <div
-      className="lg:hidden w-[100vw] h-[100vh] fixed top-0 z-[200] flex justify-center items-center relative"
-      style={{ background: "rgba(0, 0, 0, .8)" }}
-    >
+    <Dialog open={showModal} onClose={() => setShowModal(false)}>
       <div className="w-[80vw] pt-[1rem] pb-[2rem] bg-[whitesmoke] rounded-[1rem]">
-
-          {/* cross button  */}
-          <div className="absolute top-[1rem] right-[1rem]">
-            <span onClick={() => setShowLoginModal(false)}>
-              <MdCancel className="text-[2.5rem] cursor-pointer text-red-500 hover:text-red-600 transition-all" />
-            </span>
-          </div>
-
         <div className="flex flex-col items-center gap-[.5rem]">
           <div>
             {userLoad?.photoURL ? (
@@ -70,7 +63,7 @@ const Handler = ({ setShowLoginModal }) => {
           </div>
         </div>
       </div>
-    </div>
+    </Dialog>
   );
 };
 
