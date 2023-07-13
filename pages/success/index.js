@@ -23,7 +23,9 @@ const Handler = () => {
       let obj = {};
       const {
         data: { status, result },
-      } = await axios.get(`http://localhost:3000/api/session/${sessionId}`);
+      } = await axios.get(
+        `https://male-fashion-tau.vercel.app/api/session/${sessionId}`
+      );
       if (status === "paid" && userLoad?.email) {
         for (let i = 0; i < JSON.parse(result?.titles).length; i++) {
           obj.title = JSON.parse(result?.titles)[i];
@@ -34,11 +36,14 @@ const Handler = () => {
           newArray = [...newArray, obj];
           obj = {};
         }
-        const res = await axios.post(`http://localhost:3000/api/postOrder`, {
-          email: userLoad?.email,
-          sessionId,
-          order: newArray,
-        });
+        const res = await axios.post(
+          `https://male-fashion-tau.vercel.app/api/postOrder`,
+          {
+            email: userLoad?.email,
+            sessionId,
+            order: newArray,
+          }
+        );
         setCart([]);
         localStorage.removeItem("cart");
       }
@@ -58,7 +63,8 @@ const Handler = () => {
       </p>
       <Link href={"/"}>
         <button className="text-gray-600 font-bold tracking-wider flex items-center gap-[.5rem] mt-[1rem]">
-          <BiHome className="text-[1.2rem] translate-y-[-.22rem]" /> Go To HomePage
+          <BiHome className="text-[1.2rem] translate-y-[-.22rem]" /> Go To
+          HomePage
         </button>
       </Link>
     </div>

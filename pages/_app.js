@@ -45,7 +45,7 @@ function MyApp({ Component, pageProps }) {
     }
 
     const checkoutSession = await axios.post(
-      "http://localhost:3000/api/checkoutsession",
+      "https://male-fashion-tau.vercel.app/api/checkoutsession",
       { cart, email: userLoad?.email }
     );
 

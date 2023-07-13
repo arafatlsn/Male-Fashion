@@ -35,7 +35,7 @@ const Handler = () => {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [scrollYValue, setScrollYValue] = useState(0);
   const [pathName, setPathName] = useRecoilState(ActiveNavState);
-  const [userModal, setUserModal] = useRecoilState(profileModal)
+  const [userModal, setUserModal] = useRecoilState(profileModal);
 
   useEffect(() => {
     window.addEventListener("scroll", () => {
@@ -47,7 +47,9 @@ const Handler = () => {
 
   // getting user orders by transaction id
   const generateTrxId = async () => {
-    const res = await axios.get(`${process.env.BACKEND_URL}/api/orderhistory`);
+    const res = await axios.get(
+      `https://male-fashion-tau.vercel.app/api/orderhistory`
+    );
   };
 
   let total = 0;
@@ -261,7 +263,9 @@ const Handler = () => {
             onClose={() => setOpenDrawer(false)}
           >
             <div className="bg-[#FFFFF4] flex flex-col w-[200px] h-[100vh] z-[50] px-[1rem]">
-              <h3 className="text-[1.3rem] text-red-500 font-semibold pb-[1rem] pt-[3rem]" >Menu</h3>
+              <h3 className="text-[1.3rem] text-red-500 font-semibold pb-[1rem] pt-[3rem]">
+                Menu
+              </h3>
               <ul className="flex flex-col gap-[45px] w-fit">
                 {/* /// Home /// */}
                 <Link href={"/"}>
@@ -324,7 +328,7 @@ const Handler = () => {
                     onClick={() => {
                       setShowLoginModal(true);
                       setOpenDrawer(false);
-                      setUserModal(true)
+                      setUserModal(true);
                       setPathName("authentication");
                     }}
                     className={`flex items-center gap-[.5rem] cursor-pointer transition-all ${
@@ -343,7 +347,7 @@ const Handler = () => {
                   onClick={() => {
                     route.push("contactme");
                     setOpenDrawer(false);
-                    setPathName("contact")
+                    setPathName("contact");
                   }}
                   className={`flex items-center gap-[.5rem] cursor-pointer transition-all ${
                     pathName === "contact"

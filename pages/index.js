@@ -34,7 +34,9 @@ export default function Home({ data }) {
 }
 
 export async function getServerSideProps() {
-  const res = await fetch(`${process.env.BACKEND_URL}/api/loadproducts`);
+  const res = await fetch(
+    `https://male-fashion-tau.vercel.app/api/loadproducts`
+  );
   const data = await res.json();
 
   return {
