@@ -6,9 +6,20 @@ import toast from "react-hot-toast";
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY);
 const createCheckoutSession = async (cart, user) => {
   const stripe = await stripePromise;
-  console.log(user);
 
   if (!user?.email) {
+    toast.error("Please Login!", {
+      style: {
+        border: "1px solid red",
+        padding: "16px",
+        color: "red",
+        background: "whitesmoke",
+      },
+      iconTheme: {
+        primary: "red",
+        secondary: "#FFFAEE",
+      },
+    });
     return;
   }
 

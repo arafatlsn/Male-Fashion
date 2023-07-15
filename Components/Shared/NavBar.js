@@ -72,7 +72,18 @@ const Handler = () => {
       generateTrxId();
       route.push(`/orderhistory?email=${userLoad?.email}`);
     } else {
-      toast.error("Please login");
+      toast.error("Please Login!", {
+        style: {
+          border: "1px solid red",
+          padding: "16px",
+          color: "red",
+          background: "whitesmoke",
+        },
+        iconTheme: {
+          primary: "red",
+          secondary: "#FFFAEE",
+        },
+      });
     }
   };
 
