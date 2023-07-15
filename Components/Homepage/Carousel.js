@@ -1,6 +1,7 @@
 import { HiArrowNarrowRight } from "react-icons/hi";
 import { FaLongArrowAltLeft, FaLongArrowAltRight } from "react-icons/fa";
 import { useEffect, useState } from "react";
+import Image from "next/image";
 
 const Handler = () => {
   const [banner, setBanner] = useState("/hero-1.jpg");
@@ -40,13 +41,14 @@ const Handler = () => {
       <div
         className={`w-[100vw] lg:w-[100vw] h-[100vh] lg:h-fit mb-[3rem] lg:mb-[6rem] relative`}
       >
-        <div className="w-[100vw] h-[100vh] lg:h-fit lg:w-fit">
-          <img
+        <div className="w-[100vw] h-[100vh] lg:h-[80vh] lg:w-[100vw] relative">
+          <Image
             src={banner}
             alt="h3llo world"
             id="bannerImage"
-            className="animate__slow sm:h-[100vh] sm:w-[100vw] lg:w-[100%] h-[100%] object-cover lg:object-contain object-[68%]"
-          ></img>
+            className="animate__slow object-cover object-[68%]"
+            layout="fill"
+          />
         </div>
         <div className="absolute inset-y-0 left-[5%] lg:left-[20%] flex flex-col justify-center gap-[12px] lg:gap-[28px]">
           <h6

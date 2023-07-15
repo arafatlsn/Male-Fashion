@@ -1,17 +1,8 @@
 import axios from "axios";
 import Orders from "../../Components/OrderHistoryPage/Orders";
-import useAthentication from "../../Authentication/useAuthentication";
 import DisplayPaths from "../../Components/Shared/DisplayPaths";
-import { useRouter } from "next/router";
 
 const Handler = ({ result }) => {
-  const { userLoad } = useAthentication();
-  const route = useRouter();
-
-  if (!userLoad?.email) {
-    route.push("/");
-  }
-
   return (
     <div>
       <DisplayPaths

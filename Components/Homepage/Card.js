@@ -6,6 +6,7 @@ import { useContext } from "react";
 import { ProductsContext } from "../../pages/_app";
 import { useRecoilState } from "recoil";
 import { cartState, visibleCartUiState } from "../../AtomStates/ProductStates";
+import Image from "next/image";
 
 const Handler = ({ product, index, length }) => {
   const [cart, setCart] = useRecoilState(cartState);
@@ -68,10 +69,11 @@ const Handler = ({ product, index, length }) => {
   return (
     <div className={styles.card}>
       <div className="w-[262.5px] h-[260px] lg:mx-0 overflow-hidden relative">
-        <img
+        <Image
           src={img}
           className="w-[100%] lg:w-[262.5px] h-[260px] object-contain"
           alt="h3llo world"
+          layout="fill"
         />
         <div className="absolute z-[100] top-[1rem]">{category}</div>
         <div

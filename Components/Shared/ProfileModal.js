@@ -21,7 +21,7 @@ const Handler = () => {
         <div className="flex flex-col items-center gap-[.5rem]">
           <div>
             {userLoad?.photoURL ? (
-              <img
+              <Image
                 src={userLoad?.photoURL}
                 width="60px"
                 height="60px"

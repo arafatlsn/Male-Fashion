@@ -1,8 +1,6 @@
 import Image from "next/image";
-import bannerOne from "../../Assets/Homepage/banner-1.jpg";
-import bannerTwo from "../../Assets/Homepage/banner-2.jpg";
-import bannerThree from "../../Assets/Homepage/banner-3.jpg";
 import styles from "../../styles/Banner.module.css";
+import banner3 from '../../Assets/Homepage/banner-3.jpg'
 
 const Handler = () => {
   return (
@@ -13,11 +11,9 @@ const Handler = () => {
       >
         <div className="w-content h-[440px] relative">
           <div className="absolute  right-0 lg:relative">
-            <img
-              src={"/banner-1.jpg"}
-              className="w-[60vw] lg:w-[440px] lg:h-[440px] object-contain"
-              alt="h3llo world"
-            />
+            <div className="w-[260px] h-[260px] lg:w-[440px] lg:h-[440px] relative">
+              <Image src={"/banner-1.jpg"} layout="fill" alt="h3llo world" />
+            </div>
           </div>
           <div className="h-[440px] absolute bottom-[3.5rem] lg:top-0">
             <div className="h-[100%] flex flex-col justify-center items-center">
@@ -38,11 +34,9 @@ const Handler = () => {
         className={`h-[210px] lg:h-[440px] lg:col-start-1 lg:col-end-6 lg:row-start-2 lg;row-end-3 mt-[-11rem] relative ${styles.card}`}
       >
         <div className="absolute top-0 lg:relative lg:w-fit">
-          <img
-            src="/banner-2.jpg"
-            className="w-[60vw] lg:w-[557px] lg:h-[557px] object-contain"
-            alt="h3llo world"
-          />
+          <div className="w-[260px] h-[260px] lg:w-[440px] lg:h-[440px] relative">
+            <Image src={"/banner-2.jpg"} layout="fill" alt="h3llo world" />
+          </div>
         </div>
         <div className="absolute right-0 bottom-0 lg:relative">
           <h1 className="text-[26px] lg:text-[36px] font-bold">Accessories</h1>
@@ -58,11 +52,9 @@ const Handler = () => {
         className={`hidden lg:block col-start-6 col-end-13 row-start-2 row-end-3 justify-self-end ${styles.card}`}
       >
         <div className="w-content h-[440px] relative">
-          <Image
-            src={bannerThree}
-            className="w-[440px] h-[440px] object-contain"
-            alt="h3llo world"
-          />
+          <div className="w-[60vw] lg:w-[440px] lg:h-[440px] relative">
+            <Image src={banner3} layout="fill" alt="h3llo world" />
+          </div>
           <div className="h-[440px] absolute top-0">
             <div className="h-[100%] flex flex-col justify-center items-center">
               <h1 className="text-[36px] font-bold ml-[-160%]">

@@ -2,9 +2,9 @@ import Image from "next/image";
 import useAuthentication from "../../Authentication/useAuthentication";
 import styles from "../../styles/NavBar.module.css";
 import { MdEmail } from "react-icons/md";
-import { RiLockPasswordFill } from "react-icons/ri";
 import { signOut } from "firebase/auth";
 import auth from "../../Authentication/Firebase.init";
+import defaultImg from "../../Assets/Icon/default-img.png";
 
 const Handler = () => {
   const { userLoad } = useAuthentication();
@@ -16,7 +16,7 @@ const Handler = () => {
       <div className="flex items-center gap-[.5rem]">
         <div>
           {userLoad?.photoURL ? (
-            <img
+            <Image
               src={userLoad?.photoURL}
               width="60px"
               height="60px"
@@ -25,7 +25,7 @@ const Handler = () => {
             />
           ) : (
             <Image
-              src={"/default-image.png"}
+              src={defaultImg}
               width="60px"
               height="60px"
               alt="h3llo world"

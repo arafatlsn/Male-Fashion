@@ -2,6 +2,7 @@ import { Table } from "flowbite-react";
 import { useRouter } from "next/router";
 import QuantityComp from "./QuantityComp";
 import { BiTrash } from "react-icons/bi";
+import Image from "next/image";
 
 const Handler = ({ cart, setCart }) => {
   const route = useRouter();
@@ -50,11 +51,11 @@ const Handler = ({ cart, setCart }) => {
             <Table.Row key={product._id} className="w-[100%]">
               <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white p-[1rem] pr-0">
                 <div className="flex items-center gap-[1rem]">
-                  <div className="w-[80px]">
-                    <img
+                  <div className="w-[80px] h-[80px] relative">
+                    <Image
                       src={product.img}
-                      className="w-[80px] h-[80px] object-contain"
-                      alt="h3llo world"
+                      layout="fill"
+                      alt="product-img"
                     />
                   </div>
                   <div>
