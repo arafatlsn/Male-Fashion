@@ -4,9 +4,12 @@ import styles from "../../styles/Card.module.css";
 import { Rating } from "flowbite-react";
 import { useContext } from "react";
 import { ProductsContext } from "../../pages/_app";
+import { useRecoilState } from "recoil";
+import { cartState, visibleCartUiState } from "../../AtomStates/ProductStates";
 
 const Handler = ({ product, index, length }) => {
-  const { cart, setCart, setIsVisible } = useContext(ProductsContext);
+  const [cart, setCart] = useRecoilState(cartState);
+  const [showCartUi, setShowCartUi] = useRecoilState(visibleCartUiState);
   const { title, price, img } = product;
 
   let category;
@@ -30,28 +33,34 @@ const Handler = ({ product, index, length }) => {
     const id = product._id;
     const findProduct = cart.find((el) => el._id === id);
     if (!findProduct) {
-      product["cartQuantity"] = 1;
-      setCart([...cart, product]);
+      const updatedObject = {
+        ...product,
+        cartQuantity: 1,
+      };
+      setCart([...cart, updatedObject]);
       localStorage.setItem("cart", JSON.stringify([...cart, product]));
-      setIsVisible(true);
+      setShowCartUi(true);
       setTimeout(() => {
-        setIsVisible(false);
+        setShowCartUi(false);
       }, 3000);
     } else {
-      product.cartQuantity = findProduct.cartQuantity + 1;
+      const updatedObject = {
+        ...product,
+        cartQuantity: findProduct.cartQuantity + 1,
+      };
       const newCart = [];
       cart.map((el) => {
         if (el._id === id) {
-          newCart.push(product);
+          newCart.push(updatedObject);
         } else {
           newCart.push(el);
         }
       });
       setCart(newCart);
       localStorage.setItem("cart", JSON.stringify(newCart));
-      setIsVisible(true);
+      setShowCartUi(true);
       setTimeout(() => {
-        setIsVisible(false);
+        setShowCartUi(false);
       }, 3000);
     }
   };

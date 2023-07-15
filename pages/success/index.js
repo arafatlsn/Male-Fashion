@@ -7,9 +7,11 @@ import Link from "next/link";
 import successgif from "../../Assets/Icon/success (2).gif";
 import Image from "next/image";
 import { BiHome } from "react-icons/bi";
+import { useRecoilState } from "recoil";
+import { cartState } from "../../AtomStates/ProductStates";
 
 const Handler = () => {
-  const { setCart } = useContext(ProductsContext);
+  const [cart, setCart] = useRecoilState(cartState);
   const route = useRouter();
   const {
     query: { sessionId },

@@ -1,7 +1,7 @@
 import { Table } from "flowbite-react";
 import { useRouter } from "next/router";
 import QuantityComp from "./QuantityComp";
-import { BiTrash } from 'react-icons/bi'
+import { BiTrash } from "react-icons/bi";
 
 const Handler = ({ cart, setCart }) => {
   const route = useRouter();
@@ -10,8 +10,11 @@ const Handler = ({ cart, setCart }) => {
     const newCart = [];
     cart.map((product) => {
       if (product._id === id) {
-        product.cartQuantity = quantity;
-        newCart.push(product);
+        const updatedObject = {
+          ...product,
+          cartQuantity: quantity,
+        };
+        newCart.push(updatedObject);
       } else {
         newCart.push(product);
       }
@@ -31,13 +34,16 @@ const Handler = ({ cart, setCart }) => {
     <div>
       <Table hoverable={true} className="w-[100%] mx-auto">
         <Table.Head className="w-[100%] text-[14px] text-left font-[400] text-green-800 bg-[#F3F2EE]">
-          <Table.HeadCell className="py-[1rem] text-[17px] tracking-wider pl-[1rem]">Product</Table.HeadCell>
-          <Table.HeadCell className="py-[1rem] text-[17px] text-center tracking-wider">Quantity</Table.HeadCell>
+          <Table.HeadCell className="py-[1rem] text-[17px] tracking-wider pl-[1rem]">
+            Product
+          </Table.HeadCell>
+          <Table.HeadCell className="py-[1rem] text-[17px] text-center tracking-wider">
+            Quantity
+          </Table.HeadCell>
           <Table.HeadCell className="py-[1rem] text-[17px] whitespace-nowrap tracking-wider pr-[.5rem]">
             Total Price
           </Table.HeadCell>
-          <Table.HeadCell className="py-[1rem] text-[17px] tracking-wider pr-[.5rem]">
-          </Table.HeadCell>
+          <Table.HeadCell className="py-[1rem] text-[17px] tracking-wider pr-[.5rem]"></Table.HeadCell>
         </Table.Head>
         <Table.Body className="w-[100%] divide-x-0 divide-y">
           {cart?.map((product) => (
@@ -57,7 +63,9 @@ const Handler = ({ cart, setCart }) => {
                         ? product.title.slice(0, 30) + "...."
                         : product.title}
                     </h1>
-                    <p className="text-[1.1rem] text-gray-800">BDT {product.price}</p>
+                    <p className="text-[1.1rem] text-gray-800">
+                      BDT {product.price}
+                    </p>
                   </div>
                 </div>
               </Table.Cell>
@@ -71,9 +79,9 @@ const Handler = ({ cart, setCart }) => {
                 BDT {product.price * product.cartQuantity}
               </Table.Cell>
               <Table.Cell className="py-[1.5rem] pr-[1rem]">
-              <span onClick={() => removeProduct(product._id)}>
-            <BiTrash className="text-[1.5rem] bg-[#F3F2EE] text-red-800 p-[.3rem] box-content cursor-pointer rounded-[4px]" />
-          </span>
+                <span onClick={() => removeProduct(product._id)}>
+                  <BiTrash className="text-[1.5rem] bg-[#F3F2EE] text-red-800 p-[.3rem] box-content cursor-pointer rounded-[4px]" />
+                </span>
               </Table.Cell>
             </Table.Row>
           ))}

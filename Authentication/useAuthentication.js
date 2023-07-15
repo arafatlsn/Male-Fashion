@@ -3,18 +3,12 @@ import {
   useAuthState,
   useCreateUserWithEmailAndPassword,
   useSignInWithEmailAndPassword,
-  useSignInWithGoogle,
   useUpdateProfile,
 } from "react-firebase-hooks/auth";
 
 const Handler = () => {
-
-  // load user 
+  // load user
   const [userLoad, loadingLoad, errorLoad] = useAuthState(auth);
-
-  // sign in google
-  const [signInWithGoogle, userGoogle, loadingGoogle, errorGoogle] =
-    useSignInWithGoogle(auth);
 
   // sign in with email pass
   const [
@@ -25,19 +19,24 @@ const Handler = () => {
   ] = useSignInWithEmailAndPassword(auth);
 
   // create use with email pass
-  const [createUserWithEmailAndPassword, user, loading, error] =
-    useCreateUserWithEmailAndPassword(auth);
+  const [
+    createUserWithEmailAndPassword,
+    userCreating,
+    loadingUserCreating,
+    errorCreatingUser,
+  ] = useCreateUserWithEmailAndPassword(auth);
 
   // update user profile
-  const [updateProfile, updating, errorUpdate] = useUpdateProfile(auth);
-
+  const [updateProfile, updatingUser, errorUpdateUser] = useUpdateProfile(auth);
 
   return {
     userLoad,
-    signInWithGoogle,
     createUserWithEmailAndPassword,
-    error,
+    userCreating,
+    loadingUserCreating,
+    errorCreatingUser,
     signInWithEmailAndPassword,
+    userSigninEmailPass,
     errorSigninEmailPass,
     updateProfile,
   };

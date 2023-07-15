@@ -1,16 +1,17 @@
 import { BarLoader } from "react-spinners";
+import { useRecoilState } from "recoil";
+import { showLoaderState } from "../../AtomStates/ProductStates";
+import { Backdrop, CircularProgress } from "@mui/material";
 
 const Handler = () => {
+  const [showLoader, setShowLoader] = useRecoilState(showLoaderState);
   return (
-    <div
-      className="w-[100%] h-[100%] z-[1000] fixed top-0 flex justify-center items-center"
-      style={{ background: "rgba(0, 0, 0, .8)" }}
+    <Backdrop
+      sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+      open={showLoader}
     >
-      <div className="flex flex-col items-center gap-[.3rem]">
-        <h1 className="text-white text-[17px] tracking-wider">Wait a Sec....</h1>
-        <BarLoader width={"120px"} color="#fff" />
-      </div>
-    </div>
+      <CircularProgress color="inherit" />
+    </Backdrop>
   );
 };
 

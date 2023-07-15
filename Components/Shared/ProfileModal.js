@@ -12,7 +12,7 @@ const Handler = () => {
   const [showModal, setShowModal] = useRecoilState(profileModal);
 
   if (!userLoad?.email) {
-    setShowLoginModal(false);
+    setShowModal(false);
   }
 
   return (

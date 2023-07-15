@@ -1,96 +1,99 @@
 import Image from "next/image";
 import Form from "./Form";
 import LoginForm from "./LoginForm";
-import { BiPlus } from "react-icons/bi";
-import { FcGoogle } from "react-icons/fc";
+import { BiUpload } from "react-icons/bi";
 import { MdCancel } from "react-icons/md";
-import { useContext, useEffect, useState } from "react";
+import { useState } from "react";
 import useAuthentication from "../../Authentication/useAuthentication";
-import { async } from "@firebase/util";
-import { ProductsContext } from "../../pages/_app";
 import toast from "react-hot-toast";
+import { Dialog } from "@mui/material";
+import { useRecoilState } from "recoil";
+import {
+  showAuthModalState,
+  showLoaderState,
+} from "../../AtomStates/ProductStates";
+import defaultImg from "../../Assets/Icon/default-img.png";
 
 const Handler = () => {
-  const { setIsShowAuthModal, setIsLoading } = useContext(ProductsContext);
+  const [showAuthModal, setShowAuthModal] = useRecoilState(showAuthModalState);
+  const [showLoader, setShowLoader] = useRecoilState(showLoaderState);
   const [uploadImgUrl, setUploadImageUrl] = useState("");
   const [isRegisterPage, setIsRegisterPage] = useState(false);
   const [tryingUser, setTryingUser] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
 
-  const { signInWithGoogle, userLoad } = useAuthentication();
-
-  useEffect(() => {
-    // checking user can success or not
-    if (userLoad?.email) {
-      if (tryingUser === "register") {
-        setSuccessMessage("SUCCESSFULLY you've created a new account!");
-      } else {
-        setSuccessMessage("SUCCESSFULLY you're logged in!");
-      }
-    }
-  }, [userLoad]);
+  const { userLoad } = useAuthentication();
 
   // uploading image to image bb
   const uploadImage = async (image) => {
-    setIsLoading(true);
-    const formData = new FormData();
-    formData.append("image", image);
-    const url = `https://api.imgbb.com/1/upload?key=565f41ae1e5b8cd4d1430014c0206ed2`;
-    const res = await fetch(url, {
-      method: "POST",
-      body: formData,
-    });
-    const result = await res.json();
-    if (result.success) {
-      setUploadImageUrl(result.data.url);
-      setIsLoading(false);
+    try {
+      setShowAuthModal(false);
+      setShowLoader(true);
+      const formData = new FormData();
+      formData.append("image", image);
+      const url = `https://api.imgbb.com/1/upload?key=565f41ae1e5b8cd4d1430014c0206ed2`;
+      const res = await fetch(url, {
+        method: "POST",
+        body: formData,
+      });
+      const result = await res.json();
+      setShowLoader(false);
+      setShowAuthModal(true);
+      if (result.success) {
+        setUploadImageUrl(result.data.url);
+      }
+    } catch (err) {
+      toast.error(err.message);
+      setShowLoader(false);
+      setShowAuthModal(true);
     }
   };
 
-  if (userLoad?.email) {
-    setIsShowAuthModal(false);
-  }
-
   return (
     <>
-      <div
-        className="w-[100%] h-[100%] z-[1000] fixed top-0 flex justify-center items-center"
-        style={{ background: "rgba(0, 0, 0, .7)" }}
+      <Dialog
+        maxWidth="xl"
+        open={showAuthModal}
+        onClose={() => setShowAuthModal(false)}
       >
-        <div className="w-[90vw] lg:w-[450px] h-[550px] bg-[#F4F2EE] rounded-[1rem] relative">
+        <div className="w-[300px] lg:w-[450px] min-h-[550px] bg-[#F4F2EE] rounded-[1rem] relative pt-[2rem] pb-[1rem]">
           {/* image section  */}
           {isRegisterPage && (
-            <div className="absolute top-[-10%] inset-x-0">
-              <div className="flex justify-center lg:w-[450px]">
-                <div className="border border-gray-300 bg-white rounded-[50%] relative">
+            <div className="flex justify-center lg:w-[450px]">
+              <div className="border border-gray-300 bg-white rounded-[50%] relative">
+                <div className="w-[100px] h-[100px] rounded-[50%] flex justify-center items-center relative">
                   {!uploadImgUrl ? (
-                    <img
-                      src={"/default-image.png"}
-                      width="100"
-                      height="100"
-                      className="object-contain rounded-[50%] bg-[#F4F2EE]"
-                      alt="hello world"
-                    />
+                    <div className="w-[100%] h-[100%] relative">
+                      <Image
+                        src={defaultImg}
+                        layout="fill"
+                        className="object-contain rounded-[50%] bg-[#F4F2EE]"
+                        alt="user-img"
+                      />
+                      <div>
+                        <label
+                          htmlFor="personImage"
+                          className="w-[100%] h-[100%] flex justify-center items-center bg-[#7c555580] rounded-[50%] absolute top-0 left-0 text-[1.5rem] cursor-pointer"
+                        >
+                          <BiUpload className="text-[2rem] text-white" />
+                        </label>
+                        <input
+                          onChange={(e) => uploadImage(e.target.files[0])}
+                          type="file"
+                          className="hidden"
+                          name="personImage"
+                          id="personImage"
+                        />
+                      </div>
+                    </div>
                   ) : (
-                    <img
+                    <Image
                       src={uploadImgUrl}
-                      className="w-[100px] h-[100px] object-contain rounded-[50%] relative"
-                      alt="h3llo world"
+                      layout="fill"
+                      className="object-contain rounded-[50%] bg-[#F4F2EE]"
+                      alt="user-img"
                     />
                   )}
-                  <label
-                    htmlFor="personImage"
-                    className="bg-gray-700 rounded-[50%] absolute bottom-[.4rem] right-[15%] text-[1.5rem] cursor-pointer"
-                  >
-                    <BiPlus className="text-gray-100" />
-                  </label>
-                  <input
-                    onChange={(e) => uploadImage(e.target.files[0])}
-                    type="file"
-                    className="hidden"
-                    name="personImage"
-                    id="personImage"
-                  />
                 </div>
               </div>
             </div>
@@ -98,12 +101,12 @@ const Handler = () => {
 
           {/* cross button  */}
           <div className="absolute top-[1rem] right-[1rem]">
-            <span onClick={() => setIsShowAuthModal(false)}>
+            <span onClick={() => setShowAuthModal(false)}>
               <MdCancel className="text-[2.5rem] cursor-pointer text-red-500 hover:text-red-600 transition-all" />
             </span>
           </div>
 
-          <div className="mt-[3.5rem] mb-[1rem]">
+          <div className="mb-[1rem]">
             <h1 className="text-[2rem] font-bold text-lightBlack text-center">
               Please {isRegisterPage ? "Register" : "Login"}
             </h1>
@@ -118,35 +121,17 @@ const Handler = () => {
               <LoginForm setTryingUser={setTryingUser} />
             )}
           </div>
-          {successMessage && (
-            <div>
-              <h1 className="text-[14px] text-green-600 bg-green-200 text-center p-[.5rem] mt-[1rem] border border-green-500 w-min mx-auto whitespace-nowrap tracking-wider">
-                {successMessage}
-              </h1>
-            </div>
-          )}
-          {!isRegisterPage && (
-            <div className="lg:w-[60%] mx-auto mt-[2rem] flex justify-center">
-              <button
-                onClick={() => signInWithGoogle()}
-                className="bg-blue-600  flex items-center shadow-md shadow-gray-400 text-gray-100"
-              >
-                <FcGoogle className="text-[2rem] bg-white p-[.5rem] box-content" />{" "}
-                <span className="px-[1.5rem]">Sign in With Google</span>
-              </button>
-            </div>
-          )}
           <div className="mt-[2rem]">
             {!isRegisterPage ? (
-              <p className="text-center">
-                {"I'm new Here. "}{" "}
+              <div className="text-center">
+                <span>{"I'm new Here. "}</span>
                 <span
                   onClick={() => setIsRegisterPage(true)}
                   className="text-blue-600 hover:underline transition-all cursor-pointer"
                 >
                   {"Create an account."}
                 </span>
-              </p>
+              </div>
             ) : (
               <p
                 onClick={() => setIsRegisterPage(false)}
@@ -157,7 +142,7 @@ const Handler = () => {
             )}
           </div>
         </div>
-      </div>
+      </Dialog>
     </>
   );
 };

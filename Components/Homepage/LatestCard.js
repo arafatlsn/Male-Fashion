@@ -10,10 +10,10 @@ const Handler = ({ el }) => {
       </div>
       <div className="px-[2rem] absolute mt-[-2.5rem]">
         <div className="px-[2rem] py-[1.7rem] bg-white">
-          <p className="flex items-center gap-[.3rem] text-[14px] text-[dimgray]">
+          <div className="flex items-center gap-[.3rem] text-[14px] text-[dimgray]">
             <BsCalendar2Week />
-            {el.date}
-          </p>
+            <p>{el.date}</p>
+          </div>
           <h1 className="text-[1.2rem] tracking-wide text-gray-700 whitespace-pre-wrap mt-[.5rem] mb-[.7rem]">
             {el.text}
           </h1>

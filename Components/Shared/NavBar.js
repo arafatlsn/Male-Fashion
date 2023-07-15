@@ -20,12 +20,19 @@ import { Drawer } from "@mui/material";
 import ProfileModal from "../Shared/ProfileModal";
 import { RiMenuUnfoldLine } from "react-icons/ri";
 import { BiHome, BiHistory, BiUser, BiLogIn, BiPhone } from "react-icons/bi";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { ActiveNavState, profileModal } from "../../AtomStates/HomePageStates";
+import {
+  cartState,
+  showAuthModalState,
+  visibleCartUiState,
+} from "../../AtomStates/ProductStates";
+import useCheckout from "../../CustomHook/useCheckout";
 
 const Handler = () => {
-  const { cart, isVisible, setIsShowAuthModal, createCheckoutSession } =
-    useContext(ProductsContext);
+  const [cart, setCart] = useRecoilState(cartState);
+  const [visibleCart, setVisibleCart] = useRecoilState(visibleCartUiState);
+  const [showAuthModal, setShowAuthModal] = useRecoilState(showAuthModalState);
 
   const { userLoad } = useAthentication();
 
@@ -36,6 +43,7 @@ const Handler = () => {
   const [scrollYValue, setScrollYValue] = useState(0);
   const [pathName, setPathName] = useRecoilState(ActiveNavState);
   const [userModal, setUserModal] = useRecoilState(profileModal);
+  const checkoutFunction = useCheckout;
 
   useEffect(() => {
     window.addEventListener("scroll", () => {
@@ -104,7 +112,7 @@ const Handler = () => {
               </Link>
               {!userLoad?.email ? (
                 <li
-                  onClick={() => setIsShowAuthModal(true)}
+                  onClick={() => setShowAuthModal(true)}
                   className={`text-[18px] text-lightBlack cursor-pointer  ${styles.navList}`}
                 >
                   Login <p className={styles.liBorder}></p>
@@ -155,7 +163,9 @@ const Handler = () => {
                 <div className="flex justify-end">
                   <div
                     className={`w-[350px] bg-[#F0EFF5] absolute mt-[2.7rem] top-0 right-[-3.75rem] z-[100] ${
-                      isVisible ? "visible opacity-100" : "invisible opacity-0"
+                      visibleCart
+                        ? "visible opacity-100"
+                        : "invisible opacity-0"
                     } ${styles.cartUi} ${
                       cart.length ? "h-[400]" : " h-[150px]"
                     }`}
@@ -170,13 +180,13 @@ const Handler = () => {
                         </div>
                         <hr />
                         <div>
-                          <p className="text-[18px] font-semibold text-center flex justify-center items-center">
-                            SubTotal:{" "}
+                          <div className="text-[18px] font-semibold text-center flex justify-center items-center">
+                            <span>SubTotal:</span>
                             <span className="text-[24px] font-semibold flex items-center gap-[.1rem]">
                               <TbCurrencyTaka className="text-[26px] mr-[-.3rem]" />
                               {total}
                             </span>
-                          </p>
+                          </div>
                         </div>
                         <div className="flex justify-center mt-[1rem]">
                           <div className="flex gap-[.7rem]">
@@ -188,7 +198,11 @@ const Handler = () => {
                             </Link>
 
                             <button
-                              onClick={createCheckoutSession}
+                              onClick={() =>
+                                checkoutFunction(cart, {
+                                  email: "arafatsarkar22@gmail.com",
+                                })
+                              }
                               className="text-[14px] px-[2rem] py-[.3rem] border bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-[4px] tracking-wider  flex items-center gap-[.3rem] transition-all"
                             >
                               <RiSecurePaymentFill className="text-[1.2rem]" />{" "}
@@ -287,7 +301,7 @@ const Handler = () => {
                   </li>
                 </Link>
                 {/* /// history /// */}
-                <Link href={"/orderhistory"}>
+                <Link href={`/orderhistory?email=${userLoad?.email}`}>
                   <li
                     onClick={() => {
                       setOpenDrawer(false);
@@ -308,7 +322,7 @@ const Handler = () => {
                 {!userLoad?.email ? (
                   <li
                     onClick={() => {
-                      setIsShowAuthModal(true);
+                      setShowAuthModal(true);
                       setOpenDrawer(false);
                       setPathName("authentication");
                     }}

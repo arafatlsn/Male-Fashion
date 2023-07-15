@@ -38,12 +38,11 @@ const Handler = () => {
         {/* left side div  */}
         <div className="lg:w-[50%]">
           <p className="tracking-wide">
-            {`Hi I’m Md. Arafat Hossan Lisan. I’m a Professional Front-end
-            Developer. I have a single year of experience as a Front-end
-            developer. I have enough knowledge about HTML, CSS, Bootstrap,
-            Tailwind, JavaScript, React.js, Next.js . Now I'm seeking an
-            entry-level position with a company to use my skills in coding and
-            to get opportunities to work on real projects. Thank You.`}
+            {`Hi, I'm Arafat Hossan Lisan. I'm a Frontend Developer, I can build the web-based application.
+              Now I'm seeking an entry-level position with a company to use my
+              skills in coding and to get opportunities to work on real
+              projects. I started my journey in this field in January 2022 and
+              I've experienced freelance project basis work since October 2022. Thank You.`}
           </p>
           <div className="mt-[2rem]">
             <span className="text-[20px] font-bold tracking-wide">
@@ -112,7 +111,11 @@ const Handler = () => {
                 className="flex justify-center items-center gap-[.5rem] w-[100%] lg:w-[40%] bg-[#111111] text-white py-[1rem] uppercase tracking-wide"
                 type="submit"
               >
-                Send Message <RiMailSendLine className="text-[1.3rem]" style={{fill: "white"}} />
+                Send Message{" "}
+                <RiMailSendLine
+                  className="text-[1.3rem]"
+                  style={{ fill: "white" }}
+                />
               </button>
             </div>
           </form>

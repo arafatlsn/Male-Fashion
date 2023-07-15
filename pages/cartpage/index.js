@@ -1,16 +1,18 @@
-import { useRouter } from "next/router";
-import { useContext, useEffect, useState } from "react";
-import { ProductsContext } from "../_app";
+import { useState } from "react";
 import { HiOutlineEmojiSad } from "react-icons/hi";
 import { RiSecurePaymentFill } from "react-icons/ri";
 import TableComp from "../../Components/Cartpage/TableComp";
 import DisplayPaths from "../../Components/Shared/DisplayPaths";
 import toast from "react-hot-toast";
+import { useRecoilState } from "recoil";
+import { cartState } from "../../AtomStates/ProductStates";
+import createCheckoutSession from "../../CustomHook/useCheckout";
+import useAuthentication from "../../Authentication/useAuthentication";
 
 const Handler = () => {
-  const { cart, setCart, createCheckoutSession } = useContext(ProductsContext);
-
+  const [cart, setCart] = useRecoilState(cartState);
   const [isCouponUsed, setIsCouponUsed] = useState(false);
+  const { userLoad } = useAuthentication();
 
   let subTotal = 0;
   let discount = 0;
@@ -24,7 +26,7 @@ const Handler = () => {
     e.preventDefault();
 
     const couponInput = e.target.coupon.value;
-    if (couponInput === "mdarafathossanlisan") {
+    if (couponInput === "mycoupon") {
       setIsCouponUsed(true);
       toast.success("Successfully you've used coupon!");
     } else {
@@ -80,7 +82,7 @@ const Handler = () => {
               </div>
             </form>
             <p className="text-[13px] text-red-500">
-              * Your coupon code: mdarafathossanlisan
+              * Your coupon code: mycoupon
             </p>
           </div>
           <div className="bg-white p-[1rem] mt-[2rem] rounded-[5px]">
@@ -105,7 +107,7 @@ const Handler = () => {
                 </div>
               </div>
               <button
-                onClick={createCheckoutSession}
+                onClick={() => createCheckoutSession(cart, userLoad)}
                 className="text-[14px] w-[100%] py-[.7rem] mt-[1rem] border bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-[4px] tracking-wider  flex justify-center items-center gap-[.3rem] transition-all"
               >
                 <RiSecurePaymentFill className="text-[1.2rem]" /> Checkout

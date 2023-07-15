@@ -1,9 +1,7 @@
-import { useCallback, useContext, useEffect, useState } from "react";
+import { useState } from "react";
 import Card from "../../Components/Homepage/Card";
-import { ProductsContext } from "../../pages/_app";
 
 const Handler = ({ products }) => {
-  const { setIsLoading } = useContext(ProductsContext);
   const [activeCategory, setActiveCategory] = useState("All");
 
   return (

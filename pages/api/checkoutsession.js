@@ -1,10 +1,8 @@
 const stripe = require("stripe")(process.env.NEXT_PUBLIC_SECRET_KEY);
 
 const Handler = async (req, res) => {
-  console.log("hello world");
   if (req.method === "POST") {
     const { cart } = req.body;
-
     const transformedCart = cart.map((product) => ({
       description: product.description,
       quantity: product.cartQuantity,

@@ -6,10 +6,9 @@ const Handler = async (req, res) => {
   const order = req.body;
   order.email = email;
   order["date"] = new Date().toISOString();
-  console.log(order);
   try {
     const findSession = await orderModel.findOne({ sessionId: sessionId });
-    console.log(findSession);
+    
     if (!findSession?.sessionId) {
       await orderModel(order).save((err) => {
         if (err) {

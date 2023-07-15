@@ -7,12 +7,14 @@ import Cards from "../Components/Homepage/Cards";
 import DiscountOffer from "../Components/Homepage/DiscountOffer";
 import LatestNews from "../Components/Homepage/LatestNews";
 import Carousel from "../Components/Homepage/Carousel";
+import { useRecoilState } from "recoil";
+import { productState } from "../AtomStates/ProductStates";
 
 export default function Home({ data }) {
-  const { products, setAllProducts } = useContext(ProductsContext);
-  useEffect(() => {
-    setAllProducts(data);
-  });
+  // const [products, setAllProducts] = useRecoilState(productState);
+  // useEffect(() => {
+  //   setAllProducts(data);
+  // });
   return (
     <div>
       {/* head  */}
@@ -25,7 +27,7 @@ export default function Home({ data }) {
       <main className="overflow-hidden">
         <Carousel />
         <Banner />
-        <Cards products={products} />
+        <Cards products={data} />
         <DiscountOffer />
         <LatestNews />
       </main>
