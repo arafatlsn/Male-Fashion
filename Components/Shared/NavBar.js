@@ -198,11 +198,7 @@ const Handler = () => {
                             </Link>
 
                             <button
-                              onClick={() =>
-                                checkoutFunction(cart, {
-                                  email: "arafatsarkar22@gmail.com",
-                                })
-                              }
+                              onClick={() => checkoutFunction(cart, userLoad)}
                               className="text-[14px] px-[2rem] py-[.3rem] border bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-[4px] tracking-wider  flex items-center gap-[.3rem] transition-all"
                             >
                               <RiSecurePaymentFill className="text-[1.2rem]" />{" "}

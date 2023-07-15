@@ -6,13 +6,15 @@ import DisplayPaths from "../../Components/Shared/DisplayPaths";
 import toast from "react-hot-toast";
 import { useRecoilState } from "recoil";
 import { cartState } from "../../AtomStates/ProductStates";
-import createCheckoutSession from "../../CustomHook/useCheckout";
+import useCheckout from "../../CustomHook/useCheckout";
 import useAuthentication from "../../Authentication/useAuthentication";
 
 const Handler = () => {
   const [cart, setCart] = useRecoilState(cartState);
   const [isCouponUsed, setIsCouponUsed] = useState(false);
   const { userLoad } = useAuthentication();
+  const checkoutFunction = useCheckout;
+  console.log(userLoad);
 
   let subTotal = 0;
   let discount = 0;
@@ -107,7 +109,7 @@ const Handler = () => {
                 </div>
               </div>
               <button
-                onClick={() => createCheckoutSession(cart, userLoad)}
+                onClick={() => checkoutFunction(cart, userLoad)}
                 className="text-[14px] w-[100%] py-[.7rem] mt-[1rem] border bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-[4px] tracking-wider  flex justify-center items-center gap-[.3rem] transition-all"
               >
                 <RiSecurePaymentFill className="text-[1.2rem]" /> Checkout

@@ -6,6 +6,7 @@ import toast from "react-hot-toast";
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY);
 const createCheckoutSession = async (cart, user) => {
   const stripe = await stripePromise;
+  console.log(user);
 
   if (!user?.email) {
     return;
