@@ -4,7 +4,7 @@ import { useContext, useEffect } from "react";
 import { ProductsContext } from "../_app";
 import useAuthentication from "../../Authentication/useAuthentication";
 import Link from "next/link";
-import successgif from "../../Assets/Icon/success (2).gif";
+import successgif from "../../Assets/Icon/success.gif";
 import Image from "next/image";
 import { BiHome } from "react-icons/bi";
 import { useRecoilState } from "recoil";
@@ -73,7 +73,7 @@ const Handler = () => {
             alt="success-gif"
           />
         </div>
-        <p className="text-green-600 text-[1.3rem] font-semibold text-center font-mono">
+        <p className="mt-[1rem] text-green-600 text-[1.3rem] font-semibold text-center font-mono">
           SUCCESSFULLY! You Placed an Order
         </p>
         <Link href={"/"}>

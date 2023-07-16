@@ -1,5 +1,5 @@
 import Image from "next/image";
-import notfoundGif from "../Assets/Icon/not-found.gif";
+import notfoundGif from "../Assets/Icon/notfound.gif";
 import Link from "next/link";
 import { BiHome } from "react-icons/bi";
 import Head from "next/head";

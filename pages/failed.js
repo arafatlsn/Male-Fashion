@@ -24,8 +24,8 @@ const Handler = () => {
             />
           </div>
           <div className="flex flex-col items-center mt-[1rem]">
-            <p className="text-[1.5rem] text-red-500 font-semibold">
-              UNSUCCESSFUL PAYMENT
+            <p className="mt-[1rem] text-red-600 text-[1.3rem] font-semibold text-center font-mono">
+              Unsuccessful Payment
             </p>
             <Link href={"/"}>
               <button className="text-gray-600 font-bold tracking-wider flex items-center gap-[.5rem] mt-[1rem]">

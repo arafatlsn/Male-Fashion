@@ -44,8 +44,9 @@ const Handler = () => {
     }
   }, [countDown]);
 
-  setInterval(() => {
+  const countDownInterval = setInterval(() => {
     setCountDown(countDown + 1);
+    clearInterval(countDownInterval)
   }, 1000);
 
   return (
