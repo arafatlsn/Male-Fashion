@@ -110,9 +110,6 @@ const Handler = () => {
             <h1 className="text-[2rem] font-bold text-lightBlack text-center">
               Please {isRegisterPage ? "Register" : "Login"}
             </h1>
-            <h1 className="text-[1.2rem] text-center text-gray-700">
-              Good Noon Sir,
-            </h1>
           </div>
           <div>
             {isRegisterPage ? (

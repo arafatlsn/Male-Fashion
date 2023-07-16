@@ -4,11 +4,12 @@ import toast from "react-hot-toast";
 
 // payment checkout session function
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY);
-const createCheckoutSession = async (cart, user) => {
+const createCheckoutSession = async (cart, user, setShowAuthModal) => {
   const stripe = await stripePromise;
 
   if (!user?.email) {
-    toast.error("Please Login!", {
+    setShowAuthModal(true)
+    toast.error("Signin Required!", {
       style: {
         border: "1px solid red",
         padding: "16px",

@@ -72,7 +72,8 @@ const Handler = () => {
       generateTrxId();
       route.push(`/orderhistory?email=${userLoad?.email}`);
     } else {
-      toast.error("Please Login!", {
+      setShowAuthModal(true);
+      toast.error("Signin Required!", {
         style: {
           border: "1px solid red",
           padding: "16px",
@@ -209,7 +210,7 @@ const Handler = () => {
                             </Link>
 
                             <button
-                              onClick={() => checkoutFunction(cart, userLoad)}
+                              onClick={() => checkoutFunction(cart, userLoad, setShowAuthModal)}
                               className="text-[14px] px-[2rem] py-[.3rem] border bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-[4px] tracking-wider  flex items-center gap-[.3rem] transition-all"
                             >
                               <RiSecurePaymentFill className="text-[1.2rem]" />{" "}
