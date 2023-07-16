@@ -8,7 +8,7 @@ import defaultImg from "../../Assets/Icon/default-img.png";
 
 const Handler = () => {
   const { userLoad } = useAuthentication();
-
+  console.log(userLoad?.photoURL);
   return (
     <div
       className={`bg-[#F0EFF5] w-[350px] px-[1rem] py-[.8rem] overflow-hidden translate-x-[-2rem] mt-[1rem] absolute z-[100] ${styles.cartUi} ${styles.profileDiv}`}
@@ -21,14 +21,14 @@ const Handler = () => {
               width="60px"
               height="60px"
               className="rounded-[50%] border-[3px] border-white box-content"
-              alt="h3llo word"
+              alt="user-img"
             />
           ) : (
             <Image
               src={defaultImg}
               width="60px"
               height="60px"
-              alt="h3llo world"
+              alt="default-img"
             />
           )}
         </div>

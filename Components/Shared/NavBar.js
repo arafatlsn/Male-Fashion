@@ -56,7 +56,7 @@ const Handler = () => {
   // getting user orders by transaction id
   const generateTrxId = async () => {
     const res = await axios.get(
-      `https://male-fashion-tau.vercel.app/api/orderhistory`
+      `https://male-fashion1.netlify.app/api/orderhistory`
     );
   };
 
@@ -245,7 +245,7 @@ const Handler = () => {
         <div>
           <div
             className={`flex items-center justify-between py-[1rem] pl-[.3rem] pr-[.5rem] transition-all ${
-              scrollYValue > 300 && "bg-lightRed"
+              scrollYValue > 100 && "bg-lightRed"
             }`}
           >
             <div className="flex items-center gap-[10px] ">

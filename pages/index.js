@@ -36,9 +36,7 @@ export default function Home({ data }) {
 }
 
 export async function getServerSideProps() {
-  const res = await fetch(
-    `https://male-fashion-tau.vercel.app/api/loadproducts`
-  );
+  const res = await fetch(`https://male-fashion1.netlify.app/api/loadproducts`);
   const data = await res.json();
 
   return {

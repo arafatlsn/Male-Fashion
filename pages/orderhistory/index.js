@@ -29,7 +29,7 @@ export async function getServerSideProps(context) {
   const {
     data: { data },
   } = await axios.get(
-    `https://male-fashion-tau.vercel.app/api/loadorders?email=${email}`
+    `https://male-fashion1.netlify.app/api/loadorders?email=${email}`
   );
   return {
     props: {
