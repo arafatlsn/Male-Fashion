@@ -36,7 +36,6 @@ const Handler = ({ setTryingUser }) => {
 
   useEffect(() => {
     if (userSigninEmailPass?.user?.email) {
-      console.log("hello error");
       setSuccessText("Successfully, You Signed In!");
       setShowSuccessSnackbar(true);
       setShowAuthModal(false);

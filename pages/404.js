@@ -7,7 +7,9 @@ const Custom404 = () => {
   return (
     <div className="flex justify-center items-center min-h-[80vh]">
       <div className="flex flex-col items-center relative">
-        <Image src={notfoundGif} alt="failed-gif" />
+        <div className="w-[300px] h-[350px] relative">
+          <Image className="object-cover" src={notfoundGif} layout="fill" alt="failed-gif" />
+        </div>
         <div className="flex flex-col items-center">
           <Link href={"/"}>
             <button className="text-gray-600 font-bold tracking-wider flex items-center gap-[.5rem] mt-[1rem]">

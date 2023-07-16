@@ -7,8 +7,10 @@ const Handler = () => {
   return (
     <div className="flex justify-center items-center min-h-[80vh]">
       <div className="flex flex-col items-center gap-[1rem] relative">
-        <Image src={failedGif} alt="failed-gif" />
-        <div className="flex flex-col items-center">
+        <div className="w-[150px] h-[150px] relative">
+          <Image className="object-cover" src={failedGif} layout="fill" alt="failed-gif" />
+        </div>
+        <div className="flex flex-col items-center mt-[1rem]">
           <p className="text-[1.5rem] text-red-500 font-semibold">
             UNSUCCESSFUL PAYMENT
           </p>

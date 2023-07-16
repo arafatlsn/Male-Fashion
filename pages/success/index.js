@@ -57,15 +57,15 @@ const Handler = () => {
 
   return (
     <div className="h-screen w-[100%] flex flex-col items-center justify-center">
-      <div className="w-fit h-fit flex justify-center items-center relative">
-        <Image src={successgif} fill alt="success-gif" />
+      <div className="w-[250px] h-[250px] flex justify-center items-center relative">
+        <Image className="object-contain" src={successgif} layout="fill" alt="success-gif" />
       </div>
       <p className="text-green-600 text-[1.3rem] font-semibold text-center font-mono">
         SUCCESSFULLY! You Placed an Order
       </p>
       <Link href={"/"}>
         <button className="text-gray-600 font-bold tracking-wider flex items-center gap-[.5rem] mt-[1rem]">
-          <BiHome className="text-[1.2rem] translate-y-[-.22rem]" /> Go To
+          <BiHome className="text-[1.2rem] translate-y-[-.1rem]" /> Go To
           HomePage
         </button>
       </Link>

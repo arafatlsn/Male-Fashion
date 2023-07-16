@@ -34,7 +34,6 @@ const Handler = ({ uploadImgUrl, setTryingUser }) => {
   // register user
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(validArr);
 
     if (uploadImgUrl) {
       const name = e.target.personName.value;

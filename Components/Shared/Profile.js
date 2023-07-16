@@ -8,7 +8,6 @@ import defaultImg from "../../Assets/Icon/default-img.png";
 
 const Handler = () => {
   const { userLoad } = useAuthentication();
-  console.log(userLoad?.photoURL);
   return (
     <div
       className={`bg-[#F0EFF5] w-[350px] px-[1rem] py-[.8rem] overflow-hidden translate-x-[-2rem] mt-[1rem] absolute z-[100] ${styles.cartUi} ${styles.profileDiv}`}
