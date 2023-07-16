@@ -14,7 +14,6 @@ const Handler = () => {
   const [isCouponUsed, setIsCouponUsed] = useState(false);
   const { userLoad } = useAuthentication();
   const checkoutFunction = useCheckout;
-  console.log(userLoad);
 
   let subTotal = 0;
   let discount = 0;

@@ -23,14 +23,29 @@ const createCheckoutSession = async (cart, user) => {
     return;
   }
 
-  const checkoutSession = await axios.post(
-    "https://male-fashion1.netlify.app/api/checkoutsession",
-    { cart, email: user?.email }
-  );
+  try {
+    const checkoutSession = await axios.post(
+      "https://male-fashion1.netlify.app/api/checkoutsession",
+      { cart, email: user?.email }
+    );
 
-  const result = await stripe.redirectToCheckout({
-    sessionId: checkoutSession.data.id,
-  });
+    const result = await stripe.redirectToCheckout({
+      sessionId: checkoutSession.data.id,
+    });
+  } catch (err) {
+    toast.error(`${err?.message}. Please try again later!`, {
+      style: {
+        border: "1px solid red",
+        padding: "16px",
+        color: "red",
+        background: "whitesmoke",
+      },
+      iconTheme: {
+        primary: "red",
+        secondary: "#FFFAEE",
+      },
+    });
+  }
 };
 
 export default createCheckoutSession;
