@@ -2,6 +2,7 @@ import axios from "axios";
 import Orders from "../../Components/OrderHistoryPage/Orders";
 import DisplayPaths from "../../Components/Shared/DisplayPaths";
 import Head from "next/head";
+import toast from "react-hot-toast";
 
 const Handler = ({ result }) => {
   return (
@@ -35,14 +36,29 @@ export default Handler;
 
 export async function getServerSideProps(context) {
   const email = context?.query.email;
-  const {
-    data: { data },
-  } = await axios.get(
-    `https://male-fashion1.netlify.app/api/loadorders?email=${email}`
-  );
-  return {
-    props: {
-      result: data,
-    },
-  };
+  try {
+    const {
+      data: { data },
+    } = await axios.get(
+      `https://male-fashion1.netlify.app/api/loadorders?email=${email}`
+    );
+    return {
+      props: {
+        result: data,
+      },
+    };
+  } catch (err) {
+    toast.error(err.message, {
+      style: {
+        border: "1px solid red",
+        padding: "16px",
+        color: "red",
+        background: "whitesmoke",
+      },
+      iconTheme: {
+        primary: "red",
+        secondary: "#FFFAEE",
+      },
+    });
+  }
 }
