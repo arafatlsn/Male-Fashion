@@ -88,11 +88,6 @@ const Handler = () => {
     }
   };
 
-  const [testDrawer, setTestDrawer] = useState(false);
-  if (route.pathname === "/success") {
-    return;
-  }
-
   return (
     /*
 

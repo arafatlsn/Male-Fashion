@@ -1,13 +1,8 @@
 import Image from "next/image";
-import { useRouter } from "next/router";
 import logo from "../../Assets/Homepage/footer-logo.png";
 import payment from "../../Assets/Homepage/payment.png";
 
 const Handler = () => {
-  const route = useRouter();
-  if (route?.pathname === "/success") {
-    return <></>;
-  }
 
   return (
     <div className="bg-[#111111]">
