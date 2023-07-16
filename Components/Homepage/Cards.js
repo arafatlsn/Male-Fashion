@@ -10,7 +10,7 @@ const Handler = ({ products }) => {
         <ul className="flex justify-around lg:justify-center lg:gap-[88px] mb-[45px]">
           <li
             onClick={() => setActiveCategory("All")}
-            className={`text-[1rem] lg:text-[24px] cursor-pointer font-bold ${
+            className={`text-[20px] lg:text-[24px] cursor-pointer font-bold ${
               activeCategory.toLowerCase() === "all"
                 ? "text-lightBlack"
                 : "text-[#b7b7b7]"
@@ -20,7 +20,7 @@ const Handler = ({ products }) => {
           </li>
           <li
             onClick={() => setActiveCategory("New Arrivals")}
-            className={`text-[1rem] lg:text-[24px] cursor-pointer font-bold ${
+            className={`text-[20px] lg:text-[24px] cursor-pointer font-bold ${
               activeCategory.toLowerCase() === "New Arrivals".toLowerCase()
                 ? "text-lightBlack"
                 : "text-[#b7b7b7]"
@@ -30,7 +30,7 @@ const Handler = ({ products }) => {
           </li>
           <li
             onClick={() => setActiveCategory("Hot Sales")}
-            className={`text-[1rem] lg:text-[24px] cursor-pointer font-bold ${
+            className={`text-[20px] lg:text-[24px] cursor-pointer font-bold ${
               activeCategory.toLowerCase() === "Hot Sales".toLowerCase()
                 ? "text-lightBlack"
                 : "text-[#b7b7b7]"

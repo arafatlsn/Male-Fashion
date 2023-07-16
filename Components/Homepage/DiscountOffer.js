@@ -52,11 +52,11 @@ const Handler = () => {
   return (
     <div className="bg-[#F3F2EE] py-[8rem] mt-[5rem] px-[1rem] lg:px-0">
       <div className="lg:w-[1170px] mx-auto flex flex-col lg:flex-row justify-between gap-[3rem] ">
-        <div className="flex justify-between justify-items-center items-center w-[100%] lg:w-[60%] ">
+        <div className="grid grid-cols-2 justify-between justify-items-center items-center w-[100%] lg:w-[60%] ">
           <div>
             <h1
               onClick={() => setActive("accessories_hot")}
-              className={`text-[dimgray] text-[1.4rem] lg:text-[2rem] font-bold tracking-wide cursor-pointer transition-all ${
+              className={`text-[dimgray] text-[20px] lg:text-[2rem] font-bold tracking-wide cursor-pointer transition-all ${
                 active === "accessories_hot" &&
                 "text-gray-700 translate-x-[.7rem]"
               }`}
@@ -65,7 +65,7 @@ const Handler = () => {
             </h1>
             <h1
               onClick={() => setActive("clothing_hot")}
-              className={`text-[dimgray] text-[1.4rem] lg:text-[2rem] font-bold tracking-wide cursor-pointer transition-all ${
+              className={`text-[dimgray] text-[20px] lg:text-[2rem] font-bold tracking-wide cursor-pointer transition-all ${
                 active === "clothing_hot" && "text-gray-700 translate-x-[.7rem]"
               }`}
             >
@@ -73,7 +73,7 @@ const Handler = () => {
             </h1>
             <h1
               onClick={() => setActive("shoes_hot")}
-              className={`text-[dimgray] text-[1.4rem] lg:text-[2rem] font-bold tracking-wide cursor-pointer transition-all ${
+              className={`text-[dimgray] text-[20px] lg:text-[2rem] font-bold tracking-wide cursor-pointer transition-all ${
                 active === "shoes_hot" && "text-gray-700 translate-x-[.7rem]"
               }`}
             >
