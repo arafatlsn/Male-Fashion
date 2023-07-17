@@ -34,7 +34,7 @@ const Handler = ({ result }) => {
 
 export default Handler;
 
-export async function getStaticProps(context) {
+export async function getServerSideProps(context) {
   const email = context?.query?.email;
   try {
     const {
@@ -48,17 +48,10 @@ export async function getStaticProps(context) {
       },
     };
   } catch (err) {
-    toast.error(err.message, {
-      style: {
-        border: "1px solid red",
-        padding: "16px",
-        color: "red",
-        background: "whitesmoke",
+    return {
+      props: {
+        result: [],
       },
-      iconTheme: {
-        primary: "red",
-        secondary: "#FFFAEE",
-      },
-    });
+    };
   }
 }

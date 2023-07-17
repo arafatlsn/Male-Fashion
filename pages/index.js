@@ -47,17 +47,10 @@ export async function getStaticProps() {
       },
     };
   } catch (err) {
-    toast.error(err.message, {
-      style: {
-        border: "1px solid red",
-        padding: "16px",
-        color: "red",
-        background: "whitesmoke",
+    return {
+      props: {
+        data: [],
       },
-      iconTheme: {
-        primary: "red",
-        secondary: "#FFFAEE",
-      },
-    });
+    };
   }
 }
