@@ -36,12 +36,28 @@ export default function Home({ data }) {
 }
 
 export async function getServerSideProps() {
-  const res = await fetch(`https://male-fashion1.netlify.app/api/loadproducts`);
-  const data = await res.json();
-
-  return {
-    props: {
-      data,
-    },
-  };
+  try {
+    const res = await fetch(
+      `https://male-fashion1.netlify.app/api/loadproducts`
+    );
+    const data = await res.json();
+    return {
+      props: {
+        data,
+      },
+    };
+  } catch (err) {
+    toast.error(err.message, {
+      style: {
+        border: "1px solid red",
+        padding: "16px",
+        color: "red",
+        background: "whitesmoke",
+      },
+      iconTheme: {
+        primary: "red",
+        secondary: "#FFFAEE",
+      },
+    });
+  }
 }
