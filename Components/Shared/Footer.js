@@ -9,14 +9,14 @@ const Handler = () => {
         {/* first div  */}
         <div className="w-[262px] flex flex-col gap-[2rem]">
           <div>
-            <Image priority src={logo} alt="h3llo world" />
+            <Image src={logo} alt="h3llo world" />
           </div>
           <p className="tracking-wide text-[#b7b7b7] text-[15px]">
             The customer is at the heart of our unique business model, which
             includes design.
           </p>
           <div>
-            <Image priority src={payment} alt="h3llo world" />
+            <Image src={payment} alt="h3llo world" />
           </div>
         </div>
 

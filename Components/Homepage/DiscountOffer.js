@@ -81,7 +81,7 @@ const Handler = () => {
             </h1>
           </div>
           <div>
-            <Image priority src={BagImg} alt="h3llo world" />
+            <Image src={BagImg} alt="h3llo world" />
           </div>
         </div>
 

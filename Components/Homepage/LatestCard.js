@@ -6,7 +6,7 @@ const Handler = ({ el }) => {
   return (
     <div className={`lg:w-[30%] relative mb-[5rem] ${styles.card}`}>
       <div>
-        <Image priority src={el.img} alt="h3llo world" />
+        <Image src={el.img} alt="h3llo world" />
       </div>
       <div className="px-[2rem] absolute mt-[-2.5rem]">
         <div className="px-[2rem] py-[1.7rem] bg-white">

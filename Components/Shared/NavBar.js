@@ -98,7 +98,7 @@ const Handler = () => {
       <div className="sticky top-0 z-[500] bg-[white] hidden lg:block">
         <div className="lg:w-[1170px] py-[30px] mx-auto flex justify-between items-center relative">
           <div>
-            <Image priority src={logo} alt="h3llo world" />
+            <Image src={logo} alt="h3llo world" />
           </div>
           <div>
             <ul className="flex gap-[45px] w-fit">
@@ -256,7 +256,7 @@ const Handler = () => {
                 className="text-[1.5rem] cursor-pointer"
               />
               <div className="w-[130px] h-[20px] relative">
-                <Image priority layout="fill" src={logo} alt="h3llo world" />
+                <Image layout="fill" src={logo} alt="h3llo world" />
               </div>
             </div>
 

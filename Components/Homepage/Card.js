@@ -70,7 +70,6 @@ const Handler = ({ product, index, length }) => {
     <div className={styles.card}>
       <div className="w-[262.5px] h-[260px] lg:mx-0 overflow-hidden relative">
         <Image
-          priority
           src={img}
           className="w-[100%] lg:w-[262.5px] h-[260px] object-contain"
           alt="h3llo world"

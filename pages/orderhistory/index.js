@@ -34,8 +34,8 @@ const Handler = ({ result }) => {
 
 export default Handler;
 
-export async function getServerSideProps(context) {
-  const email = context?.query.email;
+export async function getStaticProps(context) {
+  const email = context?.query?.email;
   try {
     const {
       data: { data },
