@@ -1,6 +1,6 @@
 import Image from "next/image";
 import styles from "../../styles/Banner.module.css";
-import banner3 from '../../Assets/Homepage/banner-3.jpg'
+import banner3 from "../../Assets/Homepage/banner-3.jpg";
 
 const Handler = () => {
   return (
@@ -12,7 +12,12 @@ const Handler = () => {
         <div className="w-content h-[440px] relative">
           <div className="absolute  right-0 lg:relative">
             <div className="w-[260px] h-[260px] lg:w-[440px] lg:h-[440px] relative">
-              <Image src={"/banner-1.jpg"} layout="fill" alt="h3llo world" />
+              <Image
+                priority
+                src={"/banner-1.jpg"}
+                layout="fill"
+                alt="h3llo world"
+              />
             </div>
           </div>
           <div className="h-[440px] absolute bottom-[3.5rem] lg:top-0">
@@ -35,7 +40,12 @@ const Handler = () => {
       >
         <div className="absolute top-0 lg:relative lg:w-fit">
           <div className="w-[260px] h-[260px] lg:w-[440px] lg:h-[440px] relative">
-            <Image src={"/banner-2.jpg"} layout="fill" alt="h3llo world" />
+            <Image
+              priority
+              src={"/banner-2.jpg"}
+              layout="fill"
+              alt="h3llo world"
+            />
           </div>
         </div>
         <div className="absolute right-0 bottom-0 lg:relative">
@@ -53,7 +63,7 @@ const Handler = () => {
       >
         <div className="w-content h-[440px] relative">
           <div className="w-[60vw] lg:w-[440px] lg:h-[440px] relative">
-            <Image src={banner3} layout="fill" alt="h3llo world" />
+            <Image priority src={banner3} layout="fill" alt="h3llo world" />
           </div>
           <div className="h-[440px] absolute top-0">
             <div className="h-[100%] flex flex-col justify-center items-center">

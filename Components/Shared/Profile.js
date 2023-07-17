@@ -16,6 +16,7 @@ const Handler = () => {
         <div>
           {userLoad?.photoURL ? (
             <Image
+              priority
               src={userLoad?.photoURL}
               width="60px"
               height="60px"
@@ -24,6 +25,7 @@ const Handler = () => {
             />
           ) : (
             <Image
+              priority
               src={defaultImg}
               width="60px"
               height="60px"

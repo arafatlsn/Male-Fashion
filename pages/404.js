@@ -17,6 +17,7 @@ const Custom404 = () => {
         <div className="flex flex-col items-center relative">
           <div className="w-[300px] h-[350px] relative">
             <Image
+              priority
               className="object-cover"
               src={notfoundGif}
               layout="fill"

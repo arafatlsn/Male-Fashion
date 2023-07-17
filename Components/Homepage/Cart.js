@@ -17,7 +17,13 @@ const Handler = ({ product }) => {
   return (
     <div className="flex justify-center gap-[.3rem] items-center border-b border-gray-400 px-[.3rem] py-[.5rem]">
       <div className="w-[60px] h-[60px] relative">
-        <Image src={img} alt="product-img" className="object-contain" layout="fill" />
+        <Image
+          priority
+          src={img}
+          alt="product-img"
+          className="object-contain"
+          layout="fill"
+        />
       </div>
       <div className="w-[80%] grid grid-cols-12 items-center gap-[1rem]">
         <p className="text-[15px] h-[6ex] col-start-1 col-end-6 leading-[2ex] overflow-hidden box-content">

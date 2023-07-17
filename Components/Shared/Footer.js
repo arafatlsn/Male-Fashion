@@ -3,21 +3,20 @@ import logo from "../../Assets/Homepage/footer-logo.png";
 import payment from "../../Assets/Homepage/payment.png";
 
 const Handler = () => {
-
   return (
     <div className="bg-[#111111]">
       <div className="px-[1rem] lg:px-0 lg:w-[1170px] mx-auto flex flex-wrap justify-between gap-y-[2rem] mt-[7rem] text-white py-[5rem]">
         {/* first div  */}
         <div className="w-[262px] flex flex-col gap-[2rem]">
           <div>
-            <Image src={logo} alt="h3llo world" />
+            <Image priority src={logo} alt="h3llo world" />
           </div>
           <p className="tracking-wide text-[#b7b7b7] text-[15px]">
             The customer is at the heart of our unique business model, which
             includes design.
           </p>
           <div>
-            <Image src={payment} alt="h3llo world" />
+            <Image priority src={payment} alt="h3llo world" />
           </div>
         </div>
 

@@ -17,6 +17,7 @@ const Handler = () => {
         <div className="flex flex-col items-center gap-[1rem] relative">
           <div className="w-[150px] h-[150px] relative">
             <Image
+              priority
               className="object-cover"
               src={failedGif}
               layout="fill"

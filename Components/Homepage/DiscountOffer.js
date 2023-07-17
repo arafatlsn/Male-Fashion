@@ -46,7 +46,7 @@ const Handler = () => {
 
   const countDownInterval = setInterval(() => {
     setCountDown(countDown + 1);
-    clearInterval(countDownInterval)
+    clearInterval(countDownInterval);
   }, 1000);
 
   return (
@@ -81,7 +81,7 @@ const Handler = () => {
             </h1>
           </div>
           <div>
-            <Image src={BagImg} alt="h3llo world" />
+            <Image priority src={BagImg} alt="h3llo world" />
           </div>
         </div>
 

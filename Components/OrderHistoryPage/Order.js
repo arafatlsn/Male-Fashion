@@ -7,7 +7,7 @@ const Handler = ({ product }) => {
     <div className="bg-[white] px-[1rem] py-[.6rem] rounded-[8px] flex gap-[.7rem] items-start">
       {/* img div  */}
       <div className="min-w-[60px] min-h-[60px] relative">
-        <Image src={img} alt="product-img" layout="fill" />
+        <Image priority src={img} alt="product-img" layout="fill" />
       </div>
       {/* text div  */}
       <div className="grow">

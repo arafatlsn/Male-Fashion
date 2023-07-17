@@ -43,13 +43,13 @@ const Handler = () => {
       >
         <div className="w-[100vw] h-[100vh] lg:h-[80vh] lg:w-[100vw] relative">
           <Image
+            priority
             src={banner}
             alt="h3llo world"
             id="bannerImage"
             className="animate__slow object-[68%]"
             objectFit="cover"
             layout="fill"
-            priority="true"
           />
         </div>
         <div className="absolute inset-y-0 left-[5%] lg:left-[20%] flex flex-col justify-center gap-[12px] lg:gap-[28px]">

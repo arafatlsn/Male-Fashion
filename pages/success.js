@@ -66,6 +66,7 @@ const Handler = () => {
       <div className="min-h-[80vh] w-[100%] flex flex-col items-center justify-center">
         <div className="w-[250px] h-[250px] relative">
           <Image
+            priority
             className="object-contain"
             src={successgif}
             layout="fill"

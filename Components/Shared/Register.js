@@ -65,6 +65,7 @@ const Handler = () => {
                   {!uploadImgUrl ? (
                     <div className="w-[100%] h-[100%] relative">
                       <Image
+                        priority
                         src={defaultImg}
                         layout="fill"
                         className="object-contain rounded-[50%] bg-[#F4F2EE]"
@@ -88,6 +89,7 @@ const Handler = () => {
                     </div>
                   ) : (
                     <Image
+                      priority
                       src={uploadImgUrl}
                       layout="fill"
                       className="object-contain rounded-[50%] bg-[#F4F2EE]"

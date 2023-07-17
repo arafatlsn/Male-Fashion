@@ -53,6 +53,7 @@ const Handler = ({ cart, setCart }) => {
                 <div className="flex items-center gap-[1rem]">
                   <div className="w-[80px] h-[80px] relative">
                     <Image
+                      priority
                       src={product.img}
                       layout="fill"
                       alt="product-img"

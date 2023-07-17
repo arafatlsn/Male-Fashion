@@ -98,7 +98,7 @@ const Handler = () => {
       <div className="sticky top-0 z-[500] bg-[white] hidden lg:block">
         <div className="lg:w-[1170px] py-[30px] mx-auto flex justify-between items-center relative">
           <div>
-            <Image src={logo} alt="h3llo world" />
+            <Image priority src={logo} alt="h3llo world" />
           </div>
           <div>
             <ul className="flex gap-[45px] w-fit">
@@ -205,7 +205,13 @@ const Handler = () => {
                             </Link>
 
                             <button
-                              onClick={() => checkoutFunction(cart, userLoad, setShowAuthModal)}
+                              onClick={() =>
+                                checkoutFunction(
+                                  cart,
+                                  userLoad,
+                                  setShowAuthModal
+                                )
+                              }
                               className="text-[14px] px-[2rem] py-[.3rem] border bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-[4px] tracking-wider  flex items-center gap-[.3rem] transition-all"
                             >
                               <RiSecurePaymentFill className="text-[1.2rem]" />{" "}
@@ -250,7 +256,7 @@ const Handler = () => {
                 className="text-[1.5rem] cursor-pointer"
               />
               <div className="w-[130px] h-[20px] relative">
-                <Image layout="fill" src={logo} alt="h3llo world" />
+                <Image priority layout="fill" src={logo} alt="h3llo world" />
               </div>
             </div>
 
