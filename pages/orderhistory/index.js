@@ -5,6 +5,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 
 const Handler = ({ result }) => {
+  console.log("order history page 8", result);
   const router = useRouter();
   const email = router?.query?.email;
   const filteredResult = result?.filter((el) => el?.email === email);
@@ -43,7 +44,7 @@ export async function getStaticProps() {
   try {
     const {
       data: { data },
-    } = await axios.get(`https://male-fashion1.netlify.app/api/loadorders`);
+    } = await axios.get(`http://localhost:3000/api/loadorders`);
     return {
       props: {
         result: data,
