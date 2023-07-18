@@ -48,6 +48,7 @@ export async function getStaticProps() {
       props: {
         result: data,
       },
+      revalidate: 1,
     };
   } catch (err) {
     console.log("load order page 51", err.message);

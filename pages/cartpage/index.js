@@ -5,7 +5,7 @@ import TableComp from "../../Components/Cartpage/TableComp";
 import DisplayPaths from "../../Components/Shared/DisplayPaths";
 import toast from "react-hot-toast";
 import { useRecoilState } from "recoil";
-import { cartState, showAuthModalState } from "../../AtomStates/ProductStates";
+import { cartState, showAuthModalState, showLoaderState } from "../../AtomStates/ProductStates";
 import useCheckout from "../../CustomHook/useCheckout";
 import useAuthentication from "../../Authentication/useAuthentication";
 import Head from "next/head";
@@ -13,6 +13,7 @@ import Head from "next/head";
 const Handler = () => {
   const [cart, setCart] = useRecoilState(cartState);
   const [showAuthModal, setShowAuthModal] = useRecoilState(showAuthModalState);
+  const [showLoader, setShowLoader] = useRecoilState(showLoaderState);
   const [isCouponUsed, setIsCouponUsed] = useState(false);
   const { userLoad } = useAuthentication();
   const checkoutFunction = useCheckout;
@@ -120,7 +121,7 @@ const Handler = () => {
                 </div>
                 <button
                   onClick={() =>
-                    checkoutFunction(cart, userLoad, setShowAuthModal)
+                    checkoutFunction(cart, userLoad, setShowAuthModal, setShowLoader)
                   }
                   className="text-[14px] w-[100%] py-[.7rem] mt-[1rem] border bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-[4px] tracking-wider  flex justify-center items-center gap-[.3rem] transition-all"
                 >

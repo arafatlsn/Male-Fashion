@@ -25,6 +25,7 @@ import { ActiveNavState, profileModal } from "../../AtomStates/HomePageStates";
 import {
   cartState,
   showAuthModalState,
+  showLoaderState,
   visibleCartUiState,
 } from "../../AtomStates/ProductStates";
 import useCheckout from "../../CustomHook/useCheckout";
@@ -43,6 +44,7 @@ const Handler = () => {
   const [scrollYValue, setScrollYValue] = useState(0);
   const [pathName, setPathName] = useRecoilState(ActiveNavState);
   const [userModal, setUserModal] = useRecoilState(profileModal);
+  const [showLoader, setShowLoader] = useRecoilState(showLoaderState);
   const checkoutFunction = useCheckout;
 
   useEffect(() => {
@@ -209,7 +211,8 @@ const Handler = () => {
                                 checkoutFunction(
                                   cart,
                                   userLoad,
-                                  setShowAuthModal
+                                  setShowAuthModal,
+                                  setShowLoader
                                 )
                               }
                               className="text-[14px] px-[2rem] py-[.3rem] border bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-[4px] tracking-wider  flex items-center gap-[.3rem] transition-all"

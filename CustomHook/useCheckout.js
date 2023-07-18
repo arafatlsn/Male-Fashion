@@ -4,7 +4,7 @@ import toast from "react-hot-toast";
 
 // payment checkout session function
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY);
-const createCheckoutSession = async (cart, user, setShowAuthModal) => {
+const createCheckoutSession = async (cart, user, setShowAuthModal, setShowLoader) => {
   const stripe = await stripePromise;
 
   if (!user?.email) {
@@ -25,6 +25,7 @@ const createCheckoutSession = async (cart, user, setShowAuthModal) => {
   }
 
   try {
+    setShowLoader(true)
     const checkoutSession = await axios.post(
       "https://male-fashion1.netlify.app/api/checkoutsession",
       { cart, email: user?.email }
@@ -33,7 +34,9 @@ const createCheckoutSession = async (cart, user, setShowAuthModal) => {
     const result = await stripe.redirectToCheckout({
       sessionId: checkoutSession.data.id,
     });
+    setShowLoader(false)
   } catch (err) {
+    setShowLoader(false)
     toast.error(`${err?.message}. Please try again later!`, {
       style: {
         border: "1px solid red",
