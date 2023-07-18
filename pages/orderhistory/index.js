@@ -3,12 +3,40 @@ import Orders from "../../Components/OrderHistoryPage/Orders";
 import DisplayPaths from "../../Components/Shared/DisplayPaths";
 import Head from "next/head";
 import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
-const Handler = ({ result }) => {
-  console.log("order history page 8", result);
+const Handler = () => {
+  const [result, setResult] = useState([]);
   const router = useRouter();
   const email = router?.query?.email;
-  const filteredResult = result?.filter((el) => el?.email === email);
+  useEffect(() => {
+    const asyncFunction = async () => {
+      try {
+        const response = await axios.get(
+          `https://male-fashion1.netlify.app/api/loadorders`
+        );
+        const filteredResult = response?.data?.data?.filter(
+          (el) => el?.email === email
+        );
+        setResult(filteredResult);
+      } catch (err) {
+        toast.error(err.message, {
+          style: {
+            border: "1px solid red",
+            padding: "16px",
+            color: "red",
+            background: "whitesmoke",
+          },
+          iconTheme: {
+            primary: "red",
+            secondary: "#FFFAEE",
+          },
+        });
+      }
+    };
+    asyncFunction();
+  }, [email]);
   return (
     <>
       {/* head  */}
@@ -24,10 +52,8 @@ const Handler = ({ result }) => {
         />
         <div className="w-[100vw] lg:w-[1170px] px-[.5rem] lg:px-0 mx-auto min-h-[45vh]">
           <div className="lg:w-[50%] mx-auto flex flex-col gap-[2.5rem]">
-            {filteredResult?.length ? (
-              filteredResult?.map((order) => (
-                <Orders key={order?._id} order={order} />
-              ))
+            {result?.length ? (
+              result?.map((order) => <Orders key={order?._id} order={order} />)
             ) : (
               <p className="text-center text-[22px] tracking-wide text-[dimgray]">{`You didn't any order before.`}</p>
             )}
@@ -39,24 +65,3 @@ const Handler = ({ result }) => {
 };
 
 export default Handler;
-
-export async function getStaticProps() {
-  try {
-    const {
-      data: { data },
-    } = await axios.get(`https://male-fashion1.netlify.app/api/loadorders`);
-    return {
-      props: {
-        result: data,
-      },
-      revalidate: 1,
-    };
-  } catch (err) {
-    console.log("load order page 51", err.message);
-    return {
-      props: {
-        result: [],
-      },
-    };
-  }
-}
