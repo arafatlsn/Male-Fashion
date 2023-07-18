@@ -42,7 +42,7 @@ export default Handler;
 export async function getStaticProps() {
   try {
     const { data } = await axios.get(
-      `https://male-fashion1.netlify.app/api/loadorders`
+      `https://male-fashion-tau.vercel.app/api/loadorders`
     );
     return {
       props: {

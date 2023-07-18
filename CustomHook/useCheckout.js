@@ -32,7 +32,7 @@ const createCheckoutSession = async (
   try {
     setShowLoader(true);
     const checkoutSession = await axios.post(
-      "https://male-fashion1.netlify.app/api/checkoutsession",
+      "https://male-fashion-tau.vercel.app/api/checkoutsession",
       { cart, email: user?.email }
     );
 

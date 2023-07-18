@@ -32,7 +32,7 @@ const Handler = async (req, res) => {
         line_items: transformedCart,
         mode: "payment",
         success_url: `${req?.headers?.origin}/success?sessionId={CHECKOUT_SESSION_ID}`,
-        cancel_url: `https://male-fashion1.netlify.app/failed`,
+        cancel_url: `https://male-fashion-tau.vercel.app/failed`,
         metadata: obj,
         // total_details : { amount_discount: 0, amount_shipping: 0, amount_tax: 0 }
       });

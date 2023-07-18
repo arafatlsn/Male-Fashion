@@ -58,7 +58,7 @@ const Handler = () => {
   // getting user orders by transaction id
   const generateTrxId = async () => {
     const res = await axios.get(
-      `https://male-fashion1.netlify.app/api/orderhistory`
+      `https://male-fashion-tau.vercel.app/api/orderhistory`
     );
   };
 

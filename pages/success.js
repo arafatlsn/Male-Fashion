@@ -26,7 +26,7 @@ const Handler = () => {
       const {
         data: { status, result },
       } = await axios.get(
-        `https://male-fashion1.netlify.app/api/session/${sessionId}`
+        `https://male-fashion-tau.vercel.app/api/session/${sessionId}`
       );
       if (status === "paid" && userLoad?.email) {
         for (let i = 0; i < JSON.parse(result?.titles).length; i++) {
@@ -39,7 +39,7 @@ const Handler = () => {
           obj = {};
         }
         const res = await axios.post(
-          `https://male-fashion1.netlify.app/api/postOrder`,
+          `https://male-fashion-tau.vercel.app/api/postOrder`,
           {
             email: userLoad?.email,
             sessionId,

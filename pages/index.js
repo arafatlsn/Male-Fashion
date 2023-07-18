@@ -38,7 +38,7 @@ export default function Home({ data }) {
 export async function getStaticProps() {
   try {
     const res = await fetch(
-      `https://male-fashion1.netlify.app/api/loadproducts`
+      `https://male-fashion-tau.vercel.app/api/loadproducts`
     );
     const data = await res.json();
     return {
