@@ -2,8 +2,12 @@ import axios from "axios";
 import Orders from "../Components/OrderHistoryPage/Orders";
 import DisplayPaths from "../Components/Shared/DisplayPaths";
 import Head from "next/head";
+import { useRouter } from "next/router";
 
 const Handler = ({ result }) => {
+  const router = useRouter();
+  const email = router?.query?.email;
+  const filteredResult = result?.filter((el) => el?.email === email);
   return (
     <>
       {/* head  */}
@@ -19,8 +23,10 @@ const Handler = ({ result }) => {
         />
         <div className="w-[100vw] lg:w-[1170px] px-[.5rem] lg:px-0 mx-auto min-h-[45vh]">
           <div className="lg:w-[50%] mx-auto flex flex-col gap-[2.5rem]">
-            {result?.length ? (
-              result?.map((order) => <Orders key={order?._id} order={order} />)
+            {filteredResult?.length ? (
+              filteredResult?.map((order) => (
+                <Orders key={order?._id} order={order} />
+              ))
             ) : (
               <p className="text-center text-[22px] tracking-wide text-[dimgray]">{`You didn't any order before.`}</p>
             )}
@@ -33,36 +39,10 @@ const Handler = ({ result }) => {
 
 export default Handler;
 
-export async function getStaticPaths() {
-  const emailArr = await axios.get(
-    "https://male-fashion1.netlify.app/api/loadorders"
-  );
-  const filteredEmail = [];
-  emailArr?.data?.map((el) => {
-    if (filteredEmail?.indexOf(el?.email) === -1) {
-      filteredEmail.push(el?.email);
-    }
-  });
-  const allPaths = filteredEmail?.map((el) => {
-    return {
-      params: {
-        email: el,
-      },
-    };
-  });
-  return {
-    paths: allPaths,
-    fallback: false,
-  };
-}
-
-export async function getStaticProps(context) {
-  const email = context?.params?.email;
+export async function getStaticProps() {
   try {
-    const {
-      data: { data },
-    } = await axios.get(
-      `https://male-fashion1.netlify.app/api/loadorders?email=${email}`
+    const { data } = await axios.get(
+      `https://male-fashion1.netlify.app/api/loadorders`
     );
     return {
       props: {
@@ -70,7 +50,6 @@ export async function getStaticProps(context) {
       },
     };
   } catch (err) {
-    console.log("history order 81", err.message);
     return {
       props: {
         result: [],

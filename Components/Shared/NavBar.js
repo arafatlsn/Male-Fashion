@@ -111,7 +111,7 @@ const Handler = () => {
                   Home <p className={styles.liBorder}></p>
                 </li>
               </Link>
-              <Link href={`/${userLoad?.email}`}>
+              <Link href={`/orderhistory?email=${userLoad?.email}`}>
                 <li
                   onClick={navigateToHistory}
                   className={`text-[18px] text-lightBlack cursor-pointer  ${styles.navList}`}
@@ -313,7 +313,7 @@ const Handler = () => {
                   </li>
                 </Link>
                 {/* /// history /// */}
-                <Link href={`/${userLoad?.email}`}>
+                <Link href={`/orderhistory?email=${userLoad?.email}`}>
                   <li
                     onClick={() => {
                       setOpenDrawer(false);
