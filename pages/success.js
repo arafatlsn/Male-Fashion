@@ -25,7 +25,9 @@ const Handler = () => {
       let obj = {};
       const {
         data: { status, result },
-      } = await axios.get(`http://localhost:3000/api/session/${sessionId}`);
+      } = await axios.get(
+        `https://male-fashion1.netlify.app/api/session/${sessionId}`
+      );
       if (status === "paid" && userLoad?.email) {
         for (let i = 0; i < JSON.parse(result?.titles).length; i++) {
           obj.title = JSON.parse(result?.titles)[i];
@@ -36,11 +38,14 @@ const Handler = () => {
           newArray = [...newArray, obj];
           obj = {};
         }
-        const res = await axios.post(`http://localhost:3000/api/postOrder`, {
-          email: userLoad?.email,
-          sessionId,
-          order: newArray,
-        });
+        const res = await axios.post(
+          `https://male-fashion1.netlify.app/api/postOrder`,
+          {
+            email: userLoad?.email,
+            sessionId,
+            order: newArray,
+          }
+        );
         setCart([]);
         localStorage.removeItem("cart");
       }

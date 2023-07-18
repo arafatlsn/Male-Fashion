@@ -37,7 +37,9 @@ export default function Home({ data }) {
 
 export async function getStaticProps() {
   try {
-    const res = await fetch(`http://localhost:3000/api/loadproducts`);
+    const res = await fetch(
+      `https://male-fashion1.netlify.app/api/loadproducts`
+    );
     const data = await res.json();
     return {
       props: {
