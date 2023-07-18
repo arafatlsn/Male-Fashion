@@ -34,9 +34,25 @@ const Handler = ({ result }) => {
 export default Handler;
 
 export async function getStaticPaths() {
+  const emailArr = await axios.get(
+    "https://male-fashion1.netlify.app/api/loadorders"
+  );
+  const filteredEmail = [];
+  emailArr?.data?.map((el) => {
+    if (filteredEmail?.indexOf(el?.email) === -1) {
+      filteredEmail.push(el?.email);
+    }
+  });
+  const allPaths = filteredEmail?.map((el) => {
+    return {
+      params: {
+        email: el,
+      },
+    };
+  });
   return {
-    paths: [],
-    fallback: true,
+    paths: allPaths,
+    fallback: false,
   };
 }
 
@@ -48,7 +64,6 @@ export async function getStaticProps(context) {
     } = await axios.get(
       `https://male-fashion1.netlify.app/api/loadorders?email=${email}`
     );
-    console.log("history page success 48", data);
     return {
       props: {
         result: data,
