@@ -57,9 +57,7 @@ const Handler = () => {
 
   // getting user orders by transaction id
   const generateTrxId = async () => {
-    const res = await axios.get(
-      `https://male-fashion1.netlify.app/api/orderhistory`
-    );
+    const res = await axios.get(`http://localhost:3000/api/orderhistory`);
   };
 
   let total = 0;
@@ -111,7 +109,7 @@ const Handler = () => {
                   Home <p className={styles.liBorder}></p>
                 </li>
               </Link>
-              <Link href={`/orderhistory?email=${userLoad?.email}`}>
+              <Link href={`/${userLoad?.email}`}>
                 <li
                   onClick={navigateToHistory}
                   className={`text-[18px] text-lightBlack cursor-pointer  ${styles.navList}`}
@@ -313,7 +311,7 @@ const Handler = () => {
                   </li>
                 </Link>
                 {/* /// history /// */}
-                <Link href={`/orderhistory?email=${userLoad?.email}`}>
+                <Link href={`/${userLoad?.email}`}>
                   <li
                     onClick={() => {
                       setOpenDrawer(false);
