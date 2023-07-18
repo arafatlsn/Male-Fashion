@@ -15,7 +15,7 @@ const Handler = () => {
       </Head>
       <div className="flex justify-center items-center min-h-[80vh]">
         <div className="flex flex-col items-center gap-[1rem] relative">
-          <div className="w-[150px] h-[150px] relative">
+          <div className="w-[120px] h-[120px] relative">
             <Image
               priority
               className="object-cover"
@@ -24,7 +24,7 @@ const Handler = () => {
               alt="failed-gif"
             />
           </div>
-          <div className="flex flex-col items-center mt-[1rem]">
+          <div className="flex flex-col items-center">
             <p className="mt-[1rem] text-red-600 text-[1.3rem] font-semibold text-center font-mono">
               Unsuccessful Payment
             </p>

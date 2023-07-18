@@ -42,15 +42,17 @@ export default Handler;
 export async function getStaticProps() {
   try {
     const { data } = await axios.get(
-      `https://male-fashion-tau.vercel.app/api/loadorders`
+      `https://male-fashion1.netlify.app/api/loadorders`
     );
+    console.log("line 45", data);
     return {
       props: {
         result: data,
       },
-      revalidate: 10
+      revalidate: 10,
     };
   } catch (err) {
+    console.log("line 53", err.message);
     return {
       props: {
         result: [],

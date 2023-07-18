@@ -58,7 +58,7 @@ const Handler = () => {
   // getting user orders by transaction id
   const generateTrxId = async () => {
     const res = await axios.get(
-      `https://male-fashion-tau.vercel.app/api/orderhistory`
+      `https://male-fashion1.netlify.app/api/orderhistory`
     );
   };
 
@@ -318,6 +318,7 @@ const Handler = () => {
                     onClick={() => {
                       setOpenDrawer(false);
                       setPathName("orderhistory");
+                      navigateToHistory();
                     }}
                     className={`flex items-center gap-[.5rem] cursor-pointer transition-all ${
                       pathName === "orderhistory"

@@ -26,7 +26,7 @@ const Handler = () => {
       const {
         data: { status, result },
       } = await axios.get(
-        `https://male-fashion-tau.vercel.app/api/session/${sessionId}`
+        `https://male-fashion1.netlify.app/api/session/${sessionId}`
       );
       if (status === "paid" && userLoad?.email) {
         for (let i = 0; i < JSON.parse(result?.titles).length; i++) {
@@ -39,7 +39,7 @@ const Handler = () => {
           obj = {};
         }
         const res = await axios.post(
-          `https://male-fashion-tau.vercel.app/api/postOrder`,
+          `https://male-fashion1.netlify.app/api/postOrder`,
           {
             email: userLoad?.email,
             sessionId,
@@ -64,7 +64,7 @@ const Handler = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="min-h-[80vh] w-[100%] flex flex-col items-center justify-center">
-        <div className="w-[250px] h-[250px] relative">
+        <div className="w-[200px] h-[200px] relative">
           <Image
             priority
             className="object-contain"
@@ -73,7 +73,7 @@ const Handler = () => {
             alt="success-gif"
           />
         </div>
-        <p className="mt-[1rem] text-green-600 text-[1.3rem] font-semibold text-center font-mono">
+        <p className="mt-[1.5rem] text-green-600 text-[1.3rem] font-semibold text-center font-mono">
           SUCCESSFULLY! You Placed an Order
         </p>
         <Link href={"/"}>
