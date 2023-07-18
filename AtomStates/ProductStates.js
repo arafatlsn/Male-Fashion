@@ -1,7 +1,4 @@
-import axios from "axios";
 import { atom } from "recoil";
-import { loadStripe } from "@stripe/stripe-js";
-const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY);
 
 export const productState = atom({
   key: "productState",

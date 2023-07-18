@@ -8,7 +8,7 @@ const createCheckoutSession = async (cart, user, setShowAuthModal) => {
   const stripe = await stripePromise;
 
   if (!user?.email) {
-    setShowAuthModal(true)
+    setShowAuthModal(true);
     toast.error("Signin Required!", {
       style: {
         border: "1px solid red",

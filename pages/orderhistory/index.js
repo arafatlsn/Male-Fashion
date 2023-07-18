@@ -2,9 +2,12 @@ import axios from "axios";
 import Orders from "../../Components/OrderHistoryPage/Orders";
 import DisplayPaths from "../../Components/Shared/DisplayPaths";
 import Head from "next/head";
-import toast from "react-hot-toast";
+import { useRouter } from "next/router";
 
 const Handler = ({ result }) => {
+  const router = useRouter();
+  const email = router?.query?.email;
+  const filteredResult = result?.filter((el) => el?.email === email);
   return (
     <>
       {/* head  */}
@@ -20,8 +23,10 @@ const Handler = ({ result }) => {
         />
         <div className="w-[100vw] lg:w-[1170px] px-[.5rem] lg:px-0 mx-auto min-h-[45vh]">
           <div className="lg:w-[50%] mx-auto flex flex-col gap-[2.5rem]">
-            {result?.length ? (
-              result?.map((order) => <Orders key={order?._id} order={order} />)
+            {filteredResult?.length ? (
+              filteredResult?.map((order) => (
+                <Orders key={order?._id} order={order} />
+              ))
             ) : (
               <p className="text-center text-[22px] tracking-wide text-[dimgray]">{`You didn't any order before.`}</p>
             )}
@@ -34,20 +39,18 @@ const Handler = ({ result }) => {
 
 export default Handler;
 
-export async function getServerSideProps(context) {
-  const email = context?.query?.email;
+export async function getStaticProps() {
   try {
     const {
       data: { data },
-    } = await axios.get(
-      `https://male-fashion1.netlify.app/api/loadorders?email=${email}`
-    );
+    } = await axios.get(`https://male-fashion1.netlify.app/api/loadorders`);
     return {
       props: {
         result: data,
       },
     };
   } catch (err) {
+    console.log("load order page 51", err.message);
     return {
       props: {
         result: [],
