@@ -6,37 +6,37 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
-const Handler = () => {
-  const [result, setResult] = useState([]);
-  const router = useRouter();
-  const email = router?.query?.email;
-  useEffect(() => {
-    const asyncFunction = async () => {
-      try {
-        const response = await axios.get(
-          `https://male-fashion1.netlify.app/api/loadorders`
-        );
-        const filteredResult = response?.data?.data?.filter(
-          (el) => el?.email === email
-        );
-        setResult(filteredResult);
-      } catch (err) {
-        toast.error(err.message, {
-          style: {
-            border: "1px solid red",
-            padding: "16px",
-            color: "red",
-            background: "whitesmoke",
-          },
-          iconTheme: {
-            primary: "red",
-            secondary: "#FFFAEE",
-          },
-        });
-      }
-    };
-    asyncFunction();
-  }, [email]);
+const Handler = ({ result }) => {
+  // const [result, setResult] = useState([]);
+  // const router = useRouter();
+  // const email = router?.query?.email;
+  // useEffect(() => {
+  //   const asyncFunction = async () => {
+  //     try {
+  //       const response = await axios.get(
+  //         `https://male-fashion1.netlify.app/api/loadorders`
+  //       );
+  //       const filteredResult = response?.data?.data?.filter(
+  //         (el) => el?.email === email
+  //       );
+  //       setResult(filteredResult);
+  //     } catch (err) {
+  //       toast.error(err.message, {
+  //         style: {
+  //           border: "1px solid red",
+  //           padding: "16px",
+  //           color: "red",
+  //           background: "whitesmoke",
+  //         },
+  //         iconTheme: {
+  //           primary: "red",
+  //           secondary: "#FFFAEE",
+  //         },
+  //       });
+  //     }
+  //   };
+  //   asyncFunction();
+  // }, [email]);
   return (
     <>
       {/* head  */}
@@ -65,3 +65,26 @@ const Handler = () => {
 };
 
 export default Handler;
+
+export async function getServerSideProps(context) {
+  const email = context?.query?.email;
+  try {
+    const {
+      data: { data },
+    } = await axios.get(
+      `https://male-fashion1.netlify.app/api/loadorders?email=${email}`
+    );
+    return {
+      props: {
+        result: data,
+      },
+    };
+  } catch (err) {
+    console.log("history order 81", err.message);
+    return {
+      props: {
+        result: [],
+      },
+    };
+  }
+}
