@@ -44,7 +44,7 @@ export async function getStaticProps() {
   try {
     const {
       data: { data },
-    } = await axios.get(`http://localhost:3000/api/loadorders`);
+    } = await axios.get(`https://male-fashion1.netlify.app/api/loadorders`);
     return {
       props: {
         result: data,

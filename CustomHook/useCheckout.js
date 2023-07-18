@@ -32,7 +32,7 @@ const createCheckoutSession = async (
   try {
     setShowLoader(true);
     const checkoutSession = await axios.post(
-      "http://localhost:3000/api/checkoutsession",
+      "https://male-fashion1.netlify.app/api/checkoutsession",
       { cart, email: user?.email }
     );
 

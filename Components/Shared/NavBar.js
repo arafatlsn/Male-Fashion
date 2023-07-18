@@ -57,7 +57,9 @@ const Handler = () => {
 
   // getting user orders by transaction id
   const generateTrxId = async () => {
-    const res = await axios.get(`http://localhost:3000/api/orderhistory`);
+    const res = await axios.get(
+      `https://male-fashion1.netlify.app/api/orderhistory`
+    );
   };
 
   let total = 0;
